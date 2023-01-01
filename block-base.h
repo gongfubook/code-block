@@ -1,4 +1,8 @@
 
+
+#ifndef __BLOCK_BASE__
+#define __BLOCK_BASE__
+
 #include <stdint.h>
 #include <QWidget>
 #include <Qcolor>
@@ -7,7 +11,7 @@ class block : public QWidget{
 public:
     uint32_t width{90}, height{30};
     bool left{false}, right{false}, up{false}, down{false};
-    block(){}
+    block(){setAcceptDrops(true);}
     explicit block(QWidget *parent=nullptr): QWidget(parent){};
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
@@ -25,3 +29,6 @@ private:
     //电量低警示阈值
     int myWarnLevrl=20;
 };
+
+
+#endif // __BLOCK_BASE__
