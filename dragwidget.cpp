@@ -2,6 +2,7 @@
 #include <QtWidgets>
 
 #include "dragwidget.h"
+#include "block-base.h"
 
 //! [0]
 DragWidget::DragWidget(QWidget *parent)
@@ -28,6 +29,9 @@ DragWidget::DragWidget(QWidget *parent)
     houseIcon->move(10, 80);
     houseIcon->show();
     houseIcon->setAttribute(Qt::WA_DeleteOnClose);
+
+    block * b = new block(this);
+    b->move(100, 90);
 }
 //! [0]
 
