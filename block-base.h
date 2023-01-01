@@ -6,28 +6,21 @@
 #include <stdint.h>
 #include <QWidget>
 #include <Qcolor>
+#include <QPainterPath>
 
 class block : public QWidget{
 public:
-    uint32_t width{90}, height{30};
+    uint32_t x{20}, y{20}, width{220}, height{50};
     bool left{false}, right{false}, up{false}, down{false};
-    block(){setAcceptDrops(true);}
-    explicit block(QWidget *parent=nullptr): QWidget(parent){};
+    block(QWidget *parent);
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 private:
     //背景颜色
-    QColor mColorBack=Qt::white;
-    //电池边框颜色
-    QColor mColorBorder=Qt::black;
-    //电池柱颜色
-    QColor mColorPower=Qt::green;
-    //电池短缺颜色
-    QColor mColorWarning=Qt::red;
-    //电量0-100
-    int mPowerLevel=60;
-    //电量低警示阈值
-    int myWarnLevrl=20;
+    QColor mColorBack = Qt::white;
+    //边框颜色
+    QColor mColorBorder = Qt::black;
+    QPainterPath generate_path();
 };
 
 

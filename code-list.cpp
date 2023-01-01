@@ -10,6 +10,7 @@ code_list::code_list(QWidget *parent)
     setMinimumSize(200, 200);
     setFrameStyle(QFrame::Sunken | QFrame::StyledPanel);
     setAcceptDrops(true);
+    
 
 }
 

@@ -6,54 +6,58 @@
 #include <QPen>
 
 
+
+block::block(QWidget *parent=nullptr): QWidget(parent){
+    resize(width + 2, height + 2);
+    move(x, y); 
+    setAcceptDrops(true);  
+}
+
+
+QPainterPath block::generate_path(){
+
+    QPainterPath path(QPointF(x, y));
+
+    path.lineTo(x, y + width);
+    path.lineTo(x + height, y + width);
+    path.lineTo(x + height, y);
+    path.lineTo(x, y);
+    return path;
+    
+}
+
+
 void block::paintEvent(QPaintEvent *event)
 {
-    //避免编译错误
     Q_UNUSED(event);
     QPainter painter(this);
-    QRect rect(0,0, width, height);
-    //设置当前图形视图窗口
-    painter.setViewport(rect);
-    painter.setWindow(0,0,120,50);
-    //抗锯齿的效果
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.setRenderHint(QPainter::TextAntialiasing);
+    // if (!isHovered)
+    // {
+    //     const QColor color(50, 50, 63);
+    //     painter.setPen(color);
+    // }
+    // else
+    // {
+    //     const QColor color(86, 85, 96);
+    //     painter.setPen(color);
+    // }
+
+    const QColor color(86, 85, 96);
     QPen pen;
+    pen.setColor(mColorBorder);
     pen.setWidth(2);
-    pen.setColor(mColorBorder);
-    pen.setStyle(Qt::SolidLine);
-    pen.setCapStyle(Qt::FlatCap);
-    pen.setJoinStyle(Qt::BevelJoin);
     painter.setPen(pen);
-    QBrush brush;
-    brush.setColor(mColorBack);
-    brush.setStyle(Qt::SolidPattern);
-    painter.setBrush(brush);
-    rect.setRect(1,1,109,48);
-    painter.drawRect(rect);
-    brush.setColor(mColorBorder);
-    painter.setBrush(brush);
-    //电池头
-    rect.setRect(110,15,10,20);
-    painter.drawRect(rect);
-    if(mPowerLevel>myWarnLevrl){
-        brush.setColor(mColorPower);
-        pen.setColor(mColorPower);
-    }else{
-        brush.setColor(mColorWarning);
-        pen.setColor(mColorWarning);
-    }
-    painter.setBrush(brush);
-    painter.setPen(pen);
-    if(mPowerLevel>0){
-        rect.setRect(5,5,mPowerLevel,40);
-        painter.drawRect(rect);
-    }
-    QFontMetrics textsize(this->font());
-    QString powStr=QString::asprintf("%d%%",mPowerLevel);
-    QRect textRect=textsize.boundingRect(powStr);
-    painter.setFont(this->font());
-    pen.setColor(mColorBorder);
-    painter.setPen(pen);
-    painter.drawText(55-textRect.width()/2,23+textRect.height()/2, "基础块");
+
+    QString text = "基础块";
+    QPainterPath path = generate_path();
+    path.setFillRule(Qt::WindingFill);
+    painter.drawPath(path);
+    painter.fillPath(path, QBrush(mColorBack));
+    QTextOption option;
+    option.setAlignment(Qt::AlignCenter);
+    painter.drawText(x + width / 2, y + height / 2, text);
+    //painter.drawText(info_rect, text, option);
+    painter.end();
+    QWidget::paintEvent(event);
 }
