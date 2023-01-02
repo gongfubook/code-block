@@ -10,8 +10,8 @@
 
 class block : public QWidget{
 public:
-    uint32_t x{20}, y{20}, width{220}, height{50};
-    bool left{false}, right{false}, up{false}, down{false};
+    uint32_t block_x{20}, block_y{20}, block_width{220}, block_height{50};
+    bool block_left{false}, block_right{false}, block_up{false}, block_down{false};
     block(QWidget *parent);
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
@@ -20,6 +20,7 @@ private:
     QColor mColorBack = Qt::white;
     //边框颜色
     QColor mColorBorder = Qt::black;
+    int font_size{24};
     QPainterPath generate_path();
 };
 
