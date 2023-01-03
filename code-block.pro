@@ -1,6 +1,6 @@
 QT += widgets
 
-CONFIG += debug
+CONFIG += debug console 
 
 HEADERS     = block-base.h \
               code-list.h \
