@@ -4,7 +4,7 @@
 
 #include <QPainter>
 #include <QPen>
-
+#include <QDebug>
 
 
 block::block(QWidget *parent=nullptr): QWidget(parent){
@@ -31,8 +31,6 @@ QPainterPath block::generate_path(){
 void block::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
-    
-
     QPainter painter(this);
     // if (!isHovered)
     // {
@@ -72,4 +70,23 @@ void block::paintEvent(QPaintEvent *event)
 
     // painter.end();
     // QWidget::paintEvent(event);
+}
+
+void block::mousePressEvent(QMouseEvent *event){
+    startPos = event->pos();
+    qDebug() << "startPos: " << startPos;
+}
+
+void block::mouseReleaseEvent(QMouseEvent *event){
+    qDebug() << "this->pos(): "<< this->pos();
+    qDebug() << "event->pos(): "<< event->pos();
+    qDebug() << "event->pos() - startPos: "<< event->pos() - startPos;
+    QPoint click_p = this->pos() - startPos;
+    this->move(event->pos() + click_p);
+
+}
+void block::mouseMoveEvent(QMouseEvent *event){
+    QPoint click_p = this->pos() - startPos;
+    this->move(event->pos() + click_p);
+
 }

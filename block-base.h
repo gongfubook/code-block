@@ -7,6 +7,7 @@
 #include <QWidget>
 #include <Qcolor>
 #include <QPainterPath>
+#include <QMouseEvent>
 
 class block : public QWidget{
 public:
@@ -15,6 +16,9 @@ public:
     block(QWidget *parent);
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 private:
     //背景颜色
     QColor mColorBack = Qt::white;
@@ -22,6 +26,7 @@ private:
     QColor mColorBorder = Qt::black;
     int font_size{24};
     QPainterPath generate_path();
+    QPoint startPos;
 };
 
 
