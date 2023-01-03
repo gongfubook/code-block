@@ -12,6 +12,7 @@ class block_list : public QFrame
 {
 public:
     explicit block_list(QWidget *parent = nullptr);
+    QPoint startPos;
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
