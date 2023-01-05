@@ -47,9 +47,9 @@ void code_list::dropEvent(QDropEvent *event)
         QByteArray itemData = event->mimeData()->data("application/x-dnditemdata");
         QDataStream dataStream(&itemData, QIODevice::ReadOnly);
 
-        QPainterPath path;
+        QPixmap pixmap;
         QPoint offset;
-        dataStream >> path >> offset;
+        dataStream >> pixmap >> offset;
 
         block *new_block = new block(this);
         new_block->move(event->pos() - offset);
@@ -78,7 +78,7 @@ void code_list::mousePressEvent(QMouseEvent *event)
 
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << child->generate_path() << QPoint(event->pos() - child->pos());
+    dataStream << child->block_pixmap << QPoint(event->pos() - child->pos());
 //! [1]
 
 //! [2]
@@ -89,6 +89,7 @@ void code_list::mousePressEvent(QMouseEvent *event)
 //! [3]
     QDrag *drag = new QDrag(this);
     drag->setMimeData(mimeData);
+    drag->setPixmap(child->block_pixmap);
     drag->setHotSpot(event->pos() - child->pos());
 
     if (drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::CopyAction) == Qt::MoveAction) {

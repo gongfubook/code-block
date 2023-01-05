@@ -12,6 +12,7 @@ block_list::block_list(QWidget *parent)
     setAcceptDrops(true);
     block * b = new block(this);
     b->move(100, 90);
+    b->show();
 }
 
 
@@ -57,9 +58,9 @@ void block_list::dropEvent(QDropEvent *event)
         QByteArray itemData = event->mimeData()->data("application/x-dnditemdata");
         QDataStream dataStream(&itemData, QIODevice::ReadOnly);
 
-        QPainterPath path;
+        QPixmap pixmap;
         QPoint offset;
-        dataStream >> path >> offset;
+        dataStream >> pixmap >> offset;
 
         block *new_block = new block(this);
         new_block->move(event->pos() - offset);
@@ -100,7 +101,7 @@ void block_list::mousePressEvent(QMouseEvent *event)
     startPos = event->pos();
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << child->generate_path() << QPoint(event->pos() - child->pos());
+    dataStream << child->block_pixmap << QPoint(event->pos() - child->pos());
 //! [1]
 
 //! [2]
@@ -111,7 +112,16 @@ void block_list::mousePressEvent(QMouseEvent *event)
 //! [3]
     QDrag *drag = new QDrag(this);
     drag->setMimeData(mimeData);
+    drag->setPixmap(child->block_pixmap);
     drag->setHotSpot(event->pos() - child->pos());
+
+    // QPixmap tempPixmap = pixmap;
+    // QPainter painter;
+    // painter.begin(&tempPixmap);
+    // painter.fillRect(pixmap.rect(), QColor(127, 127, 127, 127));
+    // painter.end();
+
+    // child->setPixmap(tempPixmap);
 
     if (drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::CopyAction) == Qt::MoveAction) {
         child->close();
