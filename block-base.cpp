@@ -14,6 +14,10 @@ block::block(QWidget *parent=nullptr): QWidget(parent){
     setStyleSheet("background-color:red;");
 }
 
+QPoint block::raw_point(){
+    return QPoint(block_x, block_y);
+}
+
 
 QPainterPath block::generate_path(){
     int start_x = 0;
@@ -48,8 +52,8 @@ void block::paintEvent(QPaintEvent *event)
     pen.setColor(mColorBorder);
     pen.setWidth(1);
     painter.setPen(pen);
-    QString text = "基础块";
-    QPainterPath path = generate_path();
+    text = "基础块";
+    path = generate_path();
     painter.drawPath(path);
 
 
@@ -72,21 +76,21 @@ void block::paintEvent(QPaintEvent *event)
     // QWidget::paintEvent(event);
 }
 
-void block::mousePressEvent(QMouseEvent *event){
-    startPos = event->pos();
-    qDebug() << "startPos: " << startPos;
-}
+// void block::mousePressEvent(QMouseEvent *event){
+//     startPos = event->pos();
+//     qDebug() << "startPos: " << startPos;
+// }
 
-void block::mouseReleaseEvent(QMouseEvent *event){
-    qDebug() << "this->pos(): "<< this->pos();
-    qDebug() << "event->pos(): "<< event->pos();
-    qDebug() << "event->pos() - startPos: "<< event->pos() - startPos;
-    QPoint click_p = this->pos() - startPos;
-    this->move(event->pos() + click_p);
+// void block::mouseReleaseEvent(QMouseEvent *event){
+//     qDebug() << "this->pos(): "<< this->pos();
+//     qDebug() << "event->pos(): "<< event->pos();
+//     qDebug() << "event->pos() - startPos: "<< event->pos() - startPos;
+//     // QPoint click_p = this->pos() - startPos;
+//     this->move(raw_point());
 
-}
-void block::mouseMoveEvent(QMouseEvent *event){
-    QPoint click_p = this->pos() - startPos;
-    this->move(event->pos() + click_p);
+// }
+// void block::mouseMoveEvent(QMouseEvent *event){
+//     QPoint click_p = this->pos() - startPos;
+//     this->move(event->pos() + click_p);
 
-}
+// }
