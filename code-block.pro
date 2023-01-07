@@ -2,6 +2,9 @@ QT += widgets
 
 CONFIG += debug console 
 
+QMAKE_LFLAGS += -static
+QMAKE_LFLAGS += -static 
+
 HEADERS     = block-base.h \
               code-list.h \
               block-list.h 
