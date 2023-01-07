@@ -10,6 +10,8 @@ code_list::code_list(QWidget *parent)
     setMinimumSize(200, 200);
     setFrameStyle(QFrame::Sunken | QFrame::StyledPanel);
     setAcceptDrops(true);
+    setAutoFillBackground(true);
+    setPalette(QPalette(Qt::white));
     
 }
 
@@ -51,7 +53,7 @@ void code_list::dropEvent(QDropEvent *event)
         QPoint offset;
         dataStream >> pixmap >> offset;
 
-        block *new_block = new block(this);
+        block_base *new_block = new block_base(this);
         new_block->move(event->pos() - offset);
         new_block->show();
         new_block->setAttribute(Qt::WA_DeleteOnClose);
@@ -70,26 +72,20 @@ void code_list::dropEvent(QDropEvent *event)
 //! [1]
 void code_list::mousePressEvent(QMouseEvent *event)
 {
-    block *child = static_cast<block*>(childAt(event->pos()));
-    if (!child)
+    block_base *child = static_cast<block_base*>(childAt(event->pos()));
+    if (!child) {
         return;
-
-    // QPixmap pixmap = child->pixmap(Qt::ReturnByValue);
-
+    }
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << child->block_pixmap << QPoint(event->pos() - child->pos());
-//! [1]
+    dataStream << child->getPixmap() << QPoint(event->pos() - child->pos());
 
-//! [2]
     QMimeData *mimeData = new QMimeData;
     mimeData->setData("application/x-dnditemdata", itemData);
-//! [2]
 
-//! [3]
     QDrag *drag = new QDrag(this);
     drag->setMimeData(mimeData);
-    drag->setPixmap(child->block_pixmap);
+    drag->setPixmap(child->getPixmap());
     drag->setHotSpot(event->pos() - child->pos());
 
     if (drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::CopyAction) == Qt::MoveAction) {
