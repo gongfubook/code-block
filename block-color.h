@@ -14,7 +14,7 @@ constexpr const int STRING_COLOR = 0xCC9933;
 constexpr const int LOGIC_COLOR = 0x336699;
 constexpr const int LOOP_COLOR = 0x33CC99;
 constexpr const int ARRAY_COLOR = 0x663399;
-constexpr const int FUNCTION_COLOR = 0xFFFF33;
+constexpr const int FUNCTION_COLOR = 0xFFCC33;
 
 
 QColor rgbColor(const int hex_color);
