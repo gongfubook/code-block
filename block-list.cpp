@@ -2,7 +2,7 @@
 #include <QtWidgets>
 #include "block-list.h"
 #include "block-base.h"
-
+#include "block-io.h"
 
 block_list::block_list(QWidget *parent)
     : QFrame(parent)
@@ -15,6 +15,10 @@ block_list::block_list(QWidget *parent)
     block_base * b = new block_base(this);
     b->move(100, 90);
     b->show();
+
+    block_print *bp = new block_print(this);
+    bp->move(100, 150);
+    bp->show();
 }
 
 void block_list::dragEnterEvent(QDragEnterEvent *event)
@@ -61,7 +65,7 @@ void block_list::mousePressEvent(QMouseEvent *event)
     startPos = event->pos();
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << child->getPixmap() << QPoint(event->pos() - child->pos());
+    dataStream << child->getPixmap() << QPoint(event->pos() - child->pos()) << child->whatsThisBlockName();
 
     QMimeData *mimeData = new QMimeData;
     mimeData->setData("application/x-dnditemdata", itemData);
