@@ -11,6 +11,8 @@
 #include <QPixmap>
 #include <QLabel>
 
+#include "block-color.h"
+
 /**
  * 代码块的接口类
 */
@@ -59,7 +61,7 @@ protected:
     // void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     // void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 private:
-    QColor color_back = Qt::white;
+    QColor color_back = rgbColor(VARIABLE_COLOR);
     int font_size{24};
     QPoint startPos;
     QPainterPath block_path;

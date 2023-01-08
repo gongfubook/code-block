@@ -98,7 +98,7 @@ void block_base::createPixmap(){
     block_pixmap.fill(Qt::transparent);
     QPainter painter(&block_pixmap);
     painter.setPen(Qt::white);
-    painter.setBrush(Qt::blue);
+    painter.setBrush(color_back);
     block_text = "基础块";
     block_path = createPath(5, 5, block_width - 20, block_height - 10, block_left, block_right, block_up, block_down);
     painter.drawPath(block_path);
