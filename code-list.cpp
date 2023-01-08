@@ -2,6 +2,7 @@
 #include <QtWidgets>
 #include "code-list.h"
 #include "block-base.h"
+#include "block-io.h"
 
 
 code_list::code_list(QWidget *parent)
@@ -51,12 +52,23 @@ void code_list::dropEvent(QDropEvent *event)
 
         QPixmap pixmap;
         QPoint offset;
-        dataStream >> pixmap >> offset;
+        QString block_name;
+        dataStream >> pixmap >> offset >> block_name;
+        if (block_name == "base") {
+            block_base *new_block = new block_base(this);
+            new_block->setPixmap(pixmap);
+            new_block->move(event->pos() - offset);
+            new_block->show();
+            new_block->setAttribute(Qt::WA_DeleteOnClose);
+        }
 
-        block_base *new_block = new block_base(this);
-        new_block->move(event->pos() - offset);
-        new_block->show();
-        new_block->setAttribute(Qt::WA_DeleteOnClose);
+        if (block_name == "output") {
+            block_print *new_block = new block_print(this);
+            new_block->setPixmap(pixmap);
+            new_block->move(event->pos() - offset);
+            new_block->show();
+            new_block->setAttribute(Qt::WA_DeleteOnClose);
+        }
 
         if (event->source() == this) {
             event->setDropAction(Qt::MoveAction);
