@@ -24,6 +24,7 @@ class block{
     virtual void setPoint(const QPoint& point) = 0;
     virtual QPoint getPoint() = 0;
     virtual QString toCode() = 0;
+    virtual QString whatsThisBlockName() = 0;
 };
 
 enum Connector{
@@ -31,6 +32,17 @@ enum Connector{
     male = 1,
     female = 2
 };
+
+QPainterPath createPath(
+    int x,
+    int y,
+    int width,
+    int height,
+    enum Connector left,
+    enum Connector right,
+    enum Connector up,
+    enum Connector down
+);
 
 class block_base : public QLabel, block{
 public:
@@ -46,6 +58,7 @@ public:
     virtual void setPoint(const QPoint& point);
     virtual QPoint getPoint();
     virtual QString toCode();
+    virtual QString whatsThisBlockName();
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
