@@ -32,20 +32,12 @@ enum Connector{
     female = 2
 };
 
-QPainterPath createPath(
-    int x,
-    int y,
-    int width,
-    int height,
-    Connector left,
-    Connector right,
-    Connector up,
-    Connector down
-);
-
 class block_base : public QLabel, block{
 public:
-    uint32_t block_x{20}, block_y{20}, block_width{220}, block_height{50};
+    int widget_width{110}, widget_height{50};
+    int block_width{90}, block_height{30};
+    QPoint widget_point = QPoint(150, 30);
+    QPoint block_point = QPoint(5, 5);
     Connector block_left{male}, block_right{female}, block_up{female}, block_down{male};
     block_base(QWidget *parent);
     virtual void createPixmap();
@@ -57,18 +49,14 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-    // void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    // void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    // void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 private:
     QColor color_back = rgbColor(VARIABLE_COLOR);
-    int font_size{24};
+    int font_size{12};
     QPoint startPos;
     QPainterPath block_path;
     QString block_text;
     QPixmap block_pixmap;
     QString code_text;
-
 };
 
 

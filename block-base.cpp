@@ -84,8 +84,8 @@ QPainterPath createPath(
 
 
 block_base::block_base(QWidget *parent=nullptr): QLabel(parent){
-    move(block_x, block_y);
-    resize(block_width, block_height); 
+    move(widget_point);
+    resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
     setStyleSheet("background:transparent");
@@ -94,13 +94,13 @@ block_base::block_base(QWidget *parent=nullptr): QLabel(parent){
 }
 
 void block_base::createPixmap(){
-    block_pixmap = QPixmap(block_width, block_height);
+    block_pixmap = QPixmap(widget_width, widget_height);
     block_pixmap.fill(Qt::transparent);
     QPainter painter(&block_pixmap);
     painter.setPen(Qt::white);
     painter.setBrush(color_back);
     block_text = "基础块";
-    block_path = createPath(5, 5, block_width - 20, block_height - 10, block_left, block_right, block_up, block_down);
+    block_path = createPath(block_point.x(), block_point.y(), block_width, block_height, block_left, block_right, block_up, block_down);
     painter.drawPath(block_path);
     QFont font;
     font.setFamily("Microsoft YaHei");
@@ -110,7 +110,7 @@ void block_base::createPixmap(){
     painter.setFont(font);
     QFontMetrics fm = painter.fontMetrics();
     int width_text = fm.horizontalAdvance(block_text);
-    painter.drawText((this->width() - width_text) / 2, (this->height() - font_size) + (this->height() - font_size) / 3, block_text);
+    painter.drawText((block_width - width_text) / 2, (block_height - font_size) + (block_height - font_size) / 2, block_text);
     painter.end();
 }
 
@@ -123,12 +123,11 @@ QPixmap block_base::getPixmap(){
 }
 
 void block_base::setPoint(const QPoint& point){
-    block_x = point.x();
-    block_y = point.y();
+    widget_point = point;
 }
 
 QPoint block_base::getPoint(){
-    return QPoint(block_x, block_y);
+    return widget_point;
 }
 
 QString block_base::toCode(){
