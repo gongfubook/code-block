@@ -3,6 +3,7 @@
 #include "code-list.h"
 #include "block-base.h"
 #include "block-io.h"
+#include "block-function.h"
 
 
 code_list::code_list(QWidget *parent)
@@ -55,19 +56,27 @@ void code_list::dropEvent(QDropEvent *event)
         QString block_name;
         dataStream >> pixmap >> offset >> block_name;
         if (block_name == "base") {
-            block_base *new_block = new block_base(this);
-            new_block->setPixmap(pixmap);
-            new_block->move(event->pos() - offset);
-            new_block->show();
-            new_block->setAttribute(Qt::WA_DeleteOnClose);
+            block_base *new_block_base = new block_base(this);
+            new_block_base->setPixmap(pixmap);
+            new_block_base->move(event->pos() - offset);
+            new_block_base->show();
+            new_block_base->setAttribute(Qt::WA_DeleteOnClose);
         }
 
         if (block_name == "output") {
-            block_print *new_block = new block_print(this);
-            new_block->setPixmap(pixmap);
-            new_block->move(event->pos() - offset);
-            new_block->show();
-            new_block->setAttribute(Qt::WA_DeleteOnClose);
+            block_print *new_block_print = new block_print(this, false);
+            new_block_print->setPixmap(pixmap);
+            new_block_print->move(event->pos() - offset);
+            new_block_print->show();
+            new_block_print->setAttribute(Qt::WA_DeleteOnClose);
+        }
+
+        if (block_name == "function") {
+            block_function *new_block_function = new block_function(this, false);
+            new_block_function->setPixmap(pixmap);
+            new_block_function->move(event->pos() - offset);
+            new_block_function->show();
+            new_block_function->setAttribute(Qt::WA_DeleteOnClose);
         }
 
         if (event->source() == this) {
@@ -90,7 +99,7 @@ void code_list::mousePressEvent(QMouseEvent *event)
     }
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << child->getPixmap() << QPoint(event->pos() - child->pos());
+    dataStream << child->getPixmap() << QPoint(event->pos() - child->pos()) << child->whatsThisBlockName();
 
     QMimeData *mimeData = new QMimeData;
     mimeData->setData("application/x-dnditemdata", itemData);
