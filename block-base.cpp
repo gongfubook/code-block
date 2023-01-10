@@ -84,7 +84,6 @@ QPainterPath createPath(
 
 
 block_base::block_base(QWidget *parent=nullptr): QLabel(parent){
-    move(widget_point);
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
@@ -123,11 +122,11 @@ QPixmap block_base::getPixmap(){
 }
 
 void block_base::setPoint(const QPoint& point){
-    widget_point = point;
+    move(point);
 }
 
 QPoint block_base::getPoint(){
-    return widget_point;
+    return pos();
 }
 
 QString block_base::toCode(){

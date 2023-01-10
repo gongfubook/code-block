@@ -12,6 +12,7 @@
 #include <QLabel>
 
 #include "block-color.h"
+#include "block-size.h"
 
 /**
  * 代码块的接口类
@@ -46,10 +47,9 @@ QPainterPath createPath(
 
 class block_base : public QLabel, block{
 public:
-    int widget_width{110}, widget_height{50};
-    int block_width{90}, block_height{30};
-    QPoint widget_point = QPoint(150, 30);
-    QPoint block_point = QPoint(5, 5);
+    int widget_width{WIDGET_WIDTH}, widget_height{WIDGET_HEIGHT};
+    int block_width{BLOCK_WIDTH}, block_height{BLOCK_HEIGHT};
+    QPoint block_point = QPoint(BLOCK_X, BLOCK_Y);
     Connector block_left{male}, block_right{female}, block_up{female}, block_down{male};
     block_base(QWidget *parent);
     virtual void createPixmap();
