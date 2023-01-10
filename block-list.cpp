@@ -3,6 +3,7 @@
 #include "block-list.h"
 #include "block-base.h"
 #include "block-io.h"
+#include "block-function.h"
 
 block_list::block_list(QWidget *parent)
     : QFrame(parent)
@@ -16,8 +17,12 @@ block_list::block_list(QWidget *parent)
     b->move(100, 90);
     b->show();
 
-    block_print *bp = new block_print(this);
+    block_print *bp = new block_print(this, true);
     bp->move(100, 150);
+    bp->show();
+
+    block_function *bf = new block_function(this, true);
+    bf->move(100, 210);
     bp->show();
 }
 
