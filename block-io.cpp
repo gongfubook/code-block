@@ -9,8 +9,7 @@
 
 
 
-block_print::block_print(QWidget *parent=nullptr): block_base(parent){
-    move(widget_point);
+block_print::block_print(QWidget *parent=nullptr, bool read_only=true): block_base(parent), read_only(read_only){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
@@ -43,7 +42,7 @@ void block_print::createPixmap(){
     edit->setMaximumHeight(block_height - 5);
     edit->move(block_point.x() + 5 + width_text, block_point.y() + 3);
     edit->setText("你好，世界！");
-    edit->setReadOnly(true);
+    edit->setReadOnly(read_only);
     edit->show();
     painter.end();
 }
@@ -57,11 +56,11 @@ QPixmap block_print::getPixmap(){
 }
 
 void block_print::setPoint(const QPoint& point){
-    widget_point = point;
+    move(point);
 }
 
 QPoint block_print::getPoint(){
-    return widget_point;
+    return pos();
 }
 
 QString block_print::toCode(){

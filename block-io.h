@@ -8,12 +8,12 @@
 
 class block_print: public block_base {
 public:
-    int widget_width{140}, widget_height{40};
-    int block_width{130}, block_height{30};
-    QPoint widget_point = QPoint(150, 30);
-    QPoint block_point = QPoint(5, 5);
+    int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
+    int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
+    QPoint block_point = QPoint(BLOCK_X, BLOCK_Y);
     Connector block_left{none}, block_right{none}, block_up{female}, block_down{male};
-    block_print(QWidget *parent);
+    bool read_only;
+    block_print(QWidget *parent, bool read_only);
     virtual void createPixmap();
     virtual void setPixmap(const QPixmap& pixmap);
     virtual QPixmap getPixmap();
