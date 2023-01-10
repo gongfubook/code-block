@@ -2,14 +2,16 @@ QT += widgets
 
 CONFIG += debug console 
 
-QMAKE_LFLAGS += -static
+QMAKE_CFLAGS += -static
 QMAKE_LFLAGS += -static 
 
 HEADERS     = block-base.h \
               code-list.h \
               block-list.h \
               block-color.h \
-              block-io.h
+              block-io.h \
+              block-function.h \
+              block-size.h 
 
 
 SOURCES     = block-base.cpp \
@@ -17,6 +19,8 @@ SOURCES     = block-base.cpp \
               block-list.cpp \
               block-color.cpp \
               block-io.cpp \
+              block-function.cpp \
+              block-size.cpp \
               main.cpp
 
 # install
