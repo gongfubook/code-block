@@ -15,10 +15,10 @@ block_function::block_function(QWidget *parent=nullptr, bool read_only=true): bl
     createPixmap();
     setStyleSheet("background:transparent");
     setAttribute(Qt::WA_TranslucentBackground);
-    // setStyleSheet("background-color:red;");
 }
 
 void block_function::createPixmap(){
+    qDebug() << "createPixmap: " << widget_width << ", " << widget_height;
     block_pixmap = QPixmap(widget_width, widget_height);
     block_pixmap.fill(Qt::transparent);
     QPainter painter(&block_pixmap);
