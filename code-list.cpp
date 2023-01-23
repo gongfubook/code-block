@@ -66,7 +66,34 @@ void code_list::dropEvent(QDropEvent *event)
         if (block_name == "output") {
             block_print *new_block_print = new block_print(this, false);
             new_block_print->setPixmap(pixmap);
-            new_block_print->move(event->pos() - offset);
+            block_base *child = static_cast<block_base*>(childAt(event->pos()));
+            if (child) {
+                if (child->whatsThisBlockName() == "function"){
+                    qDebug() << "child->whatsThisBlockName()" << child->whatsThisBlockName();
+                    qDebug() << "child->widget_height" << child->widget_height << "child->block_height: " << child->block_height;
+                    auto cp = child->pos() + child->block_point;
+                    int x = cp.x() + BLOCK_FUNCTION_LEFT_WIDTH - BLOCK_X;
+                    int y = cp.y() + BLOCK_HEIGHT - BLOCK_Y;
+                    block_base *inner_child = static_cast<block_base*>(childAt(x, y));
+                    if (inner_child && inner_child != child) {
+                        qDebug() << inner_child->whatsThisBlockName();
+                        qDebug() << "child->widget_height" << child->widget_height << "child->block_height: " << child->block_height;
+                        qDebug() << "new_block_print->block_height" << new_block_print->block_height;
+                        child->widget_height = child->widget_height + new_block_print->block_height;
+                        child->block_height += new_block_print->block_height;
+
+                        qDebug() << "child->widget_height" << child->widget_height << "child->block_height: " << child->block_height;
+                        child->createPixmap();
+                        child->update();
+                        child->show();
+                        new_block_print->move(x, y+new_block_print->block_height);
+                    } else {
+                        new_block_print->move(x, y);
+                    }
+                }
+            } else {
+                new_block_print->move(event->pos() - offset);
+            }
             new_block_print->show();
             new_block_print->setAttribute(Qt::WA_DeleteOnClose);
         }
