@@ -4,6 +4,8 @@
 #include "block-base.h"
 #include "block-io.h"
 #include "block-function.h"
+#include "block-size.h"
+#include <QDebug>
 
 
 code_list::code_list(QWidget *parent)
