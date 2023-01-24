@@ -129,6 +129,14 @@ QPoint block_base::getPoint(){
     return pos();
 }
 
+bool block_base::isParentBlock(){
+    return false;
+}
+
+void block_base::insertCode(const QString &code){
+    return;
+}
+
 QString block_base::toCode(){
     return code_text;
 }

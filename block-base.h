@@ -24,6 +24,8 @@ class block{
     virtual QPixmap getPixmap() = 0;
     virtual void setPoint(const QPoint& point) = 0;
     virtual QPoint getPoint() = 0;
+    virtual bool isParentBlock() = 0;
+    virtual void insertCode(const QString &code) = 0;
     virtual QString toCode() = 0;
     virtual QString whatsThisBlockName() = 0;
 };
@@ -57,6 +59,8 @@ public:
     virtual QPixmap getPixmap();
     virtual void setPoint(const QPoint& point);
     virtual QPoint getPoint();
+    virtual bool isParentBlock();
+    virtual void insertCode(const QString &code);
     virtual QString toCode();
     virtual QString whatsThisBlockName();
 
