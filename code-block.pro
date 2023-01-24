@@ -11,7 +11,8 @@ HEADERS     = block-base.h \
               block-color.h \
               block-io.h \
               block-function.h \
-              block-size.h 
+              block-size.h \
+              block-main-function.h 
 
 
 SOURCES     = block-base.cpp \
@@ -21,6 +22,7 @@ SOURCES     = block-base.cpp \
               block-io.cpp \
               block-function.cpp \
               block-size.cpp \
+              block-main-function.cpp \
               main.cpp
 
 # install

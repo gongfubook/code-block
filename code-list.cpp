@@ -5,6 +5,7 @@
 #include "block-io.h"
 #include "block-function.h"
 #include "block-size.h"
+#include "block-main-function.h"
 #include <QDebug>
 
 
@@ -16,6 +17,10 @@ code_list::code_list(QWidget *parent)
     setAcceptDrops(true);
     setAutoFillBackground(true);
     setPalette(QPalette(Qt::white));
+
+    block_main_function *main = new block_main_function(this, true);
+    main->move(200, 200);
+    main->show();
     
 }
 
@@ -106,6 +111,13 @@ void code_list::dropEvent(QDropEvent *event)
             new_block_function->move(event->pos() - offset);
             new_block_function->show();
             new_block_function->setAttribute(Qt::WA_DeleteOnClose);
+        }
+
+        if (block_name == "main function") {
+            block_main_function *main = new block_main_function(this, true);
+            main->move(event->pos() - offset);
+            main->show();
+            main->setAttribute(Qt::WA_DeleteOnClose);
         }
 
         if (event->source() == this) {

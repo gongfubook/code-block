@@ -16,6 +16,8 @@ constexpr const int LOOP_COLOR = 0x33CC99;
 constexpr const int ARRAY_COLOR = 0x663399;
 constexpr const int FUNCTION_COLOR = 0xFFCC33;
 
+constexpr const int BLACK = 0x000000;
+
 
 QColor rgbColor(const int hex_color);
 

@@ -64,7 +64,7 @@ QPoint block_print::getPoint(){
 }
 
 QString block_print::toCode(){
-    return code_text;
+    return "printf(\"" + edit->text() + "\\n\");";
 }
 
 QString block_print::whatsThisBlockName(){
