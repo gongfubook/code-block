@@ -21,6 +21,7 @@ class main_window : public QWidget
     Q_OBJECT;
 public:
     explicit main_window(QWidget *parent = nullptr);
+    ~main_window() Q_DECL_OVERRIDE;
 
 public slots:
     void click_compiler();
@@ -35,6 +36,9 @@ private:
     code_list *code_list_window;
     code_display *code_display_window;
     QString code_str;
+    QString code_path;
+    QString code_file;
+    QString exe_file;
 };
 
 
