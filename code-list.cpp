@@ -12,14 +12,12 @@
 code_list::code_list(QWidget *parent)
     : QFrame(parent)
 {
-    setMinimumSize(200, 200);
     setFrameStyle(QFrame::Sunken | QFrame::StyledPanel);
     setAcceptDrops(true);
     setAutoFillBackground(true);
     setPalette(QPalette(Qt::white));
-
     block_main_function *main = new block_main_function(this, true);
-    main->move(200, 200);
+    main->move(this->width() / 2, this->height() / 2);
     main->show();
     
 }
