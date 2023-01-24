@@ -75,7 +75,7 @@ void code_list::dropEvent(QDropEvent *event)
             new_block_print->setPixmap(pixmap);
             block_base *child = static_cast<block_base*>(childAt(event->pos()));
             if (child) {
-                if (child->whatsThisBlockName() == "function"){
+                if (child->whatsThisBlockName() == "function" || child->whatsThisBlockName() == "main function"){
                     qDebug() << "child->whatsThisBlockName()" << child->whatsThisBlockName();
                     qDebug() << "child->widget_height" << child->widget_height << "child->block_height: " << child->block_height;
                     auto cp = child->pos() + child->block_point;
