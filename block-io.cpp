@@ -62,9 +62,12 @@ void block_print::setPoint(const QPoint& point){
 QPoint block_print::getPoint(){
     return pos();
 }
+bool block_print::isParentBlock(){
+    return false;
+}
 
 QString block_print::toCode(){
-    return "printf(\"" + edit->text() + "\\n\");";
+    return "\tprintf(\"" + edit->text() + "\");\n";
 }
 
 QString block_print::whatsThisBlockName(){

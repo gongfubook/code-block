@@ -15,9 +15,7 @@ block_main_function::block_main_function(QWidget *parent=nullptr, bool read_only
     setAttribute(Qt::WA_TranslucentBackground);
 }
 
-void block_main_function::insertCode(QString code){
-    code_text.append(code);
-}
+
 
 void block_main_function::createPixmap(){
     qDebug() << "createPixmap: " << widget_width << ", " << widget_height;
@@ -61,8 +59,15 @@ QPoint block_main_function::getPoint(){
     return pos();
 }
 
+bool block_main_function::isParentBlock(){
+    return true;
+}
+
+void block_main_function::insertCode(const QString &code){
+    code_text.append(code);
+}
+
 QString block_main_function::toCode(){
-    qDebug() << "code: " << code_text_begin + code_text + code_text_end;
     return code_text_begin + code_text + code_text_end;
 }
 

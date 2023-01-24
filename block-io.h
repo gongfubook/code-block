@@ -19,7 +19,8 @@ public:
     virtual QPixmap getPixmap();
     virtual void setPoint(const QPoint& point);
     virtual QPoint getPoint();
-    virtual QString toCode();
+    virtual bool isParentBlock();
+    virtual QString toCode() Q_DECL_OVERRIDE;
     virtual QString whatsThisBlockName();
 
 protected:
