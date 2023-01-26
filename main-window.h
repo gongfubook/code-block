@@ -10,6 +10,7 @@
 #include "code-list.h"
 #include "main-window.h"
 #include "code-display.h"
+#include "output-display.h"
 
 QT_BEGIN_NAMESPACE
 class QDragEnterEvent;
@@ -35,6 +36,7 @@ private:
     block_list *block_list_window;
     code_list *code_list_window;
     code_display *code_display_window;
+    output_display *output_display_window;
     QString code_str;
     QString code_path;
     QString code_file;

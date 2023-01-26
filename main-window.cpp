@@ -16,9 +16,15 @@ main_window::main_window(QWidget *parent): QWidget(parent) {
     vboxLayout = new QVBoxLayout(this);
 
     horizontalLayout1 = new QHBoxLayout;
+    QPushButton *open_project = new QPushButton("打开");
+    QPushButton *save_project = new QPushButton("保存");
+    QPushButton *generate_code = new QPushButton("生成");
     QPushButton *compiler = new QPushButton("编译");
     QPushButton *run = new QPushButton("运行");
     QPushButton *clean = new QPushButton("清空");
+    horizontalLayout1->addWidget(open_project);
+    horizontalLayout1->addWidget(save_project);
+    horizontalLayout1->addWidget(generate_code);
     horizontalLayout1->addWidget(compiler);
     horizontalLayout1->addWidget(run);
     horizontalLayout1->addWidget(clean);
@@ -27,6 +33,7 @@ main_window::main_window(QWidget *parent): QWidget(parent) {
     block_list_window = new block_list(this);
     code_list_window = new code_list(this);
     code_display_window = new code_display(this);
+    output_display_window = new output_display(this);
 
     horizontalLayout2->addWidget(block_list_window);
     horizontalLayout2->addWidget(code_list_window);
@@ -34,6 +41,8 @@ main_window::main_window(QWidget *parent): QWidget(parent) {
 
     vboxLayout->addLayout(horizontalLayout1);
     vboxLayout->addLayout(horizontalLayout2);
+    vboxLayout->addWidget(output_display_window);
+    
     connect(compiler, SIGNAL(clicked()), this, SLOT(click_compiler()));
     connect(run, SIGNAL(clicked()), this, SLOT(click_run()));
     connect(clean, SIGNAL(clicked()), this, SLOT(click_clean()));
@@ -94,7 +103,7 @@ void main_window::click_compiler(){
     process.waitForStarted(); 
     process.waitForFinished();
     QString output = QString::fromUtf8(process.readAllStandardOutput()); 
-    code_display_window->setOutputText(output + "\n编译完成");
+    output_display_window->setOutputText(output + "\n编译完成");
 }
 
 void main_window::click_run(){
@@ -102,20 +111,20 @@ void main_window::click_run(){
         qDebug() << "not exists";
         return;
     }
-    code_display_window->setOutputText("");
+    output_display_window->setOutputText("");
     QProcess process(this);
     process.setProgram(exe_file);
     process.start();
     process.waitForStarted(); 
     process.waitForFinished();
     QString output = QString::fromUtf8(process.readAllStandardOutput()); 
-    code_display_window->setOutputText(output);
+    output_display_window->setOutputText(output);
 }
 
 void main_window::click_clean(){
     code_str.clear();
     code_display_window->setCodeText(code_str);
-    code_display_window->setOutputText("");
+    output_display_window->setOutputText("");
 }
 
 main_window::~main_window(){
