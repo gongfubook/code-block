@@ -10,9 +10,7 @@ class code_display : public QFrame
 public:
     explicit code_display(QWidget *parent = nullptr);
     void setCodeText(const QString &code);
-    void setOutputText(const QString &output);
     QTextEdit * code_edit;
-    QTextEdit * output_edit;
 
 };
 
