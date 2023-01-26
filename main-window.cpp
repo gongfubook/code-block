@@ -84,7 +84,7 @@ void main_window::click_compiler(){
         } 
     }
     exe_file = code_path + QDir::separator() + "test";
-    code_file = exe_file + ".cpp";
+    code_file = exe_file + ".c";
     QFile file(code_file);
     bool ret = file.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Append);
     if (!ret) {
@@ -95,7 +95,7 @@ void main_window::click_compiler(){
     qDebug() << "code_file: " << code_file;
 
     QProcess process(this);
-    process.setProgram("g++");
+    process.setProgram("gcc");
     QStringList argument;
     argument << code_file << "-o" << exe_file;
     process.setArguments(argument);
