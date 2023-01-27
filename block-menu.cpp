@@ -1,10 +1,5 @@
 
-
-#include <QtWidgets>
-
 #include "block-menu.h"
-#include "block-list.h"
-#include "block-base.h"
 
 
 block_menu::block_menu(QWidget *parent)
@@ -15,33 +10,19 @@ block_menu::block_menu(QWidget *parent)
     setAcceptDrops(true);
     setAutoFillBackground(true);
     setPalette(QPalette(Qt::white));
-    block_base * b = new block_base(this);
-    b->move(100, 90);
-    b->show();
-}
 
-void block_menu::mousePressEvent(QMouseEvent *event)
-{
-    block_base *child = static_cast<block_base*>(childAt(event->pos()));
-    if (!child){
-        return;
-    }
+    block_menu_vbox = new QVBoxLayout(this);
+    math_btn = new QPushButton("数学");
+    string_btn = new QPushButton("字符串");
+    logic_btn = new QPushButton("逻辑");
+    loop_btn = new QPushButton("循环");
+    function_btn = new QPushButton("函数");
+    variable_btn = new QPushButton("变量");
 
-    QByteArray itemData;
-    QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << child->getPixmap() << QPoint(event->pos() - child->pos());
-
-    QMimeData *mimeData = new QMimeData;
-    mimeData->setData("application/x-dnditemdata", itemData);
-
-    QDrag *drag = new QDrag(this);
-    drag->setMimeData(mimeData);
-    drag->setPixmap(child->getPixmap());
-    drag->setHotSpot(event->pos() - child->pos());
-
-    if (drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::CopyAction) == Qt::MoveAction) {
-        child->close();
-    } else {
-        child->show();
-    }
+    block_menu_vbox->addWidget(math_btn);
+    block_menu_vbox->addWidget(string_btn);
+    block_menu_vbox->addWidget(logic_btn);
+    block_menu_vbox->addWidget(loop_btn);
+    block_menu_vbox->addWidget(function_btn);
+    block_menu_vbox->addWidget(variable_btn);
 }
