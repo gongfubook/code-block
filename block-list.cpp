@@ -1,11 +1,7 @@
 
 #include <QtWidgets>
 #include "block-list.h"
-#include "block-base.h"
-#include "block-io.h"
-#include "block-function.h"
-#include "block-number.h"
-#include "block-string.h"
+
 
 block_list::block_list(QWidget *parent)
     : QFrame(parent)
@@ -15,22 +11,75 @@ block_list::block_list(QWidget *parent)
     setAcceptDrops(true);
     setAutoFillBackground(true);
     setPalette(QPalette(Qt::white));
-    
-    block_string *b_str = new block_string(this, true);
+
+    b_str = new block_string(this, true);
     b_str->move(50, 30);
     b_str->show();
 
-    block_print *bp = new block_print(this, true);
-    bp->move(50, 90);
-    bp->show();
+    b_print = new block_print(this, true);
+    b_print->move(50, 90);
+    b_print->show();
 
-    block_function *bf = new block_function(this, true);
-    bf->move(50, 150);
-    bp->show();
+    b_function = new block_function(this, true);
+    b_function->move(50, 150);
+    b_function->show();
 
-    block_number *bn = new block_number(this, true);
-    bn->move(50, 270);
-    bn->show();
+    b_number = new block_number(this, true);
+    b_number->move(50, 270);
+    b_number->show();
+}
+
+void block_list::show_number(){
+    b_number->show();
+
+    b_str->hide();
+
+    b_print->hide();
+    b_function->hide();
+}
+
+void block_list::show_string(){
+    b_number->hide();
+
+    b_str->show();
+
+    b_print->hide();
+    b_function->hide();
+}
+
+void block_list::show_logic(){
+    b_number->hide();
+
+    b_str->hide();
+
+    b_print->hide();
+    b_function->hide();
+}
+
+void block_list::show_loop(){
+    b_number->hide();
+
+    b_str->hide();
+
+    b_print->hide();
+    b_function->hide();
+}
+
+void block_list::show_function(){
+    b_number->hide();
+
+    b_str->hide();
+
+    b_print->show();
+    b_function->show();
+}
+
+void block_list::show_variable(){
+
+    b_number->hide();
+    b_str->hide();
+    b_print->hide();
+    b_function->hide();
 }
 
 void block_list::dragEnterEvent(QDragEnterEvent *event)
@@ -72,8 +121,6 @@ void block_list::mousePressEvent(QMouseEvent *event)
     if (!child){
         return;
     }
-
-    startPos = event->pos();
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
     dataStream << child->getPixmap() << QPoint(event->pos() - child->pos()) << child->whatsThisBlockName();
