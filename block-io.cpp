@@ -14,8 +14,7 @@ block_print::block_print(QWidget *parent=nullptr, bool read_only=true): block_ba
     setAcceptDrops(true);  
     createPixmap();
     setStyleSheet("background:transparent");
-    setAttribute(Qt::WA_TranslucentBackground);
-    // setStyleSheet("background-color:red;");
+    setAttribute(Qt::WA_DeleteOnClose);
 }
 
 void block_print::createPixmap(){

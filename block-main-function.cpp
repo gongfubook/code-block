@@ -12,7 +12,7 @@ block_main_function::block_main_function(QWidget *parent=nullptr, bool read_only
     setAcceptDrops(true);  
     createPixmap();
     setStyleSheet("background:transparent");
-    setAttribute(Qt::WA_TranslucentBackground);
+    setAttribute(Qt::WA_DeleteOnClose);
 }
 
 
