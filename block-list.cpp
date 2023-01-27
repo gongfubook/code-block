@@ -4,6 +4,7 @@
 #include "block-base.h"
 #include "block-io.h"
 #include "block-function.h"
+#include "block-number.h"
 
 block_list::block_list(QWidget *parent)
     : QFrame(parent)
@@ -14,16 +15,20 @@ block_list::block_list(QWidget *parent)
     setAutoFillBackground(true);
     setPalette(QPalette(Qt::white));
     block_base * b = new block_base(this);
-    b->move(100, 90);
+    b->move(50, 30);
     b->show();
 
     block_print *bp = new block_print(this, true);
-    bp->move(100, 150);
+    bp->move(50, 90);
     bp->show();
 
     block_function *bf = new block_function(this, true);
-    bf->move(100, 210);
+    bf->move(50, 150);
     bp->show();
+
+    block_number *bn = new block_number(this, true);
+    bn->move(50, 270);
+    bn->show();
 }
 
 void block_list::dragEnterEvent(QDragEnterEvent *event)
@@ -59,7 +64,6 @@ void block_list::dropEvent(QDropEvent *event)
     event->ignore();
 }
 
-//! [1]
 void block_list::mousePressEvent(QMouseEvent *event)
 {
     block_base *child = static_cast<block_base*>(childAt(event->pos()));
