@@ -5,6 +5,7 @@
 #include "block-io.h"
 #include "block-function.h"
 #include "block-number.h"
+#include "block-string.h"
 
 block_list::block_list(QWidget *parent)
     : QFrame(parent)
@@ -14,9 +15,10 @@ block_list::block_list(QWidget *parent)
     setAcceptDrops(true);
     setAutoFillBackground(true);
     setPalette(QPalette(Qt::white));
-    block_base * b = new block_base(this);
-    b->move(50, 30);
-    b->show();
+    
+    block_string *b_str = new block_string(this, true);
+    b_str->move(50, 30);
+    b_str->show();
 
     block_print *bp = new block_print(this, true);
     bp->move(50, 90);
