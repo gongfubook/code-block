@@ -15,32 +15,35 @@ main_window::main_window(QWidget *parent): QWidget(parent) {
 
     vboxLayout = new QVBoxLayout(this);
 
-    horizontalLayout1 = new QHBoxLayout;
+    main_menu = new QHBoxLayout;
     QPushButton *open_project = new QPushButton("打开");
     QPushButton *save_project = new QPushButton("保存");
     QPushButton *generate_code = new QPushButton("生成");
     QPushButton *compiler = new QPushButton("编译");
     QPushButton *run = new QPushButton("运行");
     QPushButton *clean = new QPushButton("清空");
-    horizontalLayout1->addWidget(open_project);
-    horizontalLayout1->addWidget(save_project);
-    horizontalLayout1->addWidget(generate_code);
-    horizontalLayout1->addWidget(compiler);
-    horizontalLayout1->addWidget(run);
-    horizontalLayout1->addWidget(clean);
+    main_menu->addWidget(open_project);
+    main_menu->addWidget(save_project);
+    main_menu->addWidget(generate_code);
+    main_menu->addWidget(compiler);
+    main_menu->addWidget(run);
+    main_menu->addWidget(clean);
 
-    horizontalLayout2 = new QHBoxLayout;
+    code_block_windows = new QHBoxLayout;
+    block_menu_window = new block_menu(this);
     block_list_window = new block_list(this);
     code_list_window = new code_list(this);
     code_display_window = new code_display(this);
+
+    code_block_windows->addWidget(block_menu_window);
+    code_block_windows->addWidget(block_list_window);
+    code_block_windows->addWidget(code_list_window);
+    code_block_windows->addWidget(code_display_window);
+    
+
     output_display_window = new output_display(this);
-
-    horizontalLayout2->addWidget(block_list_window);
-    horizontalLayout2->addWidget(code_list_window);
-    horizontalLayout2->addWidget(code_display_window);
-
-    vboxLayout->addLayout(horizontalLayout1);
-    vboxLayout->addLayout(horizontalLayout2);
+    vboxLayout->addLayout(main_menu);
+    vboxLayout->addLayout(code_block_windows);
     vboxLayout->addWidget(output_display_window);
     
     connect(compiler, SIGNAL(clicked()), this, SLOT(click_compiler()));

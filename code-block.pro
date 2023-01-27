@@ -15,6 +15,7 @@ HEADERS     = block-base.h \
               block-main-function.h \
               code-display.h \
               output-display.h \
+              block-menu.h \
               main-window.h 
 
 
@@ -29,6 +30,7 @@ SOURCES     = block-base.cpp \
               main-window.cpp \
               code-display.cpp \
               output-display.cpp \ 
+              block-menu.cpp \
               main.cpp
 
 # install

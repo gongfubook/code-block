@@ -11,6 +11,7 @@
 #include "main-window.h"
 #include "code-display.h"
 #include "output-display.h"
+#include "block-menu.h"
 
 QT_BEGIN_NAMESPACE
 class QDragEnterEvent;
@@ -31,8 +32,9 @@ public slots:
 
 private:
     QVBoxLayout *vboxLayout;
-    QHBoxLayout *horizontalLayout1;
-    QHBoxLayout *horizontalLayout2;
+    QHBoxLayout *main_menu;
+    QHBoxLayout *code_block_windows;
+    block_menu *block_menu_window;
     block_list *block_list_window;
     code_list *code_list_window;
     code_display *code_display_window;
