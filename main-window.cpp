@@ -103,7 +103,7 @@ void main_window::click_compiler(){
     process.waitForStarted(); 
     process.waitForFinished();
     QString output = QString::fromUtf8(process.readAllStandardOutput()); 
-    output_display_window->setOutputText(output + "\n编译完成");
+    output_display_window->setOutputText(output + "编译完成\n");
 }
 
 void main_window::click_run(){
