@@ -57,7 +57,7 @@ bool block_string::isParentBlock(){
 }
 
 QString block_string::toCode(){
-    return edit->text();
+    return "\"" + edit->text() + "\"";
 }
 
 QString block_string::whatsThisBlockName(){
