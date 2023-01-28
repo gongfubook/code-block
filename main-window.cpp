@@ -50,14 +50,13 @@ main_window::main_window(QWidget *parent): QWidget(parent) {
     connect(run, SIGNAL(clicked()), this, SLOT(click_run()));
     connect(clean, SIGNAL(clicked()), this, SLOT(click_clean()));
 
-
-    
     connect(block_menu_window->math_btn, SIGNAL(clicked()), block_list_window, SLOT(show_number()));
     connect(block_menu_window->string_btn, SIGNAL(clicked()), block_list_window, SLOT(show_string()));
     connect(block_menu_window->logic_btn, SIGNAL(clicked()), block_list_window, SLOT(show_logic()));
     connect(block_menu_window->loop_btn, SIGNAL(clicked()), block_list_window, SLOT(show_loop()));
     connect(block_menu_window->function_btn, SIGNAL(clicked()), block_list_window, SLOT(show_function()));
     connect(block_menu_window->variable_btn, SIGNAL(clicked()), block_list_window, SLOT(show_variable()));
+    connect(block_menu_window->input_output_btn, SIGNAL(clicked()), block_list_window, SLOT(show_input_output()));
 
     setAttribute(Qt::WA_DeleteOnClose);
 }

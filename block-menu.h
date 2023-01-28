@@ -19,6 +19,7 @@ public:
     QPushButton *loop_btn;
     QPushButton *function_btn;
     QPushButton *variable_btn;
+    QPushButton *input_output_btn;
 };
 
 
