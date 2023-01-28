@@ -18,7 +18,7 @@ block_menu::block_menu(QWidget *parent)
     loop_btn = new QPushButton("循环");
     function_btn = new QPushButton("函数");
     variable_btn = new QPushButton("变量");
-    input_output_btn = new QPushButton("输入/输入");
+    input_output_btn = new QPushButton("输入/输出");
 
     block_menu_vbox->addWidget(math_btn);
     block_menu_vbox->addWidget(string_btn);
