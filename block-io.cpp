@@ -32,17 +32,7 @@ void block_print::createPixmap(){
 
     painter.setFont(font);
     QFontMetrics fm = painter.fontMetrics();
-    int width_text = fm.horizontalAdvance(block_text);
     painter.drawText(block_point.x() + 5, (block_height - font_size) + (block_height - font_size) / 2, block_text);
-    edit = new QLineEdit(this);
-    edit->setMinimumWidth(block_width - (block_point.x() + 5 + width_text));
-    edit->setMaximumWidth(block_width - (block_point.x() + 5 + width_text));
-    edit->setMinimumHeight(block_height - 5);
-    edit->setMaximumHeight(block_height - 5);
-    edit->move(block_point.x() + 5 + width_text, block_point.y() + 3);
-    edit->setText("你好，世界！");
-    edit->setReadOnly(read_only);
-    edit->show();
     painter.end();
 }
 
@@ -66,7 +56,7 @@ bool block_print::isParentBlock(){
 }
 
 QString block_print::toCode(){
-    return "\tprintf(\"" + edit->text() + "\");\n";
+    return "\tprint()\n";
 }
 
 QString block_print::whatsThisBlockName(){
