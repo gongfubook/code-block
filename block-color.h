@@ -22,7 +22,4 @@ constexpr const int BLACK = 0x000000;
 QColor rgbColor(const int hex_color);
 
 
-
-
-
 #endif // __BLOCK_COLOR__
