@@ -54,15 +54,15 @@ public:
     QPoint block_point = QPoint(BLOCK_X, BLOCK_Y);
     Connector block_left{male}, block_right{female}, block_up{female}, block_down{male};
     block_base(QWidget *parent);
-    virtual void createPixmap();
-    virtual void setPixmap(const QPixmap& pixmap);
-    virtual QPixmap getPixmap();
-    virtual void setPoint(const QPoint& point);
-    virtual QPoint getPoint();
-    virtual bool isParentBlock();
-    virtual void insertCode(const QString &code);
-    virtual QString toCode();
-    virtual QString whatsThisBlockName();
+    virtual void createPixmap() Q_DECL_OVERRIDE;
+    virtual void setPixmap(const QPixmap& pixmap) Q_DECL_OVERRIDE;
+    virtual QPixmap getPixmap() Q_DECL_OVERRIDE;
+    virtual void setPoint(const QPoint& point) Q_DECL_OVERRIDE;
+    virtual QPoint getPoint() Q_DECL_OVERRIDE;
+    virtual bool isParentBlock() Q_DECL_OVERRIDE;
+    virtual void insertCode(const QString &code) Q_DECL_OVERRIDE;
+    virtual QString toCode() Q_DECL_OVERRIDE;
+    virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;

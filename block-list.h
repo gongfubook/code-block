@@ -4,10 +4,6 @@
 #include <QFrame>
 #include <QVBoxLayout>
 #include <QWidget>
-#include "block-io.h"
-#include "block-function.h"
-#include "block-number.h"
-#include "block-string.h"
 
 QT_BEGIN_NAMESPACE
 class QDragEnterEvent;

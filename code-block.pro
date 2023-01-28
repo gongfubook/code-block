@@ -18,6 +18,9 @@ HEADERS     = block-base.h \
               block-menu.h \
               block-number.h \ 
               block-string.h \ 
+              block-logic.h \
+              block-loop.h \
+              block-variable.h \
               main-window.h 
 
 
@@ -35,6 +38,9 @@ SOURCES     = block-base.cpp \
               block-menu.cpp \
               block-number.cpp \ 
               block-string.cpp \ 
+              block-logic.cpp \ 
+              block-loop.cpp \
+              block-variable.cpp \ 
               main.cpp
 
 # install

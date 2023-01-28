@@ -1,6 +1,13 @@
 
 #include <QtWidgets>
 #include "block-list.h"
+#include "block-io.h"
+#include "block-function.h"
+#include "block-number.h"
+#include "block-string.h"
+#include "block-logic.h"
+#include "block-loop.h"
+#include "block-variable.h"
 
 block_class_list::block_class_list(QWidget *parent)
     : QWidget(parent)
@@ -42,14 +49,21 @@ block_list::block_list(QWidget *parent)
     code_string_list = new block_class_list(this);
     code_string_list->addWidget(b_str);
 
+    block_logic *b_logic = new block_logic(this);
     code_logic_list = new block_class_list(this);
+    code_logic_list->addWidget(b_logic);
+
+    block_loop *b_loop = new block_loop(this);
     code_loop_list = new block_class_list(this);
+    code_loop_list->addWidget(b_loop);
 
     block_function *b_function = new block_function(this, true);
     code_function_list = new block_class_list(this);
     code_function_list->addWidget(b_function);
 
+    block_variable *b_variable = new block_variable(this, true);
     code_variable_list = new block_class_list(this);
+    code_variable_list->addWidget(b_variable);
     
     block_print *b_print = new block_print(this, true);
     code_input_output_list = new block_class_list(this);

@@ -15,10 +15,7 @@ block_main_function::block_main_function(QWidget *parent=nullptr, bool read_only
     setAttribute(Qt::WA_DeleteOnClose);
 }
 
-
-
 void block_main_function::createPixmap(){
-    qDebug() << "createPixmap: " << widget_width << ", " << widget_height;
     block_pixmap = QPixmap(widget_width, widget_height);
     block_pixmap.fill(Qt::transparent);
     QPainter painter(&block_pixmap);
@@ -38,7 +35,6 @@ void block_main_function::createPixmap(){
     QFontMetrics fm = painter.fontMetrics();
     int width_text = fm.horizontalAdvance(block_text);
     painter.setPen(rgbColor(BLACK));
-    qDebug() << "block_text: " << block_text;
     painter.drawText(block_point.x() + (BLOCK_FUNCTION_LEFT_WIDTH + block_width - width_text)  / 2, block_point.y() + BLOCK_HEIGHT / 2 + font_size / 4, block_text);
     painter.end();
 }
