@@ -26,7 +26,7 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 private:
-    QColor color_back = rgbColor(LOGIC_COLOR);
+    QColor color_back = rgbColor(LOOP_COLOR);
     int font_size{12};
     QPoint startPos;
     QPainterPath block_path;
