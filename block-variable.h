@@ -11,7 +11,7 @@ public:
     int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
     QPoint block_point = QPoint(BLOCK_X, BLOCK_Y);
-    Connector block_left{none}, block_right{male}, block_up{none}, block_down{none};
+    Connector block_left{none}, block_right{female}, block_up{none}, block_down{none};
     bool read_only;
     block_variable(QWidget *parent, bool read_only);
     virtual void createPixmap() Q_DECL_OVERRIDE;
