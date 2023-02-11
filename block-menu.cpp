@@ -19,6 +19,8 @@ block_menu::block_menu(QWidget *parent)
     function_btn = new QPushButton("函数");
     variable_btn = new QPushButton("变量");
     input_output_btn = new QPushButton("输入/输出");
+    list_btn = new QPushButton("数组");
+    dict_btn = new QPushButton("字典");
 
     block_menu_vbox->addWidget(math_btn);
     block_menu_vbox->addWidget(string_btn);
@@ -27,4 +29,6 @@ block_menu::block_menu(QWidget *parent)
     block_menu_vbox->addWidget(function_btn);
     block_menu_vbox->addWidget(variable_btn);
     block_menu_vbox->addWidget(input_output_btn);
+    block_menu_vbox->addWidget(list_btn);
+    block_menu_vbox->addWidget(dict_btn);
 }

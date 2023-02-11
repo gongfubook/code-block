@@ -8,6 +8,8 @@
 #include "block-logic.h"
 #include "block-loop.h"
 #include "block-variable.h"
+#include "block-array.h"
+#include "block-dict.h"
 
 block_class_list::block_class_list(QWidget *parent)
     : QWidget(parent)
@@ -69,6 +71,14 @@ block_list::block_list(QWidget *parent)
     code_input_output_list = new block_class_list(this);
     code_input_output_list->addWidget(b_print);
 
+    block_array *b_list = new block_array(this);
+    code_list_list = new block_class_list(this);
+    code_list_list->addWidget(b_list);
+
+    block_dict *b_dict = new block_dict(this);
+    code_dict_list = new block_class_list(this);
+    code_dict_list->addWidget(b_dict);
+
     show_number();
 
 }
@@ -81,6 +91,8 @@ void block_list::show_number(){
     code_function_list->block_class_list_hide();
     code_variable_list->block_class_list_hide();
     code_input_output_list->block_class_list_hide();
+    code_list_list->block_class_list_hide();
+    code_dict_list->block_class_list_hide();
 }
 
 void block_list::show_string(){
@@ -91,6 +103,8 @@ void block_list::show_string(){
     code_function_list->block_class_list_hide();
     code_variable_list->block_class_list_hide();
     code_input_output_list->block_class_list_hide();
+    code_list_list->block_class_list_hide();
+    code_dict_list->block_class_list_hide();
 }
 
 void block_list::show_logic(){
@@ -101,6 +115,8 @@ void block_list::show_logic(){
     code_function_list->block_class_list_hide();
     code_variable_list->block_class_list_hide();
     code_input_output_list->block_class_list_hide();
+    code_list_list->block_class_list_hide();
+    code_dict_list->block_class_list_hide();
 }
 
 void block_list::show_loop(){
@@ -111,6 +127,8 @@ void block_list::show_loop(){
     code_function_list->block_class_list_hide();
     code_variable_list->block_class_list_hide();
     code_input_output_list->block_class_list_hide();
+    code_list_list->block_class_list_hide();
+    code_dict_list->block_class_list_hide();
 }
 
 void block_list::show_function(){
@@ -121,6 +139,8 @@ void block_list::show_function(){
     code_function_list->block_class_list_show();
     code_variable_list->block_class_list_hide();
     code_input_output_list->block_class_list_hide();
+    code_list_list->block_class_list_hide();
+    code_dict_list->block_class_list_hide();
 }
 
 void block_list::show_variable(){
@@ -131,6 +151,8 @@ void block_list::show_variable(){
     code_function_list->block_class_list_hide();
     code_variable_list->block_class_list_show();
     code_input_output_list->block_class_list_hide();
+    code_list_list->block_class_list_hide();
+    code_dict_list->block_class_list_hide();
 }
 
 void block_list::show_input_output(){
@@ -141,6 +163,32 @@ void block_list::show_input_output(){
     code_function_list->block_class_list_hide();
     code_variable_list->block_class_list_hide();
     code_input_output_list->block_class_list_show();
+    code_list_list->block_class_list_hide();
+    code_dict_list->block_class_list_hide();
+}
+
+void block_list::show_list() {
+    code_number_list->block_class_list_hide();
+    code_string_list->block_class_list_hide();
+    code_logic_list->block_class_list_hide();
+    code_loop_list->block_class_list_hide();
+    code_function_list->block_class_list_hide();
+    code_variable_list->block_class_list_hide();
+    code_input_output_list->block_class_list_hide();
+    code_list_list->block_class_list_show();
+    code_dict_list->block_class_list_hide();
+}
+
+void block_list::show_dict() {
+    code_number_list->block_class_list_hide();
+    code_string_list->block_class_list_hide();
+    code_logic_list->block_class_list_hide();
+    code_loop_list->block_class_list_hide();
+    code_function_list->block_class_list_hide();
+    code_variable_list->block_class_list_hide();
+    code_input_output_list->block_class_list_hide();
+    code_list_list->block_class_list_hide();
+    code_dict_list->block_class_list_show();
 }
 
 void block_list::dragEnterEvent(QDragEnterEvent *event)

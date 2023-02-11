@@ -57,6 +57,8 @@ main_window::main_window(QWidget *parent): QWidget(parent) {
     connect(block_menu_window->function_btn, SIGNAL(clicked()), block_list_window, SLOT(show_function()));
     connect(block_menu_window->variable_btn, SIGNAL(clicked()), block_list_window, SLOT(show_variable()));
     connect(block_menu_window->input_output_btn, SIGNAL(clicked()), block_list_window, SLOT(show_input_output()));
+    connect(block_menu_window->list_btn, SIGNAL(clicked()), block_list_window, SLOT(show_list()));
+    connect(block_menu_window->dict_btn, SIGNAL(clicked()), block_list_window, SLOT(show_dict()));
 
     setAttribute(Qt::WA_DeleteOnClose);
 }

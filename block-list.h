@@ -33,6 +33,8 @@ public:
     block_class_list *code_function_list;
     block_class_list *code_variable_list;
     block_class_list *code_input_output_list;
+    block_class_list *code_list_list;
+    block_class_list *code_dict_list;
 
 public slots:
     void show_number();
@@ -42,6 +44,8 @@ public slots:
     void show_function();
     void show_variable();
     void show_input_output();
+    void show_list();
+    void show_dict();
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;

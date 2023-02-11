@@ -21,6 +21,8 @@ HEADERS     = block-base.h \
               block-logic.h \
               block-loop.h \
               block-variable.h \
+              block-array.h \
+              block-dict.h \
               main-window.h 
 
 
@@ -41,6 +43,8 @@ SOURCES     = block-base.cpp \
               block-logic.cpp \ 
               block-loop.cpp \
               block-variable.cpp \ 
+              block-array.cpp \
+              block-dict.cpp \
               main.cpp
 
 # install

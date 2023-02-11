@@ -20,6 +20,8 @@ public:
     QPushButton *function_btn;
     QPushButton *variable_btn;
     QPushButton *input_output_btn;
+    QPushButton *list_btn;
+    QPushButton *dict_btn;
 };
 
 
