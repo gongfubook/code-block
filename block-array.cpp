@@ -28,8 +28,6 @@ void block_array::createPixmap(){
     font.setPointSize(font_size);
     font.setLetterSpacing(QFont::AbsoluteSpacing, 2);
     painter.setFont(font);
-    QFontMetrics fm = painter.fontMetrics();
-    int width_text = fm.horizontalAdvance(block_text);
     painter.drawText(block_point.x() + 5, (block_height - font_size) + (block_height - font_size) / 2, block_text);
     
     painter.end();
