@@ -4,6 +4,9 @@
 #define __BLOCK_BASE__
 
 #include <stdint.h>
+#include <memory>
+#include <string>
+
 #include <QWidget>
 #include <Qcolor>
 
@@ -17,13 +20,42 @@
 
 /**
  * 代码块的接口类
+ * 接口类的方法子类必须实现
 */
 class block{
     virtual void createPixmap() = 0;
 };
 
 /**
- * 代码块常用方法类
+ * 在模板中获取类名
+*/
+namespace internal
+{
+    constexpr const static unsigned int FRONT_SIZE = sizeof("static const char* internal::GetTypeNameHelper<T>::GetTypeName() [with T = ") - 1u;
+    constexpr const static unsigned int BACK_SIZE = sizeof("]") - 1u;
+    
+    template <typename T>
+    struct GetTypeNameHelper
+    {
+        static const char* GetTypeName(void)
+        {
+            constexpr const static size_t size = sizeof(__PRETTY_FUNCTION__) - FRONT_SIZE - BACK_SIZE;
+            static char typeName[size] = {};
+            memcpy(typeName, __PRETTY_FUNCTION__ + FRONT_SIZE, size - 1u);
+            return typeName;
+        }
+    };
+}
+ 
+template <typename T>
+const char* GetTypeName(void)
+{
+    return internal::GetTypeNameHelper<T>::GetTypeName();
+}
+
+/**
+ * 代码块的接口类，代码块类方法集合
+ * 子类不必实现 Base 类中所有方法
 */
 template<typename T>
 class Base : public QLabel, block{
@@ -65,8 +97,7 @@ class Base : public QLabel, block{
     }
 
     QString block_base::whatsThisBlockName(){
-        T* self = static_cast<T*>(this);
-        return "base";
+        return GetTypeName<T>();
     }
 };
 
