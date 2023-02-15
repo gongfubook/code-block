@@ -42,7 +42,7 @@ void block_string::setPixmap(const QPixmap& pixmap){
 }
 
 QPixmap block_string::getPixmap(){
-    return block_pixmap;
+    return grab();
 }
 
 void block_string::setPoint(const QPoint& point){
@@ -58,6 +58,7 @@ bool block_string::isParentBlock(){
 
 QString block_string::toCode(){
     return "\"" + edit->text() + "\"";
+    
 }
 
 QString block_string::whatsThisBlockName(){

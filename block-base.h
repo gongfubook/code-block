@@ -47,6 +47,15 @@ QPainterPath createPath(
     enum Connector down
 );
 
+template<typename T>
+class Base{
+public:
+    int get_a(){
+        T* self = static_cast<T*>(this);
+        return self->a;
+    }
+};
+
 class block_base : public QLabel, block{
 public:
     int widget_width{WIDGET_WIDTH}, widget_height{WIDGET_HEIGHT};
@@ -63,6 +72,7 @@ public:
     virtual void insertCode(const QString &code) Q_DECL_OVERRIDE;
     virtual QString toCode() Q_DECL_OVERRIDE;
     virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
+    virtual bool up();
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;

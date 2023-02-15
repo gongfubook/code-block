@@ -1,13 +1,8 @@
-
 #include "block-io.h"
-
-
 #include <QPainter>
 #include <QPen>
 #include <QDebug>
 #include <QLabel>
-
-
 
 block_print::block_print(QWidget *parent=nullptr, bool read_only=true): block_base(parent), read_only(read_only){
     resize(widget_width, widget_height); 
@@ -41,7 +36,7 @@ void block_print::setPixmap(const QPixmap& pixmap){
 }
 
 QPixmap block_print::getPixmap(){
-    return block_pixmap;
+    return grab();
 }
 
 void block_print::setPoint(const QPoint& point){
@@ -51,6 +46,7 @@ void block_print::setPoint(const QPoint& point){
 QPoint block_print::getPoint(){
     return pos();
 }
+
 bool block_print::isParentBlock(){
     return false;
 }
