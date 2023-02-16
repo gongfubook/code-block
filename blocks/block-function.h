@@ -6,7 +6,7 @@
 #include "block-base.h"
 #include <QLineEdit>
 
-class block_function: public block_base {
+class block_function: public Base<block_function> {
 public:
     int widget_width{WIDGET_FUNCTION_WIDTH}, widget_height{WIDGET_FUNCTION_HEIGHT};
     int block_width{BLOCK_FUNCTION_WIDTH}, block_height{BLOCK_FUNCTION_HEIGHT};
@@ -17,12 +17,6 @@ public:
     bool read_only;
     block_function(QWidget *parent, bool read_only);
     virtual void createPixmap() Q_DECL_OVERRIDE;
-    virtual void setPixmap(const QPixmap& pixmap) Q_DECL_OVERRIDE;
-    virtual QPixmap getPixmap() Q_DECL_OVERRIDE;
-    virtual void setPoint(const QPoint& point) Q_DECL_OVERRIDE;
-    virtual QPoint getPoint() Q_DECL_OVERRIDE;
-    virtual QString toCode() Q_DECL_OVERRIDE;
-    virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
@@ -30,7 +24,6 @@ private:
     QColor color_back = rgbColor(FUNCTION_COLOR);
     int font_size{12};
     QPoint startPos;
-    QPainterPath block_path;
     QString block_text = "函数";
     QPixmap block_pixmap;
     QString code_text;

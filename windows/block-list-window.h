@@ -1,5 +1,5 @@
-#ifndef __BLOCK_LIST__
-#define __BLOCK_LIST__
+#ifndef __BLOCK_LIST_WINDOW__
+#define __BLOCK_LIST_WINDOW__
 
 #include <QFrame>
 #include <QVBoxLayout>
@@ -57,4 +57,4 @@ protected:
 };
 
 
-#endif // __BLOCK_LIST__
+#endif // __BLOCK_LIST_WINDOW__

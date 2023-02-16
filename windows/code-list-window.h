@@ -1,5 +1,5 @@
-#ifndef __CODE_LIST__
-#define __CODE_LIST__
+#ifndef __CODE_LIST_WINDOW__
+#define __CODE_LIST_WINDOW__
 
 
 #include <QFrame>
@@ -22,4 +22,4 @@ protected:
 };
 
 
-#endif // __CODE_LIST__
+#endif // __CODE_LIST_WINDOW__

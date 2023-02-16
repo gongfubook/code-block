@@ -1,5 +1,5 @@
-#ifndef __CODE_DISPLAY__
-#define __CODE_DISPLAY__
+#ifndef __CODE_DISPLAY_WINDOW__
+#define __CODE_DISPLAY_WINDOW__
 
 
 #include <QFrame>
@@ -15,4 +15,4 @@ public:
 };
 
 
-#endif // __CODE_DISPLAY__
+#endif // __CODE_DISPLAY_WINDOW__

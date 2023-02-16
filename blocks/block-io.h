@@ -6,7 +6,7 @@
 #include "block-base.h"
 #include <QLineEdit>
 
-class block_print: public block_base {
+class block_print: public Base<block_print> {
 public:
     int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};

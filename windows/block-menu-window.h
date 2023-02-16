@@ -1,6 +1,6 @@
 
-#ifndef __BLOCK_MENU__
-#define __BLOCK_MENU__
+#ifndef __BLOCK_MENU_WINDOW__
+#define __BLOCK_MENU_WINDOW__
 
 
 #include <QFrame>
@@ -25,4 +25,4 @@ public:
 };
 
 
-#endif // __BLOCK_MENU__
+#endif // __BLOCK_MENU_WINDOW__

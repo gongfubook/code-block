@@ -1,5 +1,5 @@
-#ifndef __OUTPUT_DISPLAY__
-#define __OUTPUT_DISPLAY__
+#ifndef __OUTPUT_WINDOW__
+#define __OUTPUT_WINDOW__
 
 
 #include <QFrame>
@@ -15,4 +15,4 @@ public:
 };
 
 
-#endif // __OUTPUT_DISPLAY__
+#endif // __OUTPUT_WINDOW__
