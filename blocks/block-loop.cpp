@@ -4,7 +4,7 @@
 #include <QLabel>
 #include "block-loop.h"
 
-block_loop::block_loop(QWidget *parent=nullptr): block_base(parent){
+block_loop::block_loop(QWidget *parent=nullptr): Base(parent){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();

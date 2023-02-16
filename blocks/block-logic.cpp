@@ -4,7 +4,7 @@
 #include <QLabel>
 #include "block-logic.h"
 
-block_logic::block_logic(QWidget *parent=nullptr): block_base(parent){
+block_logic::block_logic(QWidget *parent=nullptr): Base(parent){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();

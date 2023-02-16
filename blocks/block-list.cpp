@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QLabel>
 
-block_array::block_array(QWidget *parent=nullptr): block_base(parent){
+block_array::block_array(QWidget *parent=nullptr): Base(parent){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();

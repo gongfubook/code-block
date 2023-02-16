@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QLabel>
 
-block_string::block_string(QWidget *parent=nullptr, bool read_only=true): block_base(parent), read_only(read_only){
+block_string::block_string(QWidget *parent=nullptr, bool read_only=true): Base(parent), read_only(read_only){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();

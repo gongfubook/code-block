@@ -9,7 +9,7 @@
 
 
 
-block_function::block_function(QWidget *parent=nullptr, bool read_only=true): block_base(parent), read_only(read_only){
+block_function::block_function(QWidget *parent=nullptr, bool read_only=true): Base(parent), read_only(read_only){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
