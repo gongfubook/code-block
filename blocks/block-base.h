@@ -23,7 +23,9 @@
  * 接口类的方法子类必须实现
 */
 class block{
+public:
     virtual void createPixmap() = 0;
+    virtual QString toCode() = 0;
 };
 
 /**
@@ -59,6 +61,7 @@ const char* GetTypeName(void)
 */
 template<typename T>
 class Base : public QLabel, block{
+public:
     Base(QWidget * parent): QLabel(parent){}
     virtual void createPixmap(){}
     void block_base::setPixmap(const QPixmap& pixmap){
