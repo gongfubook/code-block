@@ -3,6 +3,7 @@
 
 #include <QPainterPath>
 #include "block-types.h"
+#include <QPainter>
 
 /**
  * 绘制路径
@@ -18,6 +19,9 @@ QPainterPath createPath(
     enum Connector down
 );
 
+void createText(QPainter &painter);
+
+QPixmap createBlockPixmap();
 
 
 #endif // __BLOCK_PAINT__
