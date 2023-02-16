@@ -50,30 +50,6 @@ void block_function::createPixmap(){
     painter.end();
 }
 
-void block_function::setPixmap(const QPixmap& pixmap){
-    block_pixmap = pixmap;
-}
-
-QPixmap block_function::getPixmap(){
-    return block_pixmap;
-}
-
-void block_function::setPoint(const QPoint& point){
-    move(point);
-}
-
-QPoint block_function::getPoint(){
-    return pos();
-}
-
-QString block_function::toCode(){
-    return code_text;
-}
-
-QString block_function::whatsThisBlockName(){
-    return "function";
-}
-
 void block_function::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

@@ -34,30 +34,6 @@ void block_loop::createPixmap(){
     painter.end();
 }
 
-void block_loop::setPixmap(const QPixmap& pixmap){
-    block_pixmap = pixmap;
-}
-
-QPixmap block_loop::getPixmap(){
-    return block_pixmap;
-}
-
-void block_loop::setPoint(const QPoint& point){
-    move(point);
-}
-
-QPoint block_loop::getPoint(){
-    return pos();
-}
-
-QString block_loop::toCode(){
-    return code_text;
-}
-
-QString block_loop::whatsThisBlockName(){
-    return "logic";
-}
-
 void block_loop::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
     QPainter painter(this);

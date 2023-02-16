@@ -31,34 +31,6 @@ void block_print::createPixmap(){
     painter.end();
 }
 
-void block_print::setPixmap(const QPixmap& pixmap){
-    block_pixmap = pixmap;
-}
-
-QPixmap block_print::getPixmap(){
-    return grab();
-}
-
-void block_print::setPoint(const QPoint& point){
-    move(point);
-}
-
-QPoint block_print::getPoint(){
-    return pos();
-}
-
-bool block_print::isParentBlock(){
-    return false;
-}
-
-QString block_print::toCode(){
-    return "\tprint()\n";
-}
-
-QString block_print::whatsThisBlockName(){
-    return "output";
-}
-
 void block_print::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

@@ -33,33 +33,6 @@ void block_dict::createPixmap(){
     painter.end();
 }
 
-void block_dict::setPixmap(const QPixmap& pixmap){
-    block_pixmap = pixmap;
-}
-
-QPixmap block_dict::getPixmap(){
-    return block_pixmap;
-}
-
-void block_dict::setPoint(const QPoint& point){
-    move(point);
-}
-
-QPoint block_dict::getPoint(){
-    return pos();
-}
-bool block_dict::isParentBlock(){
-    return false;
-}
-
-QString block_dict::toCode(){
-    return code_text;
-}
-
-QString block_dict::whatsThisBlockName(){
-    return "dict";
-}
-
 void block_dict::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

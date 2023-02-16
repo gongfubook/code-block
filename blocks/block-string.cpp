@@ -37,33 +37,7 @@ void block_string::createPixmap(){
     painter.end();
 }
 
-void block_string::setPixmap(const QPixmap& pixmap){
-    block_pixmap = pixmap;
-}
 
-QPixmap block_string::getPixmap(){
-    return grab();
-}
-
-void block_string::setPoint(const QPoint& point){
-    move(point);
-}
-
-QPoint block_string::getPoint(){
-    return pos();
-}
-bool block_string::isParentBlock(){
-    return false;
-}
-
-QString block_string::toCode(){
-    return "\"" + edit->text() + "\"";
-    
-}
-
-QString block_string::whatsThisBlockName(){
-    return "string";
-}
 
 void block_string::paintEvent(QPaintEvent *event)
 {

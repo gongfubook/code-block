@@ -33,32 +33,6 @@ void block_array::createPixmap(){
     painter.end();
 }
 
-void block_array::setPixmap(const QPixmap& pixmap){
-    block_pixmap = pixmap;
-}
-
-QPixmap block_array::getPixmap(){
-    return block_pixmap;
-}
-
-void block_array::setPoint(const QPoint& point){
-    move(point);
-}
-
-QPoint block_array::getPoint(){
-    return pos();
-}
-bool block_array::isParentBlock(){
-    return false;
-}
-
-QString block_array::toCode(){
-    return code_text;
-}
-
-QString block_array::whatsThisBlockName(){
-    return "list";
-}
 
 void block_array::paintEvent(QPaintEvent *event)
 {
