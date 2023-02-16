@@ -37,8 +37,6 @@ void block_string::createPixmap(){
     painter.end();
 }
 
-
-
 void block_string::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

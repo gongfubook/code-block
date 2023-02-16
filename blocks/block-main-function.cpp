@@ -39,38 +39,6 @@ void block_main_function::createPixmap(){
     painter.end();
 }
 
-void block_main_function::setPixmap(const QPixmap& pixmap){
-    block_pixmap = pixmap;
-}
-
-QPixmap block_main_function::getPixmap(){
-    return block_pixmap;
-}
-
-void block_main_function::setPoint(const QPoint& point){
-    move(point);
-}
-
-QPoint block_main_function::getPoint(){
-    return pos();
-}
-
-bool block_main_function::isParentBlock(){
-    return true;
-}
-
-void block_main_function::insertCode(const QString &code){
-    code_text.append(code);
-}
-
-QString block_main_function::toCode(){
-    return code_text_begin + code_text + code_text_end;
-}
-
-QString block_main_function::whatsThisBlockName(){
-    return "main function";
-}
-
 void block_main_function::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

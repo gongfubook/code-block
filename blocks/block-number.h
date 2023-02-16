@@ -15,7 +15,6 @@ public:
     bool read_only;
     block_number(QWidget *parent, bool read_only);
     virtual void createPixmap() Q_DECL_OVERRIDE;
-    virtual QString toCode() Q_DECL_OVERRIDE;
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;

@@ -25,7 +25,6 @@
 class block{
 public:
     virtual void createPixmap() = 0;
-    virtual QString toCode() = 0;
 };
 
 /**

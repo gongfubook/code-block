@@ -32,11 +32,6 @@ void block_number::createPixmap(){
     painter.end();
 }
 
-QString block_number::toCode(){
-    return edit->text();
-}
-
-
 void block_number::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
