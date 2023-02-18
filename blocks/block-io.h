@@ -10,23 +10,15 @@ class block_print: public Base<block_print> {
 public:
     int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
-    QPoint block_point = QPoint(BLOCK_X, BLOCK_Y);
-
     BlockConnector connector{none, female, female, male};
-    block_print(QWidget *parent, bool read_only);
-    virtual void createPixmap();
-
-
-protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-private:
-    QColor color_back = rgbColor(FUNCTION_COLOR);
-    int font_size{12};
-    QPoint startPos;
-    QPainterPath block_path;
+    int color_back = FUNCTION_COLOR;
     QString block_text = "输出";
     QPixmap block_pixmap;
     QString code_text;
+    block_print(QWidget *parent);
+    virtual void createPixmap();
+protected:
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
 
 

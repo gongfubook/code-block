@@ -36,10 +36,10 @@ QPainterPath createPath(
  * 在代码块上绘制文字
 */
 void createText(
-    QPainter &painter,
+    QPixmap &block_pixmap,
     QString block_text,
     int block_width,
-    enum TextAlign aligen
+    enum TextAlign aligen = TextAlign::center
 );
 
 

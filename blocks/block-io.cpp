@@ -3,8 +3,9 @@
 #include <QPen>
 #include <QDebug>
 #include <QLabel>
+#include "block-paint.h"
 
-block_print::block_print(QWidget *parent=nullptr, bool read_only=true): Base(parent), read_only(read_only){
+block_print::block_print(QWidget *parent=nullptr): Base(parent){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
@@ -13,22 +14,8 @@ block_print::block_print(QWidget *parent=nullptr, bool read_only=true): Base(par
 }
 
 void block_print::createPixmap(){
-    block_pixmap = QPixmap(widget_width, widget_height);
-    block_pixmap.fill(Qt::transparent);
-    QPainter painter(&block_pixmap);
-    painter.setPen(Qt::white);
-    painter.setBrush(color_back);
-    block_path = createPath(block_point.x(), block_point.y(), block_width, block_height, block_left, block_right, block_up, block_down);
-    painter.drawPath(block_path);
-    QFont font;
-    font.setFamily("Microsoft YaHei");
-    font.setPointSize(font_size);
-    font.setLetterSpacing(QFont::AbsoluteSpacing, 2);
-
-    painter.setFont(font);
-    QFontMetrics fm = painter.fontMetrics();
-    painter.drawText(block_point.x() + 5, (block_height - font_size) + (block_height - font_size) / 2, block_text);
-    painter.end();
+    block_pixmap = createBlockPixmap(widget_width, widget_height, block_width, block_height, connector, color_back);
+    createText(block_pixmap, block_text, block_width);
 }
 
 void block_print::paintEvent(QPaintEvent *event)

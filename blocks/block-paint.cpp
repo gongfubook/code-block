@@ -77,11 +77,12 @@ QPainterPath createPath(
 }
 
 void createText(
-    QPainter &painter,
+    QPixmap &block_pixmap,
     QString block_text,
     int block_width,
     enum TextAlign aligen
 ){
+    QPainter painter(&block_pixmap);
     QFont font;
     font.setFamily(BLOCK_TEXT_STYLE);
     font.setPointSize(BLOCK_TEXT_SIZE);
