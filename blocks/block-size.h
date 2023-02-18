@@ -18,8 +18,7 @@ constexpr const int BLOCK_FUNCTION_WIDTH = BLOCK_WIDTH;
 constexpr const int BLOCK_FUNCTION_HEIGHT = BLOCK_HEIGHT * 3;
 constexpr const int BLOCK_FUNCTION_LEFT_WIDTH = 20;
 
-// 代码块上绘制文字的大小
-constexpr const int BLOCK_TEXT_SIZE = 12;
+
 
 
 #endif // __BLOCK_SIZE__

@@ -11,17 +11,11 @@ public:
     int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
     QPoint block_point = QPoint(BLOCK_X, BLOCK_Y);
-    Connector block_left{none}, block_right{female}, block_up{female}, block_down{male};
-    bool read_only;
+
+    BlockConnector connector{none, female, female, male};
     block_print(QWidget *parent, bool read_only);
     virtual void createPixmap();
-    virtual void setPixmap(const QPixmap& pixmap);
-    virtual QPixmap getPixmap();
-    virtual void setPoint(const QPoint& point);
-    virtual QPoint getPoint();
-    virtual bool isParentBlock();
-    virtual QString toCode() Q_DECL_OVERRIDE;
-    virtual QString whatsThisBlockName();
+
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
