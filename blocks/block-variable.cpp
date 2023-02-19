@@ -1,10 +1,5 @@
 #include "block-variable.h"
-
-
-#include <QPainter>
-#include <QPen>
-#include <QDebug>
-#include <QLabel>
+#include "block-paint.h"
 
 block_variable::block_variable(QWidget *parent=nullptr, bool read_only=true): Base(parent), read_only(read_only){
     resize(widget_width, widget_height); 
@@ -15,26 +10,13 @@ block_variable::block_variable(QWidget *parent=nullptr, bool read_only=true): Ba
 }
 
 void block_variable::createPixmap(){
-    block_pixmap = QPixmap(widget_width, widget_height);
-    block_pixmap.fill(Qt::transparent);
-    QPainter painter(&block_pixmap);
-    painter.setPen(Qt::white);
-    painter.setBrush(color_back);
-    block_path = createPath(block_point.x(), block_point.y(), block_width, block_height, block_left, block_right, block_up, block_down);
-    painter.drawPath(block_path);
-
-    painter.drawText(block_point.x() + 5, (block_height - font_size) + (block_height - font_size) / 2, block_text);
-    edit = new QLineEdit(this);
-    edit->setStyleSheet("QLineEdit{border-width:0;border-style:outset;background-color:white;border-radius:10px;}");
-    edit->setMinimumWidth(20);
-    edit->setMaximumWidth(block_width - 10);
-    edit->setMinimumHeight(block_height - 10);
-    edit->setMaximumHeight(block_height - 10);
-    edit->move((block_width - edit->width()) / 2, block_point.y() + 6);
-    edit->setText("");
-    edit->setReadOnly(read_only);
+    block_pixmap = createBlockPixmap(widget_width, widget_height, block_width, block_height, connector, color_back);
+    edit = createQLineEdit(this, "", block_width, block_height, read_only);
     edit->show();
-    painter.end();
+}
+
+QString block_variable::get_edit_text(){
+    return edit->text();
 }
 
 void block_variable::paintEvent(QPaintEvent *event)

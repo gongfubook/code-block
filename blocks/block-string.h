@@ -10,21 +10,19 @@ class block_string: public Base<block_string> {
 public:
     int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
-    QPoint block_point = QPoint(BLOCK_X, BLOCK_Y);
-    Connector block_left{male}, block_right{none}, block_up{none}, block_down{none};
+    BlockConnector connector{male, none, none, none};
     bool read_only;
+    int color_back = STRING_COLOR;
+    bool is_parent_block = false;
+    QPixmap block_pixmap;
+    QString code_text = "";
     block_string(QWidget *parent, bool read_only);
     virtual void createPixmap() Q_DECL_OVERRIDE;
+    QString get_edit_text();
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 private:
-    QColor color_back = rgbColor(STRING_COLOR);
-    int font_size{12};
-    QPoint startPos;
-    QString block_text = "";
-    QPixmap block_pixmap;
-    QString code_text;
     QLineEdit* edit;
 };
 
