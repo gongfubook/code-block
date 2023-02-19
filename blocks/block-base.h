@@ -25,6 +25,7 @@
 class block{
 public:
     virtual void createPixmap() = 0;
+    virtual void insertCode(const QString &code) = 0;
 };
 
 /**
@@ -63,42 +64,27 @@ class Base : public QLabel, block{
 public:
     Base(QWidget * parent): QLabel(parent){}
     virtual void createPixmap(){}
-    void block_base::setPixmap(const QPixmap& pixmap){
+    void setPixmap(const QPixmap& pixmap){
         T* self = static_cast<T*>(this);
         self->block_pixmap = pixmap;
     }
 
-    QPixmap block_base::getPixmap(){
+    QPixmap getPixmap(){
         T* self = static_cast<T*>(this);
         return self->block_pixmap;
     }
 
-    void block_base::setPoint(const QPoint& point){
+    bool isParentBlock(){
         T* self = static_cast<T*>(this);
-        self->move(point);
+        return self->is_parent_block;
     }
 
-    QPoint block_base::getPoint(){
-        T* self = static_cast<T*>(this);
-        return self->pos();
-    }
-
-    bool block_base::isParentBlock(){
-        T* self = static_cast<T*>(this);
-        return false;
-    }
-
-    void block_base::insertCode(const QString &code){
-        T* self = static_cast<T*>(this);
-        return;
-    }
-
-    QString block_base::toCode(){
+    QString toCode(){
         T* self = static_cast<T*>(this);
         return self->code_text;
     }
 
-    QString block_base::whatsThisBlockName(){
+    QString whatsThisBlockName(){
         return GetTypeName<T>();
     }
 };
