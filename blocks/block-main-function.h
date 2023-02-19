@@ -9,26 +9,26 @@
 
 class block_main_function: public Base<block_function> {
 public:
-    int widget_width{WIDGET_FUNCTION_WIDTH}, widget_height{WIDGET_FUNCTION_HEIGHT};
-    int block_width{BLOCK_FUNCTION_WIDTH}, block_height{BLOCK_FUNCTION_HEIGHT};
-    QPoint block_point = QPoint(BLOCK_X, BLOCK_Y);
-    Connector block_left_up{none}, block_right_up{none}, block_up_up{none}, block_down_up{male};
-    Connector block_left_left{none}, block_right_left{none}, block_up_left{none}, block_down_left{none};
-    Connector block_left_down{none}, block_right_down{none}, block_up_down{female}, block_down_down{none};
-    bool read_only;
-    block_main_function(QWidget *parent, bool read_only);
-    
-    virtual void createPixmap();
-protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-private:
-    QColor color_back = rgbColor(FUNCTION_COLOR);
-    int font_size{12};
-    QPixmap block_pixmap;
+    int row = 3;
+    int widget_width{WIDGET_WIDTH + BLOCK_LEFT_WIDTH}, widget_height{WIDGET_HEIGHT * row};
+    int block_width{BLOCK_WIDTH}, block_height{BLOCK_HEIGHT};
+    const QVector<BlockShape> withInsideBlocks{
+        {BLOCK_LEFT_WIDTH, WIDGET_HEIGHT, {none, none, none, none}},
+        {block_width, block_height, {none, female, male, none}},
+        {block_width, block_height, {female, none, none, none}}
+    };
+    int color_back = FUNCTION_COLOR;
+    bool is_parent_block = true;
     QString block_text = "主函数";
+    QPixmap block_pixmap;
     QString code_text_begin = "int main(int argc, char* argv[]) {\n";
     QString code_text_end = "\treturn 0;\n}\n";
-    QString code_text;
+    QString code_text = "";
+    block_main_function(QWidget *parent);
+    virtual void createPixmap() Q_DECL_OVERRIDE;
+    virtual void insertCode(const QString &code) Q_DECL_OVERRIDE {};
+protected:
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
 
 

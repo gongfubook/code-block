@@ -78,7 +78,7 @@ QPainterPath createPath(
 
 void createText(
     QPixmap &block_pixmap,
-    QString block_text,
+    const QString &block_text,
     int block_width,
     enum TextAlign aligen
 ){
@@ -123,18 +123,19 @@ void createBlockPixmap(
 void createWithInsideBlockPixmap(
     QPixmap &block_pixmap,
     const QVector<BlockShape> &withInsideBlocks,
-    const int block_color
+    const int block_color,
+    const int row
 ){
     block_pixmap.fill(Qt::transparent);
     QPainter painter(&block_pixmap);
     QColor color_back = rgbColor(block_color);
     painter.setPen(color_back);
     painter.setBrush(color_back);
-    QPainterPath block_path = createPath(BLOCK_X, BLOCK_Y, withInsideBlocks[0].block_width, withInsideBlocks[0].block_height, withInsideBlocks[0].connector);
+    QPainterPath block_path = createPath(BLOCK_X, BLOCK_Y, withInsideBlocks[0].block_width, withInsideBlocks[0].block_height * row, withInsideBlocks[0].connector);
     painter.drawPath(block_path);
     block_path = createPath(BLOCK_X + BLOCK_LEFT_WIDTH, BLOCK_Y,  withInsideBlocks[1].block_width, withInsideBlocks[1].block_height, withInsideBlocks[1].connector);
     painter.drawPath(block_path);
-    block_path = createPath(BLOCK_X + BLOCK_LEFT_WIDTH, BLOCK_Y + BLOCK_HEIGHT * 2, withInsideBlocks[2].block_width, withInsideBlocks[2].block_height, withInsideBlocks[2].connector);
+    block_path = createPath(BLOCK_X + BLOCK_LEFT_WIDTH, BLOCK_Y + BLOCK_HEIGHT * (row - 1), withInsideBlocks[2].block_width, withInsideBlocks[2].block_height, withInsideBlocks[2].connector);
     painter.drawPath(block_path);
 }
 

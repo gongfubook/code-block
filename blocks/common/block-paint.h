@@ -37,7 +37,7 @@ QPainterPath createPath(
 */
 void createText(
     QPixmap &block_pixmap,
-    QString block_text,
+    const QString &block_text,
     int block_width,
     enum TextAlign aligen = TextAlign::center
 );
@@ -59,7 +59,8 @@ void createBlockPixmap(
 void createWithInsideBlockPixmap(
     QPixmap &block_pixmap,
     const QVector<BlockShape> &withInsideBlocks,
-    const int block_color
+    const int block_color,
+    const int row
 );
 
 
