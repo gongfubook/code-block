@@ -82,6 +82,9 @@ public:
 
     QString toCode(){
         T* self = static_cast<T*>(this);
+        if (self->code_text.empyt()) {
+            return self->get_edit_text();
+        }
         return self->code_text;
     }
 
