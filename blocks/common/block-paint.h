@@ -4,7 +4,7 @@
 #include <QPainterPath>
 #include "block-types.h"
 #include <QPainter>
-
+#include <QLineEdit>
 
 
 /**
@@ -53,6 +53,18 @@ QPixmap createBlockPixmap(
     const int block_height,
     const BlockConnector& connector,
     const int block_color
+);
+
+
+/**
+ * 创建一个输入框
+*/
+QLineEdit* createQLineEdit(
+    QWidget *parent,
+    const QString& text,
+    const int block_width,
+    const int block_height,
+    const bool read_only
 );
 
 

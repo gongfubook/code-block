@@ -123,3 +123,22 @@ QPixmap createBlockPixmap(
     QPainterPath block_path = createPath(BLOCK_X, BLOCK_Y, block_width, block_height, connector);
     painter.drawPath(block_path);
 }
+
+QLineEdit* createQLineEdit(
+    QWidget *parent,
+    const QString& text,
+    const int block_width,
+    const int block_height,
+    const bool read_only
+){
+    QLineEdit* edit = new QLineEdit(parent);
+    edit->setStyleSheet("QLineEdit{border-width:0;border-style:outset;background-color:white;border-radius:10px;}");
+    edit->setMinimumWidth(20);
+    edit->setMaximumWidth(block_width - 10);
+    edit->setMinimumHeight(block_height - 10);
+    edit->setMaximumHeight(block_height - 10);
+    edit->move((block_width - edit->width()) / 2, 11);
+    edit->setText(text);
+    edit->setReadOnly(read_only);
+    return edit;
+}
