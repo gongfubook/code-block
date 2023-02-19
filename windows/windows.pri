@@ -1,13 +1,13 @@
-HEADERS     = code-list-window.h \
-              block-list-window.h \
-              code-window.h \
-              output-window.h \
-              block-menu-window.h \
-              main-window.h 
+HEADERS    += $$PWD/code-list-window.h \
+              $$PWD/block-list-window.h \
+              $$PWD/code-window.h \
+              $$PWD/output-window.h \
+              $$PWD/block-menu-window.h \
+              $$PWD/main-window.h 
 
-SOURCES     = code-list-window.cpp \
-              block-list-window.cpp \
-              code-window.cpp \
-              output-window.cpp \ 
-              block-menu-window.cpp \
-              main-window.cpp 
+SOURCES    += $$PWD/code-list-window.cpp \
+              $$PWD/block-list-window.cpp \
+              $$PWD/code-window.cpp \
+              $$PWD/output-window.cpp \ 
+              $$PWD/block-menu-window.cpp \
+              $$PWD/main-window.cpp 

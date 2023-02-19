@@ -18,6 +18,10 @@ void block_print::createPixmap(){
     createText(block_pixmap, block_text, block_width);
 }
 
+void block_print::insertCode(const QString &code) {
+    QString code_text = code_text_begin + code + code_text_begin;
+}
+
 void block_print::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

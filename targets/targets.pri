@@ -1,3 +1,3 @@
 
 
-SOURCES =   main.cpp 
+SOURCES +=   $$PWD/main.cpp 

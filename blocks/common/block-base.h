@@ -64,6 +64,7 @@ class Base : public QLabel, block{
 public:
     Base(QWidget * parent): QLabel(parent){}
     virtual void createPixmap(){}
+    virtual void insertCode(const QString &code){}
     void setPixmap(const QPixmap& pixmap){
         T* self = static_cast<T*>(this);
         self->block_pixmap = pixmap;

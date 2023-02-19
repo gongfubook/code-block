@@ -1,29 +1,23 @@
-HEADERS =   block-base.h \
-            block-list.h \
-            block-color.h \
-            block-io.h \
-            block-function.h \
-            block-size.h \
-            block-main-function.h \
-            block-number.h \ 
-            block-string.h \ 
-            block-logic.h \
-            block-loop.h \
-            block-variable.h \
-            block-list.h \
-            block-dict.h 
+include($$PWD/common/blocks-common.pri)
 
+HEADERS +=  $$PWD/block-function.h \
+            $$PWD/block-main-function.h \
+            $$PWD/block-number.h \ 
+            $$PWD/block-string.h \ 
+            $$PWD/block-logic.h \
+            $$PWD/block-loop.h \
+            $$PWD/block-variable.h \
+            $$PWD/block-list.h \
+            $$PWD/block-dict.h \
+            $$PWD/block-io.h 
 
-SOURCES =   block-base.cpp \
-            block-color.cpp \
-            block-io.cpp \
-            block-function.cpp \
-            block-size.cpp \
-            block-main-function.cpp \
-            block-number.cpp \ 
-            block-string.cpp \ 
-            block-logic.cpp \ 
-            block-loop.cpp \
-            block-variable.cpp \ 
-            block-list.cpp \
-            block-dict.cpp \
+SOURCES +=  $$PWD/block-function.cpp \
+            $$PWD/block-main-function.cpp \
+            $$PWD/block-number.cpp \ 
+            $$PWD/block-string.cpp \ 
+            $$PWD/block-logic.cpp \ 
+            $$PWD/block-loop.cpp \
+            $$PWD/block-variable.cpp \ 
+            $$PWD/block-list.cpp \
+            $$PWD/block-dict.cpp \
+            $$PWD/block-io.cpp 
