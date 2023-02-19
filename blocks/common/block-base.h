@@ -89,6 +89,8 @@ public:
     }
 
     QString whatsThisBlockName(){
+        T* self = static_cast<T*>(this);
+        self->setWhatsThis(GetTypeName<T>());
         return GetTypeName<T>();
     }
 };

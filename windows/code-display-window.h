@@ -5,10 +5,10 @@
 #include <QFrame>
 #include <QTextEdit>
 
-class code_display : public QFrame
+class code_display_window : public QFrame
 {
 public:
-    explicit code_display(QWidget *parent = nullptr);
+    explicit code_display_window(QWidget *parent = nullptr);
     void setCodeText(const QString &code);
     QTextEdit * code_edit;
 

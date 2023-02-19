@@ -5,10 +5,10 @@
 #include <QFrame>
 #include <QTextEdit>
 
-class output_display : public QFrame
+class output_display_window : public QFrame
 {
 public:
-    explicit output_display(QWidget *parent = nullptr);
+    explicit output_display_window(QWidget *parent = nullptr);
     void setOutputText(const QString &output);
     QTextEdit * output_edit;
 

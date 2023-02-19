@@ -21,3 +21,7 @@ SOURCES +=  $$PWD/block-function.cpp \
             $$PWD/block-list.cpp \
             $$PWD/block-dict.cpp \
             $$PWD/block-io.cpp 
+
+
+
+INCLUDEPATH += $$PWD

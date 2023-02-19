@@ -20,7 +20,7 @@ void block_print::createPixmap(){
 }
 
 void block_print::insertCode(const QString &code) {
-    QString code_text = code_text_begin + code + code_text_begin;
+    QString code_text = code_text_begin + code + code_text_end;
 }
 
 void block_print::paintEvent(QPaintEvent *event)

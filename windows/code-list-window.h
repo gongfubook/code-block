@@ -9,10 +9,10 @@ class QDragEnterEvent;
 class QDropEvent;
 QT_END_NAMESPACE
 
-class code_list : public QFrame
+class code_list_window : public QFrame
 {
 public:
-    explicit code_list(QWidget *parent = nullptr);
+    explicit code_list_window(QWidget *parent = nullptr);
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;

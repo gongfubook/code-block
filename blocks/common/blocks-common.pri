@@ -8,4 +8,6 @@ HEADERS +=  $$PWD/block-base.h \
 SOURCES +=  $$PWD/block-color.cpp \
             $$PWD/block-paint.cpp \
             $$PWD/block-size.cpp 
-          
+
+
+INCLUDEPATH += $$PWD

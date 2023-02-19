@@ -1,8 +1,8 @@
 
-#include "block-menu.h"
+#include "block-menu-window.h"
 
 
-block_menu::block_menu(QWidget *parent)
+block_menu_window::block_menu_window(QWidget *parent)
     : QFrame(parent)
 {
     setMinimumSize(200, 200);

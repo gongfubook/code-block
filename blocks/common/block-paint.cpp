@@ -144,7 +144,8 @@ QLineEdit* createQLineEdit(
     const QString& text,
     const int block_width,
     const int block_height,
-    const bool read_only
+    const bool read_only,
+    enum TextAlign aligen
 ){
     QLineEdit* edit = new QLineEdit(parent);
     edit->setStyleSheet("QLineEdit{border-width:0;border-style:outset;background-color:white;border-radius:10px;}");
@@ -152,7 +153,7 @@ QLineEdit* createQLineEdit(
     edit->setMaximumWidth(block_width - 10);
     edit->setMinimumHeight(block_height - 10);
     edit->setMaximumHeight(block_height - 10);
-    edit->move((block_width - edit->width()) / 2, 11);
+    edit->move(BLOCK_X + (block_width - edit->width()) / 2, 11);
     edit->setText(text);
     edit->setReadOnly(read_only);
     return edit;

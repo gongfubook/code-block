@@ -1,6 +1,6 @@
 
 #include <QtWidgets>
-#include "block-list.h"
+#include "block-list-window.h"
 #include "block-io.h"
 #include "block-function.h"
 #include "block-number.h"
@@ -8,7 +8,7 @@
 #include "block-logic.h"
 #include "block-loop.h"
 #include "block-variable.h"
-#include "block-array.h"
+#include "block-list.h"
 #include "block-dict.h"
 
 block_class_list::block_class_list(QWidget *parent)
@@ -34,7 +34,7 @@ void block_class_list::block_class_list_hide(){
     hide();
 }
 
-block_list::block_list(QWidget *parent)
+block_list_window::block_list_window(QWidget *parent)
     : QFrame(parent)
 {
     setMinimumSize(200, 200);
@@ -67,11 +67,11 @@ block_list::block_list(QWidget *parent)
     code_variable_list = new block_class_list(this);
     code_variable_list->addWidget(b_variable);
     
-    block_print *b_print = new block_print(this, true);
+    block_print *b_print = new block_print(this);
     code_input_output_list = new block_class_list(this);
     code_input_output_list->addWidget(b_print);
 
-    block_array *b_list = new block_array(this);
+    block_list *b_list = new block_list(this);
     code_list_list = new block_class_list(this);
     code_list_list->addWidget(b_list);
 
@@ -83,7 +83,7 @@ block_list::block_list(QWidget *parent)
 
 }
 
-void block_list::show_number(){
+void block_list_window::show_number(){
     code_number_list->block_class_list_show();
     code_string_list->block_class_list_hide();
     code_logic_list->block_class_list_hide();
@@ -95,7 +95,7 @@ void block_list::show_number(){
     code_dict_list->block_class_list_hide();
 }
 
-void block_list::show_string(){
+void block_list_window::show_string(){
     code_number_list->block_class_list_hide();
     code_string_list->block_class_list_show();
     code_logic_list->block_class_list_hide();
@@ -107,7 +107,7 @@ void block_list::show_string(){
     code_dict_list->block_class_list_hide();
 }
 
-void block_list::show_logic(){
+void block_list_window::show_logic(){
     code_number_list->block_class_list_hide();
     code_string_list->block_class_list_hide();
     code_logic_list->block_class_list_show();
@@ -119,7 +119,7 @@ void block_list::show_logic(){
     code_dict_list->block_class_list_hide();
 }
 
-void block_list::show_loop(){
+void block_list_window::show_loop(){
     code_number_list->block_class_list_hide();
     code_string_list->block_class_list_hide();
     code_logic_list->block_class_list_hide();
@@ -131,7 +131,7 @@ void block_list::show_loop(){
     code_dict_list->block_class_list_hide();
 }
 
-void block_list::show_function(){
+void block_list_window::show_function(){
     code_number_list->block_class_list_hide();
     code_string_list->block_class_list_hide();
     code_logic_list->block_class_list_hide();
@@ -143,7 +143,7 @@ void block_list::show_function(){
     code_dict_list->block_class_list_hide();
 }
 
-void block_list::show_variable(){
+void block_list_window::show_variable(){
     code_number_list->block_class_list_hide();
     code_string_list->block_class_list_hide();
     code_logic_list->block_class_list_hide();
@@ -155,7 +155,7 @@ void block_list::show_variable(){
     code_dict_list->block_class_list_hide();
 }
 
-void block_list::show_input_output(){
+void block_list_window::show_input_output(){
     code_number_list->block_class_list_hide();
     code_string_list->block_class_list_hide();
     code_logic_list->block_class_list_hide();
@@ -167,7 +167,7 @@ void block_list::show_input_output(){
     code_dict_list->block_class_list_hide();
 }
 
-void block_list::show_list() {
+void block_list_window::show_list() {
     code_number_list->block_class_list_hide();
     code_string_list->block_class_list_hide();
     code_logic_list->block_class_list_hide();
@@ -179,7 +179,7 @@ void block_list::show_list() {
     code_dict_list->block_class_list_hide();
 }
 
-void block_list::show_dict() {
+void block_list_window::show_dict() {
     code_number_list->block_class_list_hide();
     code_string_list->block_class_list_hide();
     code_logic_list->block_class_list_hide();
@@ -191,7 +191,7 @@ void block_list::show_dict() {
     code_dict_list->block_class_list_show();
 }
 
-void block_list::dragEnterEvent(QDragEnterEvent *event)
+void block_list_window::dragEnterEvent(QDragEnterEvent *event)
 {
     if (event->mimeData()->hasFormat("application/x-dnditemdata")) {
         if (event->source() == this) {
@@ -205,7 +205,7 @@ void block_list::dragEnterEvent(QDragEnterEvent *event)
     }
 }
 
-void block_list::dragMoveEvent(QDragMoveEvent *event)
+void block_list_window::dragMoveEvent(QDragMoveEvent *event)
 {
     if (event->mimeData()->hasFormat("application/x-dnditemdata")) {
         if (event->source() == this) {
@@ -219,32 +219,32 @@ void block_list::dragMoveEvent(QDragMoveEvent *event)
     }
 }
 
-void block_list::dropEvent(QDropEvent *event)
+void block_list_window::dropEvent(QDropEvent *event)
 {
     event->ignore();
 }
 
-void block_list::mousePressEvent(QMouseEvent *event)
+void block_list_window::mousePressEvent(QMouseEvent *event)
 {
-    block_base *child = static_cast<block_base*>(childAt(event->pos()));
-    if (!child){
-        return;
-    }
-    QByteArray itemData;
-    QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << child->getPixmap() << QPoint(event->pos() - child->pos()) << child->whatsThisBlockName();
+    // block_base *child = static_cast<block_base*>(childAt(event->pos()));
+    // if (!child){
+    //     return;
+    // }
+    // QByteArray itemData;
+    // QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+    // dataStream << child->getPixmap() << QPoint(event->pos() - child->pos()) << child->whatsThisBlockName();
 
-    QMimeData *mimeData = new QMimeData;
-    mimeData->setData("application/x-dnditemdata", itemData);
+    // QMimeData *mimeData = new QMimeData;
+    // mimeData->setData("application/x-dnditemdata", itemData);
 
-    QDrag *drag = new QDrag(this);
-    drag->setMimeData(mimeData);
-    drag->setPixmap(child->getPixmap());
-    drag->setHotSpot(event->pos() - child->pos());
+    // QDrag *drag = new QDrag(this);
+    // drag->setMimeData(mimeData);
+    // drag->setPixmap(child->getPixmap());
+    // drag->setHotSpot(event->pos() - child->pos());
 
-    if (drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::CopyAction) == Qt::MoveAction) {
-        child->close();
-    } else {
-        child->show();
-    }
+    // if (drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::CopyAction) == Qt::MoveAction) {
+    //     child->close();
+    // } else {
+    //     child->show();
+    // }
 }

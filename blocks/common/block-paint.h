@@ -72,7 +72,8 @@ QLineEdit* createQLineEdit(
     const QString& text,
     const int block_width,
     const int block_height,
-    const bool read_only
+    const bool read_only,
+    enum TextAlign aligen = TextAlign::center
 );
 
 

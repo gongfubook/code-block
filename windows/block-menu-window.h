@@ -7,11 +7,11 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 
-class block_menu : public QFrame
+class block_menu_window : public QFrame
 {
     Q_OBJECT;
 public:
-    explicit block_menu(QWidget *parent = nullptr);
+    explicit block_menu_window(QWidget *parent = nullptr);
     QVBoxLayout *block_menu_vbox;
     QPushButton *math_btn;
     QPushButton *string_btn;

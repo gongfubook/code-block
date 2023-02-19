@@ -12,7 +12,7 @@ public:
     int widget_width{WIDGET_WIDTH + BLOCK_LEFT_WIDTH}, widget_height{WIDGET_HEIGHT * row};
     int block_width{BLOCK_WIDTH}, block_height{BLOCK_HEIGHT};
     const QVector<BlockShape> withInsideBlocks{
-        {BLOCK_LEFT_WIDTH, WIDGET_HEIGHT, {none, none, none, none}},
+        {BLOCK_LEFT_WIDTH, block_height, {none, none, none, none}},
         {block_width, block_height, {none, female, male, none}},
         {block_width, block_height, {female, none, none, none}}
     };

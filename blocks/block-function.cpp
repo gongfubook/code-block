@@ -13,7 +13,7 @@ block_function::block_function(QWidget *parent=nullptr, bool read_only=true): Ba
 void block_function::createPixmap(){
     block_pixmap = QPixmap(widget_width, widget_height);
     createWithInsideBlockPixmap(block_pixmap,withInsideBlocks, color_back, row);
-    createText(block_pixmap, block_text, block_width, TextAlign::left);
+    // createText(block_pixmap, block_text, block_width, TextAlign::left);
     edit = createQLineEdit(this, "函数1", block_width, block_height, read_only);
     edit->show();
 }

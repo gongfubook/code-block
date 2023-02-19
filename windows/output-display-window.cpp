@@ -1,10 +1,9 @@
-
-#include "output-display.h"
+#include "output-display-window.h"
 #include <QVBoxLayout>
 #include <QLabel>
 
 
-output_display::output_display(QWidget *parent)
+output_display_window::output_display_window(QWidget *parent)
     : QFrame(parent)
 {
     // setMaximumWidth(350);
@@ -23,6 +22,6 @@ output_display::output_display(QWidget *parent)
 }
 
 
-void output_display::setOutputText(const QString &output) {
+void output_display_window::setOutputText(const QString &output) {
     output_edit->setPlainText(output);
 }

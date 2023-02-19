@@ -20,11 +20,11 @@ public:
     void block_class_list_hide();
 };
 
-class block_list : public QFrame
+class block_list_window : public QFrame
 {
     Q_OBJECT;
 public:
-    explicit block_list(QWidget *parent = nullptr);
+    explicit block_list_window(QWidget *parent = nullptr);
 
     block_class_list *code_number_list;
     block_class_list *code_string_list;

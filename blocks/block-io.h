@@ -16,7 +16,7 @@ public:
     QString block_text = "输出";
     QPixmap block_pixmap;
     QString code_text_begin = "print(";
-    QString code_text_begin = ")";
+    QString code_text_end = ")";
     QString code_text = "print()";
     block_print(QWidget *parent);
     virtual void createPixmap() Q_DECL_OVERRIDE;

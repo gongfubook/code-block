@@ -1,10 +1,10 @@
 
-#include "code-display.h"
+#include "code-display-window.h"
 #include <QVBoxLayout>
 #include <QLabel>
 
 
-code_display::code_display(QWidget *parent)
+code_display_window::code_display_window(QWidget *parent)
     : QFrame(parent)
 {
     setMaximumWidth(350);
@@ -23,6 +23,6 @@ code_display::code_display(QWidget *parent)
     
 }
 
-void code_display::setCodeText(const QString &code) {
+void code_display_window::setCodeText(const QString &code) {
     code_edit->setPlainText(code);
 }
