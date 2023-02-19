@@ -10,7 +10,7 @@ class block_print: public Base<block_print> {
 public:
     int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
-    BlockConnector connector{none, female, female, male};
+    BlockShape block_shape{block_width, block_height, {none, female, female, male}};
     int color_back = FUNCTION_COLOR;
     bool is_parent_block = true;
     QString block_text = "输出";

@@ -7,7 +7,7 @@ class block_dict: public Base<block_dict> {
 public:
     int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
-    BlockConnector connector{male, none, none, none};
+    BlockShape block_shape{block_width, block_height, {male, none, none, none}};
     int color_back = DICT_COOLOR;
     bool is_parent_block = false;
     QString block_text = "创建空字典";

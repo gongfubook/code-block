@@ -12,7 +12,8 @@ block_number::block_number(QWidget *parent=nullptr, bool read_only=true): Base(p
 }
 
 void block_number::createPixmap(){
-    block_pixmap = createBlockPixmap(widget_width, widget_height, block_width, block_height, connector, color_back);
+    block_pixmap = QPixmap(widget_width, widget_height);
+    createBlockPixmap(block_pixmap, block_shape, color_back);
     edit = createQLineEdit(this, "123", block_width, block_height, read_only);
     edit->show();
 }

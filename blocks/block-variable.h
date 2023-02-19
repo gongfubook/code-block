@@ -10,7 +10,7 @@ class block_variable: public Base<block_variable> {
 public:
     int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
-    BlockConnector connector{none, female, none, none};
+    BlockShape block_shape{block_width, block_height, {none, female, none, none}};
     bool read_only;
     int color_back = VARIABLE_COLOR;
     bool is_parent_block = true;

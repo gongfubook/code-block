@@ -5,7 +5,7 @@
 #include "block-types.h"
 #include <QPainter>
 #include <QLineEdit>
-
+#include <QVector>
 
 /**
  * 文本对齐位置
@@ -46,12 +46,19 @@ void createText(
 /**
  * 绘制块
 */
-QPixmap createBlockPixmap(
-    const int widget_width, 
-    const int widget_height,
-    const int block_width, 
-    const int block_height,
-    const BlockConnector& connector,
+void createBlockPixmap(
+    QPixmap &block_pixmap,
+    const BlockShape& block,
+    const int block_color
+);
+
+
+/**
+ * 绘制C形状块
+*/
+void createWithInsideBlockPixmap(
+    QPixmap &block_pixmap,
+    const QVector<BlockShape> &withInsideBlocks,
     const int block_color
 );
 

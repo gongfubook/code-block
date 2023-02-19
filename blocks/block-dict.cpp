@@ -10,7 +10,8 @@ block_dict::block_dict(QWidget *parent=nullptr): Base(parent){
 }
 
 void block_dict::createPixmap(){
-    block_pixmap = createBlockPixmap(widget_width, widget_height, block_width, block_height, connector, color_back);
+    block_pixmap = QPixmap(widget_width, widget_height);
+    createBlockPixmap(block_pixmap, block_shape, color_back);
     createText(block_pixmap, block_text, block_width);
 }
 
