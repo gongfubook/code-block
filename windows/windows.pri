@@ -1,3 +1,5 @@
+include($$PWD/window-events/window-events.pri)
+
 HEADERS    += $$PWD/code-list-window.h \
               $$PWD/block-list-window.h \
               $$PWD/code-display-window.h \

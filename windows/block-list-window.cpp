@@ -226,26 +226,26 @@ void block_list_window::dropEvent(QDropEvent *event)
 
 void block_list_window::mousePressEvent(QMouseEvent *event)
 {
-    auto  x  = (block_base*)(childAt(event->pos()));
-    if (!x){
+    auto child  = (block_base*)(childAt(event->pos()));
+    if (!child){
         return;
     }
-    qDebug() << "mousePressEvent whatsThis -> " << x->whatsThisBlockName();
-    // QByteArray itemData;
-    // QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    // dataStream << child->getPixmap() << QPoint(event->pos() - child->pos()) << child->whatsThisBlockName();
+    qDebug() << "mousePressEvent whatsThis -> " << child->whatsThisBlockName();
+    QByteArray itemData;
+    QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+    dataStream << child->getPixmap() << QPoint(event->pos() - child->pos()) << child->whatsThisBlockName();
 
-    // QMimeData *mimeData = new QMimeData;
-    // mimeData->setData("application/x-dnditemdata", itemData);
+    QMimeData *mimeData = new QMimeData;
+    mimeData->setData("application/x-dnditemdata", itemData);
 
-    // QDrag *drag = new QDrag(this);
-    // drag->setMimeData(mimeData);
-    // drag->setPixmap(child->getPixmap());
-    // drag->setHotSpot(event->pos() - child->pos());
+    QDrag *drag = new QDrag(this);
+    drag->setMimeData(mimeData);
+    drag->setPixmap(child->getPixmap());
+    drag->setHotSpot(event->pos() - child->pos());
 
-    // if (drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::CopyAction) == Qt::MoveAction) {
-    //     child->close();
-    // } else {
-    //     child->show();
-    // }
+    if (drag->exec(Qt::CopyAction | Qt::MoveAction, Qt::CopyAction) == Qt::MoveAction) {
+        child->close();
+    } else {
+        child->show();
+    }
 }
