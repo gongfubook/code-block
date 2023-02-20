@@ -2,7 +2,7 @@
 #include "block-paint.h"
 
 
-block_function::block_function(QWidget *parent=nullptr, bool read_only=true): Base(parent), read_only(read_only){
+block_function::block_function(QWidget *parent=nullptr, bool read_only=true): block_base(parent), read_only(read_only){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
@@ -16,6 +16,26 @@ void block_function::createPixmap(){
     // createText(block_pixmap, block_text, block_width, TextAlign::left);
     edit = createQLineEdit(this, "函数1", block_width, block_height, read_only);
     edit->show();
+}
+
+QPixmap block_function::getPixmap(){
+    return grab();
+}
+
+bool block_function::isParentBlock(){
+    return false;
+}
+
+void block_function::insertCode(const QString &code){
+    return;
+}
+
+QString block_function::toCode(){
+    return code_text;
+}
+
+QString block_function::whatsThisBlockName(){
+    return "function";
 }
 
 void block_function::paintEvent(QPaintEvent *event)

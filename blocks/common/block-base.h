@@ -22,78 +22,39 @@
  * 代码块的接口类
  * 接口类的方法子类必须实现
 */
+
 class block{
-public:
     virtual void createPixmap() = 0;
+    virtual QPixmap getPixmap() = 0;
+    virtual bool isParentBlock() = 0;
     virtual void insertCode(const QString &code) = 0;
+    virtual QString toCode() = 0;
+    virtual QString whatsThisBlockName() = 0;
 };
 
-/**
- * 在模板中获取类名
-*/
-namespace internal
-{
-    constexpr const static unsigned int FRONT_SIZE = sizeof("static const char* internal::GetTypeNameHelper<T>::GetTypeName() [with T = ") - 1u;
-    constexpr const static unsigned int BACK_SIZE = sizeof("]") - 1u;
-    
-    template <typename T>
-    struct GetTypeNameHelper
-    {
-        static const char* GetTypeName(void)
-        {
-            constexpr const static size_t size = sizeof(__PRETTY_FUNCTION__) - FRONT_SIZE - BACK_SIZE;
-            static char typeName[size] = {};
-            memcpy(typeName, __PRETTY_FUNCTION__ + FRONT_SIZE, size - 1u);
-            return typeName;
-        }
-    };
-}
- 
-template <typename T>
-const char* GetTypeName(void)
-{
-    return internal::GetTypeNameHelper<T>::GetTypeName();
-}
 
-/**
- * 代码块的接口类，代码块类方法集合
- * 子类不必实现 Base 类中所有方法
-*/
-template<typename T>
-class Base : public QLabel, block{
+class block_base : public QLabel, block{
 public:
-    Base(QWidget * parent): QLabel(parent){}
-    virtual void createPixmap(){}
-    virtual void insertCode(const QString &code){}
-    void setPixmap(const QPixmap& pixmap){
-        T* self = static_cast<T*>(this);
-        self->block_pixmap = pixmap;
-    }
+    int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
+    int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
+    BlockShape block_shape{block_width, block_height, {none, none, none, none}};
+    bool read_only;
+    int color_back = VARIABLE_COLOR;
+    bool is_parent_block = true;
+    QPixmap block_pixmap;
+    QString code_text = "";
+    block_base(QWidget *parent);
+    virtual void createPixmap() Q_DECL_OVERRIDE;
+    virtual QPixmap getPixmap() Q_DECL_OVERRIDE;
+    virtual bool isParentBlock() Q_DECL_OVERRIDE;
+    virtual void insertCode(const QString &code) Q_DECL_OVERRIDE;
+    virtual QString toCode() Q_DECL_OVERRIDE;
+    virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
 
-    QPixmap getPixmap(){
-        T* self = static_cast<T*>(this);
-        return self->block_pixmap;
-    }
-
-    bool isParentBlock(){
-        T* self = static_cast<T*>(this);
-        return self->is_parent_block;
-    }
-
-    QString toCode(){
-        T* self = static_cast<T*>(this);
-        if (self->code_text.empyt()) {
-            return self->get_edit_text();
-        }
-        return self->code_text;
-    }
-
-    QString whatsThisBlockName(){
-        T* self = static_cast<T*>(this);
-        self->setWhatsThis(GetTypeName<T>());
-        return GetTypeName<T>();
-    }
+protected:
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
+
 
 
 

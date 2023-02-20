@@ -3,7 +3,7 @@
 #include "block-number.h"
 #include "block-paint.h"
 
-block_number::block_number(QWidget *parent=nullptr, bool read_only=true): Base(parent), read_only(read_only){
+block_number::block_number(QWidget *parent=nullptr, bool read_only=true): block_base(parent), read_only(read_only){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
@@ -18,8 +18,24 @@ void block_number::createPixmap(){
     edit->show();
 }
 
-QString block_number::get_edit_text(){
-    return edit->text();
+QPixmap block_number::getPixmap(){
+    return grab();
+}
+
+bool block_number::isParentBlock(){
+    return false;
+}
+
+void block_number::insertCode(const QString &code){
+    return;
+}
+
+QString block_number::toCode(){
+    return code_text;
+}
+
+QString block_number::whatsThisBlockName(){
+    return "number";
 }
 
 void block_number::paintEvent(QPaintEvent *event)

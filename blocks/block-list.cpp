@@ -1,7 +1,7 @@
 #include "block-list.h"
 #include "block-paint.h"
 
-block_list::block_list(QWidget *parent=nullptr): Base(parent){
+block_list::block_list(QWidget *parent=nullptr): block_base(parent){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
@@ -15,6 +15,25 @@ void block_list::createPixmap(){
     createText(block_pixmap, block_text, block_width);
 }
 
+QPixmap block_list::getPixmap(){
+    return grab();
+}
+
+bool block_list::isParentBlock(){
+    return false;
+}
+
+void block_list::insertCode(const QString &code){
+    return;
+}
+
+QString block_list::toCode(){
+    return code_text;
+}
+
+QString block_list::whatsThisBlockName(){
+    return "list";
+}
 
 void block_list::paintEvent(QPaintEvent *event)
 {

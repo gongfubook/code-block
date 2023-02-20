@@ -1,7 +1,7 @@
 #include "block-string.h"
 #include "block-paint.h"
 
-block_string::block_string(QWidget *parent=nullptr, bool read_only=true): Base(parent), read_only(read_only){
+block_string::block_string(QWidget *parent=nullptr, bool read_only=true): block_base(parent), read_only(read_only){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
@@ -17,8 +17,24 @@ void block_string::createPixmap(){
 
 }
 
-QString block_string::get_edit_text(){
-    return "\"" + edit->text() + "\"";
+QPixmap block_string::getPixmap(){
+    return grab();
+}
+
+bool block_string::isParentBlock(){
+    return false;
+}
+
+void block_string::insertCode(const QString &code){
+    return;
+}
+
+QString block_string::toCode(){
+    return code_text;
+}
+
+QString block_string::whatsThisBlockName(){
+    return "string";
 }
 
 void block_string::paintEvent(QPaintEvent *event)

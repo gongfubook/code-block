@@ -5,7 +5,7 @@
 #include <QLabel>
 #include "block-paint.h"
 
-block_print::block_print(QWidget *parent=nullptr): Base(parent){
+block_print::block_print(QWidget *parent=nullptr): block_base(parent){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
@@ -22,6 +22,24 @@ void block_print::createPixmap(){
 void block_print::insertCode(const QString &code) {
     QString code_text = code_text_begin + code + code_text_end;
 }
+
+QPixmap block_print::getPixmap(){
+    return grab();
+}
+
+bool block_print::isParentBlock(){
+    return false;
+}
+
+
+QString block_print::toCode(){
+    return code_text;
+}
+
+QString block_print::whatsThisBlockName(){
+    return "output";
+}
+
 
 void block_print::paintEvent(QPaintEvent *event)
 {

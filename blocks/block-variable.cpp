@@ -1,7 +1,7 @@
 #include "block-variable.h"
 #include "block-paint.h"
 
-block_variable::block_variable(QWidget *parent=nullptr, bool read_only=true): Base(parent), read_only(read_only){
+block_variable::block_variable(QWidget *parent=nullptr, bool read_only=true): block_base(parent), read_only(read_only){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
@@ -16,8 +16,24 @@ void block_variable::createPixmap(){
     edit->show();
 }
 
-QString block_variable::get_edit_text(){
-    return edit->text();
+QPixmap block_variable::getPixmap(){
+    return grab();
+}
+
+bool block_variable::isParentBlock(){
+    return false;
+}
+
+void block_variable::insertCode(const QString &code){
+    return;
+}
+
+QString block_variable::toCode(){
+    return code_text;
+}
+
+QString block_variable::whatsThisBlockName(){
+    return "variable";
 }
 
 void block_variable::paintEvent(QPaintEvent *event)

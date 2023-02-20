@@ -226,10 +226,11 @@ void block_list_window::dropEvent(QDropEvent *event)
 
 void block_list_window::mousePressEvent(QMouseEvent *event)
 {
-    // block_base *child = static_cast<block_base*>(childAt(event->pos()));
-    // if (!child){
-    //     return;
-    // }
+    auto  x  = (block_base*)(childAt(event->pos()));
+    if (!x){
+        return;
+    }
+    qDebug() << "mousePressEvent whatsThis -> " << x->whatsThisBlockName();
     // QByteArray itemData;
     // QDataStream dataStream(&itemData, QIODevice::WriteOnly);
     // dataStream << child->getPixmap() << QPoint(event->pos() - child->pos()) << child->whatsThisBlockName();

@@ -1,7 +1,7 @@
 #include "block-loop.h"
 #include "block-paint.h"
 
-block_loop::block_loop(QWidget *parent=nullptr): Base(parent){
+block_loop::block_loop(QWidget *parent=nullptr): block_base(parent){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
@@ -13,6 +13,26 @@ void block_loop::createPixmap(){
     block_pixmap = QPixmap(widget_width, widget_height);
     createWithInsideBlockPixmap(block_pixmap,withInsideBlocks, color_back, row);
     createText(block_pixmap, block_text, block_width);
+}
+
+QPixmap block_loop::getPixmap(){
+    return grab();
+}
+
+bool block_loop::isParentBlock(){
+    return false;
+}
+
+void block_loop::insertCode(const QString &code){
+    return;
+}
+
+QString block_loop::toCode(){
+    return code_text;
+}
+
+QString block_loop::whatsThisBlockName(){
+    return "loop";
 }
 
 void block_loop::paintEvent(QPaintEvent *event){

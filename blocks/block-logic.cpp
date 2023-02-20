@@ -1,7 +1,7 @@
 #include "block-logic.h"
 #include "block-paint.h"
 
-block_logic::block_logic(QWidget *parent=nullptr): Base(parent){
+block_logic::block_logic(QWidget *parent=nullptr): block_base(parent){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
@@ -13,6 +13,26 @@ void block_logic::createPixmap(){
     block_pixmap = QPixmap(widget_width, widget_height);
     createWithInsideBlockPixmap(block_pixmap,withInsideBlocks, color_back, row);
     createText(block_pixmap, block_text, block_width);
+}
+
+QPixmap block_logic::getPixmap(){
+    return grab();
+}
+
+bool block_logic::isParentBlock(){
+    return false;
+}
+
+void block_logic::insertCode(const QString &code){
+    return;
+}
+
+QString block_logic::toCode(){
+    return code_text;
+}
+
+QString block_logic::whatsThisBlockName(){
+    return "logic";
 }
 
 void block_logic::paintEvent(QPaintEvent *event){

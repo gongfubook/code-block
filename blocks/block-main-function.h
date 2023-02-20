@@ -7,7 +7,7 @@
 #include "block-function.h"
 #include <QLineEdit>
 
-class block_main_function: public Base<block_function> {
+class block_main_function: public block_base {
 public:
     int row = 3;
     int widget_width{WIDGET_WIDTH + BLOCK_LEFT_WIDTH}, widget_height{WIDGET_HEIGHT * row};
@@ -26,7 +26,11 @@ public:
     QString code_text = "";
     block_main_function(QWidget *parent);
     virtual void createPixmap() Q_DECL_OVERRIDE;
-    virtual void insertCode(const QString &code) Q_DECL_OVERRIDE {};
+    virtual QPixmap getPixmap() Q_DECL_OVERRIDE;
+    virtual bool isParentBlock() Q_DECL_OVERRIDE;
+    virtual void insertCode(const QString &code) Q_DECL_OVERRIDE;
+    virtual QString toCode() Q_DECL_OVERRIDE;
+    virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };

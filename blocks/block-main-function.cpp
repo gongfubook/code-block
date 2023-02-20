@@ -2,7 +2,7 @@
 #include "block-paint.h"
 
 
-block_main_function::block_main_function(QWidget *parent=nullptr): Base(parent){
+block_main_function::block_main_function(QWidget *parent=nullptr): block_base(parent){
     resize(widget_width, widget_height); 
     setAcceptDrops(true);  
     createPixmap();
@@ -14,6 +14,26 @@ void block_main_function::createPixmap(){
     block_pixmap = QPixmap(widget_width, widget_height);
     createWithInsideBlockPixmap(block_pixmap,withInsideBlocks, color_back, row);
     createText(block_pixmap, block_text, block_width);
+}
+
+QPixmap block_main_function::getPixmap(){
+    return grab();
+}
+
+bool block_main_function::isParentBlock(){
+    return false;
+}
+
+void block_main_function::insertCode(const QString &code){
+    return;
+}
+
+QString block_main_function::toCode(){
+    return code_text;
+}
+
+QString block_main_function::whatsThisBlockName(){
+    return "main_function";
 }
 
 void block_main_function::paintEvent(QPaintEvent *event)

@@ -3,7 +3,7 @@
 
 #include "block-base.h"
 
-class block_dict: public Base<block_dict> {
+class block_dict: public block_base {
 public:
     int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
@@ -15,7 +15,11 @@ public:
     QString code_text = "dict()";
     block_dict(QWidget *parent);
     virtual void createPixmap() Q_DECL_OVERRIDE;
-    virtual void insertCode(const QString &code) Q_DECL_OVERRIDE {};
+    virtual QPixmap getPixmap() Q_DECL_OVERRIDE;
+    virtual bool isParentBlock() Q_DECL_OVERRIDE;
+    virtual void insertCode(const QString &code) Q_DECL_OVERRIDE;
+    virtual QString toCode() Q_DECL_OVERRIDE;
+    virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;

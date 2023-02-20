@@ -6,7 +6,7 @@
 #include "block-base.h"
 #include <QLineEdit>
 
-class block_print: public Base<block_print> {
+class block_print: public block_base {
 public:
     int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
@@ -20,7 +20,11 @@ public:
     QString code_text = "print()";
     block_print(QWidget *parent);
     virtual void createPixmap() Q_DECL_OVERRIDE;
+    virtual QPixmap getPixmap() Q_DECL_OVERRIDE;
+    virtual bool isParentBlock() Q_DECL_OVERRIDE;
     virtual void insertCode(const QString &code) Q_DECL_OVERRIDE;
+    virtual QString toCode() Q_DECL_OVERRIDE;
+    virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
