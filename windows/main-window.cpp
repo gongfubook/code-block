@@ -65,6 +65,16 @@ main_window::main_window(QWidget *parent): QWidget(parent) {
 
 
 void main_window::click_compiler(){
+    qDebug() <<  "click_compiler all block";
+    for (auto child : code_list_window_object->children() ) {
+        auto b = qobject_cast<QWidget*>(child);
+        if (b) {
+            auto bb = static_cast<block_base*>(b);
+            if (bb) {
+                qDebug() <<  bb->whatsThisBlockName();
+            }
+        }
+    }
     // auto codes = code_list_window->children();
     // QVector<block_base*> bbs;
     // for (auto code : codes) {

@@ -1,5 +1,6 @@
 #include "block-main-function.h"
 #include "block-paint.h"
+#include <QDebug>
 
 
 block_main_function::block_main_function(QWidget *parent=nullptr): block_base(parent){
@@ -7,7 +8,7 @@ block_main_function::block_main_function(QWidget *parent=nullptr): block_base(pa
     setAcceptDrops(true);  
     createPixmap();
     setStyleSheet("background:transparent");
-    setAttribute(Qt::WA_DeleteOnClose);
+    setAttribute(Qt::WA_DeleteOnClose, true);
 }
 
 void block_main_function::createPixmap(){
@@ -34,6 +35,10 @@ QString block_main_function::toCode(){
 
 QString block_main_function::whatsThisBlockName(){
     return "main_function";
+}
+
+block_main_function::~block_main_function() {
+    // qDebug() << "~block_main_function()";
 }
 
 void block_main_function::paintEvent(QPaintEvent *event)

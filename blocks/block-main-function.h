@@ -25,6 +25,7 @@ public:
     QString code_text_end = "\treturn 0;\n}\n";
     QString code_text = "";
     block_main_function(QWidget *parent);
+    ~block_main_function();
     virtual void createPixmap() Q_DECL_OVERRIDE;
     virtual QPixmap getPixmap() Q_DECL_OVERRIDE;
     virtual bool isParentBlock() Q_DECL_OVERRIDE;

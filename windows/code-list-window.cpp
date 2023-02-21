@@ -6,6 +6,7 @@
 #include "block-function.h"
 #include "block-size.h"
 #include "block-main-function.h"
+#include "dnd-events.h"
 #include <QDebug>
 
 
@@ -19,7 +20,6 @@ code_list_window::code_list_window(QWidget *parent)
     block_main_function *main = new block_main_function(this);
     main->move(this->width() / 2, this->height() / 2);
     main->show();
-    
 }
 
 void code_list_window::dragEnterEvent(QDragEnterEvent *event)
@@ -52,7 +52,27 @@ void code_list_window::dragMoveEvent(QDragMoveEvent *event)
 
 void code_list_window::dropEvent(QDropEvent *event)
 {
+    if (event->mimeData()->hasFormat("application/x-dnditemdata")) {
 
+        if (event->source() == this) {
+            event->setDropAction(Qt::MoveAction);
+            event->accept();
+        } else {
+            event->acceptProposedAction();
+        }
+        QByteArray itemData = event->mimeData()->data("application/x-dnditemdata");
+        QDataStream dataStream(&itemData, QIODevice::ReadOnly);
+        QPixmap pixmap;
+        QPoint offset;
+        QString block_name;
+        dataStream >> pixmap >> offset >> block_name;
+
+        createBlock(block_name, event->pos(), offset, this);
+
+
+    } else {
+        event->ignore();
+    }
 }
 
 void code_list_window::mousePressEvent(QMouseEvent *event)
