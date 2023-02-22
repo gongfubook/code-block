@@ -40,6 +40,10 @@ QString block_print::whatsThisBlockName(){
     return "output";
 }
 
+BlockType block_print::getBlockType(){
+    return block_type;
+}
+
 
 void block_print::paintEvent(QPaintEvent *event)
 {

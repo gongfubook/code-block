@@ -35,6 +35,10 @@ QString block_dict::whatsThisBlockName(){
     return "dict";
 }
 
+BlockType block_dict::getBlockType(){
+    return block_type;
+}
+
 void block_dict::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

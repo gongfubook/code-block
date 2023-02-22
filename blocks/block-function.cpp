@@ -38,6 +38,10 @@ QString block_function::whatsThisBlockName(){
     return "function";
 }
 
+BlockType block_function::getBlockType(){
+    return block_type;
+}
+
 void block_function::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

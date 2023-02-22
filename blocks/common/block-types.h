@@ -22,10 +22,11 @@ struct BlockConnector{
 
 /**
  * 块类型
+ * 块的被动描述
 */
 enum BlockType{
-    normal = 0,               // 普通方块
-    pluggable = 1,            // 可连接块
+    normal = 0,               // 普通块， 只可以去连接其它块
+    pluggable = 1,            // 可被其它块连接
     with_inside = 2           // 内部包含其它块
 };
 

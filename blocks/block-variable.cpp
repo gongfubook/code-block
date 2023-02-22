@@ -36,6 +36,10 @@ QString block_variable::whatsThisBlockName(){
     return "variable";
 }
 
+BlockType block_variable::getBlockType(){
+    return block_type;
+}
+
 void block_variable::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

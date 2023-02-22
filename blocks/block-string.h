@@ -16,6 +16,7 @@ public:
     bool is_parent_block = false;
     QPixmap block_pixmap;
     QString code_text = "";
+    BlockType block_type = BlockType::normal;
     block_string(QWidget *parent, bool read_only);
     virtual void createPixmap() Q_DECL_OVERRIDE;
     virtual QPixmap getPixmap() Q_DECL_OVERRIDE;
@@ -23,6 +24,7 @@ public:
     virtual void insertCode(const QString &code) Q_DECL_OVERRIDE;
     virtual QString toCode() Q_DECL_OVERRIDE;
     virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
+    virtual BlockType getBlockType() Q_DECL_OVERRIDE;
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;

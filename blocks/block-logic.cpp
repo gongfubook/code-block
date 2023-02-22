@@ -35,6 +35,10 @@ QString block_logic::whatsThisBlockName(){
     return "logic";
 }
 
+BlockType block_logic::getBlockType(){
+    return block_type;
+}
+
 void block_logic::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
     QPainter painter(this);

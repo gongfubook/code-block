@@ -35,6 +35,10 @@ QString block_list::whatsThisBlockName(){
     return "list";
 }
 
+BlockType block_list::getBlockType(){
+    return block_type;
+}
+
 void block_list::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

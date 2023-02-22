@@ -9,6 +9,47 @@
 #include "block-list.h"
 #include "block-dict.h"
 #include "block-main-function.h"
+#include <QVector>
+#include <functional>
+
+QVector<block_base *> getAllBlock(QWidget * target){
+    QVector<block_base *> blocks;
+    for (auto child : target->children() ) {
+        auto b = qobject_cast<QWidget*>(child);
+        if (b) {
+            auto bb = static_cast<block_base*>(b);
+            if (bb) {
+                blocks.push_back(bb);
+            }
+        }
+    }
+    return blocks;
+}
+
+bool blockSortX(const block_base *a, const block_base *b) {
+    if (a->x() < b->x()) {
+        return true;
+    }
+    return false;
+}
+
+bool blockSortY(const block_base *a, const block_base *b) {
+    if (a->y() < b->y()) {
+        return true;
+    }
+    return false;
+}
+
+QVector<block_base *> getNearestBlock(const QVector<block_base *> &blocks, const QPoint &point){
+    auto blocks_x = blocks;
+    auto blocks_y = blocks;
+    std::sort(blocks_x.begin(), blocks_x.end(), blockSortX);
+    std::sort(blocks_y.begin(), blocks_y.end(), blockSortY);
+    QVector<block_base *> nearest_blocks;
+    for (auto b : blocks) {
+
+    }
+}
 
 block_base* createBlock(
     const QString& block_name,

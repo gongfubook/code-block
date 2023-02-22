@@ -37,8 +37,8 @@ QString block_main_function::whatsThisBlockName(){
     return "main_function";
 }
 
-block_main_function::~block_main_function() {
-    // qDebug() << "~block_main_function()";
+BlockType block_main_function::getBlockType(){
+    return block_type;
 }
 
 void block_main_function::paintEvent(QPaintEvent *event)

@@ -20,7 +20,7 @@ bool block_base::isParentBlock(){
 }
 
 void block_base::insertCode(const QString &code){
-    return;
+    code_text += code;
 }
 
 QString block_base::toCode(){
@@ -29,6 +29,10 @@ QString block_base::toCode(){
 
 QString block_base::whatsThisBlockName(){
     return "base";
+}
+
+BlockType block_base::getBlockType(){
+    return block_type;
 }
 
 void block_base::paintEvent(QPaintEvent *event)

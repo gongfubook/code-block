@@ -24,6 +24,7 @@ public:
     QString code_text_begin = "int main(int argc, char* argv[]) {\n";
     QString code_text_end = "\treturn 0;\n}\n";
     QString code_text = "";
+    BlockType block_type = BlockType::with_inside;
     block_main_function(QWidget *parent);
     ~block_main_function();
     virtual void createPixmap() Q_DECL_OVERRIDE;
@@ -32,6 +33,7 @@ public:
     virtual void insertCode(const QString &code) Q_DECL_OVERRIDE;
     virtual QString toCode() Q_DECL_OVERRIDE;
     virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
+    virtual BlockType getBlockType() Q_DECL_OVERRIDE;
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };

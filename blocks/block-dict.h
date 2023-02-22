@@ -13,6 +13,7 @@ public:
     QString block_text = "创建空字典";
     QPixmap block_pixmap;
     QString code_text = "dict()";
+    BlockType block_type = BlockType::normal;
     block_dict(QWidget *parent);
     virtual void createPixmap() Q_DECL_OVERRIDE;
     virtual QPixmap getPixmap() Q_DECL_OVERRIDE;
@@ -20,6 +21,7 @@ public:
     virtual void insertCode(const QString &code) Q_DECL_OVERRIDE;
     virtual QString toCode() Q_DECL_OVERRIDE;
     virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
+    virtual BlockType getBlockType() Q_DECL_OVERRIDE;
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;

@@ -35,6 +35,10 @@ QString block_loop::whatsThisBlockName(){
     return "loop";
 }
 
+BlockType block_loop::getBlockType(){
+    return block_type;
+}
+
 void block_loop::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
     QPainter painter(this);
