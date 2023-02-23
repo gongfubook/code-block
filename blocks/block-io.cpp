@@ -44,6 +44,9 @@ BlockType block_print::getBlockType(){
     return block_type;
 }
 
+BlockShape block_print::getBlockShape(){
+    return block_shape;
+}
 
 void block_print::paintEvent(QPaintEvent *event)
 {

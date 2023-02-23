@@ -11,6 +11,7 @@
 #include "block-main-function.h"
 #include <QVector>
 #include <functional>
+#include <QDebug>
 
 QVector<block_base *> getAllBlock(QWidget * target){
     QVector<block_base *> blocks;
@@ -40,15 +41,57 @@ bool blockSortY(const block_base *a, const block_base *b) {
     return false;
 }
 
-QVector<block_base *> getNearestBlock(const QVector<block_base *> &blocks, const QPoint &point){
-    auto blocks_x = blocks;
-    auto blocks_y = blocks;
-    std::sort(blocks_x.begin(), blocks_x.end(), blockSortX);
-    std::sort(blocks_y.begin(), blocks_y.end(), blockSortY);
-    QVector<block_base *> nearest_blocks;
-    for (auto b : blocks) {
-
+bool getConnectRight(block_base * self, block_base * block){
+    if (self->block_shape.connector.left == Connector::male && block->block_shape.connector.right == Connector::female) {
+        return true;
     }
+    return false;
+}
+
+/**
+ * 判断这个块是否需要一个右边的块来对接
+*/
+bool thisBlockWithLeftMale(block_base * self){
+    if (self->getBlockShape().connector.left == Connector::male) {
+        return true;
+        qDebug() << 1;
+    }
+    qDebug() << 0;
+    return false;
+}
+
+/**
+ * 查找同行的块
+*/
+block_base * getNearestBlockByRow(const QVector<block_base *> &blocks, const QPoint& point){
+    for (auto b : blocks) {
+        int diff_y = b->y() - point.y();
+        if (qAbs(diff_y) < b->size().height()) {
+            qDebug() << qAbs(diff_y) << b->size().height();
+            return b;
+        }
+    }
+    return nullptr;
+}
+
+/**
+ * 查找同列的块
+*/
+block_base * getNearestBlockByColumn(const QVector<block_base *> &blocks, const QPoint& point){
+    for (auto b : blocks) {
+        int diff_x = b->x() - point.x();
+        if (qAbs(diff_x) < b->size().width()) {
+            return b;
+        }
+    }
+    return nullptr;
+}
+
+QPoint getBlockLeftPoint(const block_base * block){
+    int x = block->x() + block->block_width;
+    int y = block->y();
+    qDebug() << QPoint(x, y);
+    return QPoint(x, y);
 }
 
 block_base* createBlock(
@@ -82,7 +125,16 @@ block_base* createBlock(
     if (!new_block){
         return new_block;
     }
-    new_block->move(point - offset);
+    if (thisBlockWithLeftMale(new_block) ){
+        block_base* left_block = getNearestBlockByRow(getAllBlock(target), point - offset);
+        if (left_block) {
+            new_block->move(getBlockLeftPoint(left_block));
+        } else {
+            new_block->move(point - offset);
+        }
+    } else{
+        new_block->move(point - offset);
+    }
     new_block->show();
     new_block->setAttribute(Qt::WA_DeleteOnClose);
     return new_block;

@@ -39,6 +39,10 @@ BlockType block_loop::getBlockType(){
     return block_type;
 }
 
+BlockShape block_loop::getBlockShape(){
+    return block_shape;
+}
+
 void block_loop::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
     QPainter painter(this);

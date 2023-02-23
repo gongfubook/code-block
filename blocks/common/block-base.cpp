@@ -35,6 +35,10 @@ BlockType block_base::getBlockType(){
     return block_type;
 }
 
+BlockShape block_base::getBlockShape(){
+    return block_shape;
+}
+
 void block_base::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

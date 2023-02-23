@@ -31,6 +31,7 @@ public:
     virtual QString toCode() Q_DECL_OVERRIDE;
     virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
     virtual BlockType getBlockType() Q_DECL_OVERRIDE;
+    virtual BlockShape getBlockShape() Q_DECL_OVERRIDE;
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;

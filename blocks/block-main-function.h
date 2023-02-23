@@ -26,7 +26,6 @@ public:
     QString code_text = "";
     BlockType block_type = BlockType::with_inside;
     block_main_function(QWidget *parent);
-    ~block_main_function();
     virtual void createPixmap() Q_DECL_OVERRIDE;
     virtual QPixmap getPixmap() Q_DECL_OVERRIDE;
     virtual bool isParentBlock() Q_DECL_OVERRIDE;
@@ -34,6 +33,7 @@ public:
     virtual QString toCode() Q_DECL_OVERRIDE;
     virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
     virtual BlockType getBlockType() Q_DECL_OVERRIDE;
+    virtual BlockShape getBlockShape() Q_DECL_OVERRIDE;
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };

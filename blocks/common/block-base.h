@@ -31,14 +31,15 @@ class block{
     virtual QString toCode() = 0;
     virtual QString whatsThisBlockName() = 0;
     virtual BlockType getBlockType() = 0;
+    virtual BlockShape getBlockShape() = 0;
 };
 
 
 class block_base : public QLabel, block{
 public:
-    int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
+    int widget_width{WIDGET_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
-    BlockShape block_shape{block_width, block_height, {none, none, none, none}};
+    BlockShape block_shape{block_width, block_height, {male, none, female, none}};
     bool read_only;
     int color_back = VARIABLE_COLOR;
     bool is_parent_block = true;
@@ -53,6 +54,7 @@ public:
     virtual QString toCode() Q_DECL_OVERRIDE;
     virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
     virtual BlockType getBlockType() Q_DECL_OVERRIDE;
+    virtual BlockShape getBlockShape() Q_DECL_OVERRIDE;
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;

@@ -41,6 +41,10 @@ BlockType block_string::getBlockType(){
     return block_type;
 }
 
+BlockShape block_string::getBlockShape(){
+    return block_shape;
+}
+
 void block_string::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

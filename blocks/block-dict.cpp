@@ -39,6 +39,10 @@ BlockType block_dict::getBlockType(){
     return block_type;
 }
 
+BlockShape block_dict::getBlockShape(){
+    return block_shape;
+}
+
 void block_dict::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

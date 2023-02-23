@@ -10,7 +10,7 @@ class block_print: public block_base {
 public:
     int widget_width{WIDGET_IO_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
-    BlockShape block_shape{block_width, block_height, {none, female, female, male}};
+    BlockShape block_shape{block_width, block_height, {male, female, female, none}};
     int color_back = FUNCTION_COLOR;
     bool is_parent_block = true;
     QString block_text = "输出";
@@ -27,6 +27,7 @@ public:
     virtual QString toCode() Q_DECL_OVERRIDE;
     virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
     virtual BlockType getBlockType() Q_DECL_OVERRIDE;
+    virtual BlockShape getBlockShape() Q_DECL_OVERRIDE;
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
