@@ -51,8 +51,20 @@ bool getConnectRight(block_base * self, block_base * block){
 /**
  * 判断这个块是否需要一个右边的块来对接
 */
-bool thisBlockWithLeftMale(block_base * self){
+bool thisBlockLeftMale(block_base * self){
     if (self->getBlockShape().connector.left == Connector::male) {
+        return true;
+        qDebug() << 1;
+    }
+    qDebug() << 0;
+    return false;
+}
+
+/**
+ * 判断这个块是否是一个右边块
+*/
+bool thisBlockLeftFemale(block_base * self){
+    if (self->getBlockShape().connector.left == Connector::none) {
         return true;
         qDebug() << 1;
     }
@@ -75,16 +87,85 @@ block_base * getNearestBlockByRow(const QVector<block_base *> &blocks, const QPo
 }
 
 /**
- * 查找同列的块
+ * 查找同列的块并且确定位置
 */
-block_base * getNearestBlockByColumn(const QVector<block_base *> &blocks, const QPoint& point){
-    for (auto b : blocks) {
+QPoint getNearestBlockByColumn(const QVector<block_base *> &blocks, const QPoint& point){
+    QVector<block_base *> column_blocks;
+    for (auto &&b : blocks) {
         int diff_x = b->x() - point.x();
         if (qAbs(diff_x) < b->size().width()) {
-            return b;
+            qDebug() << "block -> pos : " << b->pos();
+            qDebug() << qAbs(diff_x) << b->size().width();
+            column_blocks.push_back(b);
         }
     }
-    return nullptr;
+    if (column_blocks.empty()) {
+        return point;
+    }
+    block_base* current_block = new block_base(nullptr);
+    current_block->setWhatsThis("current_block");
+    current_block->move(point);
+    column_blocks.push_back(current_block);
+    std::sort(column_blocks.begin(), column_blocks.end(), blockSortY);
+    int index = -1;
+    for (auto cb : column_blocks) {
+        index += 1;
+        qDebug() << "index: " << index << "cb -> pos : " << cb->pos();
+        if (cb->whatsThis() == "current_block") {
+            cb->close();
+            break;
+        }
+    }
+
+    if (index == 0) {
+        int diff_0 = column_blocks[1]->y() - point.y();
+        int x = column_blocks[1]->x();
+        int y = 0;
+        if (diff_0 > 0) {
+            y = column_blocks[1]->y() - column_blocks[1]->height() + (BLOCK_Y + 3);
+        } else {
+            y = column_blocks[1]->y() + column_blocks[1]->height() - (BLOCK_Y + 3);
+        }
+        qDebug() << "index == 0 QPoint(x, y) : " << QPoint(x, y);
+        return QPoint(x, y);
+    }
+
+    if (column_blocks.size() == index + 1) {
+        int diff_0 = column_blocks[index-1]->y() - point.y();
+        int x = column_blocks[index-1]->x();
+        int y = 0;
+        if (diff_0 > 0) {
+            y = column_blocks[index-1]->y() - column_blocks[index-1]->height() + (BLOCK_Y + 3);
+        } else {
+            y = column_blocks[index-1]->y() + column_blocks[index-1]->height() - (BLOCK_Y + 3);
+        }
+        qDebug() << "column_blocks.size() == index + 1 : " << QPoint(x, y);
+        return QPoint(x, y);
+    }
+
+    int diff_0 = column_blocks[index - 1]->y() - point.y();
+    int diff_1 = column_blocks[index + 1]->y() - point.y();
+    if (qAbs(diff_0) < qAbs(diff_1)) {
+        int x = column_blocks[index - 1]->x();
+        int y = 0;
+        if (diff_0 > 0) {
+            y = column_blocks[index - 1]->y() - column_blocks[index - 1]->height() + (BLOCK_Y + 3);
+        } else {
+            y = column_blocks[index - 1]->y() + column_blocks[index - 1]->height() - (BLOCK_Y + 3);
+        }
+        qDebug() << "qAbs(diff_0) < qAbs(diff_1) : " << QPoint(x, y);
+        return QPoint(x, y);
+    }
+
+    int x = column_blocks[index + 1]->x();
+    int y = 0;
+    if (diff_1 > 0) {
+        y = column_blocks[index + 1]->y() - column_blocks[index + 1]->height() + (BLOCK_Y + 3);
+    } else {
+        y = column_blocks[index + 1]->y() + column_blocks[index + 1]->height() - (BLOCK_Y + 3);
+    }
+    qDebug() << "qAbs(diff_0) > qAbs(diff_1) : " << QPoint(x, y);
+    return QPoint(x, y);
 }
 
 QPoint getBlockLeftPoint(const block_base * block){
@@ -93,6 +174,7 @@ QPoint getBlockLeftPoint(const block_base * block){
     qDebug() << QPoint(x, y);
     return QPoint(x, y);
 }
+
 
 block_base* createBlock(
     const QString& block_name,
@@ -125,7 +207,13 @@ block_base* createBlock(
     if (!new_block){
         return new_block;
     }
-    if (thisBlockWithLeftMale(new_block) ){
+
+    if (thisBlockLeftFemale(new_block)) {
+        qDebug() << "event pos : " << point - offset;
+        auto current_pos = getNearestBlockByColumn(getAllBlock(target), point - offset);
+        qDebug() << "current -> pos : " << current_pos;
+        new_block->move(current_pos);
+    } else if (thisBlockLeftMale(new_block) ){
         block_base* left_block = getNearestBlockByRow(getAllBlock(target), point - offset);
         if (left_block) {
             new_block->move(getBlockLeftPoint(left_block));
