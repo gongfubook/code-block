@@ -65,9 +65,10 @@ void code_list_window::dropEvent(QDropEvent *event)
         QPixmap pixmap;
         QPoint offset;
         QString block_name;
-        dataStream >> pixmap >> offset >> block_name;
+        QPoint self_pos;
+        dataStream >> pixmap >> offset >> block_name >> self_pos;
 
-        createBlock(block_name, event->pos(), offset, this);
+        createBlock(block_name, event->pos(), offset, this, self_pos);
 
 
     } else {
@@ -83,7 +84,7 @@ void code_list_window::mousePressEvent(QMouseEvent *event)
     }
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << child->getPixmap() << QPoint(event->pos() - child->pos()) << child->whatsThisBlockName();
+    dataStream << child->getPixmap() << QPoint(event->pos() - child->pos()) << child->whatsThisBlockName() << child->pos();
 
     QMimeData *mimeData = new QMimeData;
     mimeData->setData("application/x-dnditemdata", itemData);

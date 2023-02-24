@@ -72,31 +72,53 @@ bool thisBlockLeftFemale(block_base * self){
     return false;
 }
 
+struct BlockRow{
+    block_base* block;
+    int diff;
+};
+
+bool blockSortRowDiff(const BlockRow a, const BlockRow b) {
+    if (a.diff < b.diff) {
+        return true;
+    }
+    return false;
+}
+
 /**
  * 查找同行的块
 */
-block_base * getNearestBlockByRow(const QVector<block_base *> &blocks, const QPoint& point){
+block_base * getNearestBlockByRow(const QVector<block_base *> &blocks, const QPoint& point, const QPoint& self_pos){
+    QVector<BlockRow> row_blocks;
     for (auto b : blocks) {
-        int diff_y = b->y() - point.y();
-        if (qAbs(diff_y) < b->size().height()) {
-            qDebug() << qAbs(diff_y) << b->size().height();
-            return b;
+        if (b->pos() != self_pos) {
+            int diff_y = qAbs(b->y() - point.y());
+            if (diff_y < b->size().height()) {
+                qDebug() << qAbs(diff_y) << b->size().height();
+                row_blocks.push_back({b, diff_y});
+            }
         }
     }
-    return nullptr;
+    if (row_blocks.empty()) {
+        return nullptr;
+    }
+    std::sort(row_blocks.begin(), row_blocks.end(), blockSortRowDiff);
+    return row_blocks[0].block;
+    
 }
 
 /**
  * 查找同列的块并且确定位置
 */
-QPoint getNearestBlockByColumn(const QVector<block_base *> &blocks, const QPoint& point){
+QPoint getNearestBlockByColumn(const QVector<block_base *> &blocks, const QPoint& point, const QPoint& self_pos){
     QVector<block_base *> column_blocks;
     for (auto &&b : blocks) {
-        int diff_x = b->x() - point.x();
-        if (qAbs(diff_x) < b->size().width()) {
-            qDebug() << "block -> pos : " << b->pos();
-            qDebug() << qAbs(diff_x) << b->size().width();
-            column_blocks.push_back(b);
+        if (b->pos() != self_pos) {
+            int diff_x = b->x() - point.x();
+            if (qAbs(diff_x) < b->size().width()) {
+                qDebug() << "block -> pos : " << b->pos();
+                qDebug() << qAbs(diff_x) << b->size().width();
+                column_blocks.push_back(b);
+            }
         }
     }
     if (column_blocks.empty()) {
@@ -180,7 +202,8 @@ block_base* createBlock(
     const QString& block_name,
     const QPoint& point,
     const QPoint& offset,
-    QWidget * target
+    QWidget * target,
+    const QPoint& self_pos
 ){
     block_base* new_block = nullptr;
     if (block_name == "output") {
@@ -208,13 +231,15 @@ block_base* createBlock(
         return new_block;
     }
 
+    QVector<block_base*> blocks = getAllBlock(target);
+
     if (thisBlockLeftFemale(new_block)) {
         qDebug() << "event pos : " << point - offset;
-        auto current_pos = getNearestBlockByColumn(getAllBlock(target), point - offset);
+        auto current_pos = getNearestBlockByColumn(blocks, point - offset, self_pos);
         qDebug() << "current -> pos : " << current_pos;
         new_block->move(current_pos);
     } else if (thisBlockLeftMale(new_block) ){
-        block_base* left_block = getNearestBlockByRow(getAllBlock(target), point - offset);
+        block_base* left_block = getNearestBlockByRow(blocks, point - offset, self_pos);
         if (left_block) {
             new_block->move(getBlockLeftPoint(left_block));
         } else {

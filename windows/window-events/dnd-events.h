@@ -11,7 +11,8 @@ block_base* createBlock(
     const QString& block_name,
     const QPoint& point,
     const QPoint& offset,
-    QWidget * target
+    QWidget * target,
+    const QPoint& self_pos
 );
 
 
