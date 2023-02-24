@@ -197,6 +197,24 @@ QPoint getBlockLeftPoint(const block_base * block){
     return QPoint(x, y);
 }
 
+/**
+ * 判断当前位置是否存在代码块
+*/
+bool currentPointIsBlock(const QVector<block_base *> &blocks, const QPoint& self_pos){
+    for (auto b : blocks) {
+        auto pos = b->pos();
+        auto size = b->size();
+        if ((self_pos.x() >= pos.x() 
+            && self_pos.x() < (pos.x() + size.width() - BLOCK_X * 2))
+            && (self_pos.y() >= pos.y() 
+            && self_pos.y() < (pos.y() + size.height() - BLOCK_Y * 2))
+            ) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 block_base* createBlock(
     const QString& block_name,
@@ -232,22 +250,23 @@ block_base* createBlock(
     }
 
     QVector<block_base*> blocks = getAllBlock(target);
+    QPoint target_pos = point - offset;
 
     if (thisBlockLeftFemale(new_block)) {
-        qDebug() << "event pos : " << point - offset;
-        auto current_pos = getNearestBlockByColumn(blocks, point - offset, self_pos);
-        qDebug() << "current -> pos : " << current_pos;
-        new_block->move(current_pos);
-    } else if (thisBlockLeftMale(new_block) ){
-        block_base* left_block = getNearestBlockByRow(blocks, point - offset, self_pos);
+        target_pos = getNearestBlockByColumn(blocks, target_pos, self_pos);
+    } 
+    if (thisBlockLeftMale(new_block) ){
+        block_base* left_block = getNearestBlockByRow(blocks, target_pos, self_pos);
         if (left_block) {
-            new_block->move(getBlockLeftPoint(left_block));
-        } else {
-            new_block->move(point - offset);
-        }
-    } else{
-        new_block->move(point - offset);
+            target_pos = getBlockLeftPoint(left_block);
+        } 
+    } 
+
+    if (currentPointIsBlock(blocks, target_pos)) {
+        target_pos = self_pos;
     }
+
+    new_block->move(target_pos);
     new_block->show();
     new_block->setAttribute(Qt::WA_DeleteOnClose);
     return new_block;
