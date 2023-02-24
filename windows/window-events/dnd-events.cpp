@@ -20,6 +20,7 @@ QVector<block_base *> getAllBlock(QWidget * target){
         if (b) {
             auto bb = static_cast<block_base*>(b);
             if (bb) {
+                qDebug() << bb->whatsThisBlockName();
                 blocks.push_back(bb);
             }
         }
@@ -115,7 +116,6 @@ QPoint getNearestBlockByColumn(const QVector<block_base *> &blocks, const QPoint
         if (b->pos() != self_pos) {
             int diff_x = b->x() - point.x();
             if (qAbs(diff_x) < b->size().width()) {
-                qDebug() << "block -> pos : " << b->pos();
                 qDebug() << qAbs(diff_x) << b->size().width();
                 column_blocks.push_back(b);
             }
@@ -132,7 +132,6 @@ QPoint getNearestBlockByColumn(const QVector<block_base *> &blocks, const QPoint
     int index = -1;
     for (auto cb : column_blocks) {
         index += 1;
-        qDebug() << "index: " << index << "cb -> pos : " << cb->pos();
         if (cb->whatsThis() == "current_block") {
             cb->close();
             break;
@@ -148,7 +147,6 @@ QPoint getNearestBlockByColumn(const QVector<block_base *> &blocks, const QPoint
         } else {
             y = column_blocks[1]->y() + column_blocks[1]->height() - (BLOCK_Y + 3);
         }
-        qDebug() << "index == 0 QPoint(x, y) : " << QPoint(x, y);
         return QPoint(x, y);
     }
 
@@ -161,7 +159,6 @@ QPoint getNearestBlockByColumn(const QVector<block_base *> &blocks, const QPoint
         } else {
             y = column_blocks[index-1]->y() + column_blocks[index-1]->height() - (BLOCK_Y + 3);
         }
-        qDebug() << "column_blocks.size() == index + 1 : " << QPoint(x, y);
         return QPoint(x, y);
     }
 
@@ -175,7 +172,6 @@ QPoint getNearestBlockByColumn(const QVector<block_base *> &blocks, const QPoint
         } else {
             y = column_blocks[index - 1]->y() + column_blocks[index - 1]->height() - (BLOCK_Y + 3);
         }
-        qDebug() << "qAbs(diff_0) < qAbs(diff_1) : " << QPoint(x, y);
         return QPoint(x, y);
     }
 
@@ -186,7 +182,6 @@ QPoint getNearestBlockByColumn(const QVector<block_base *> &blocks, const QPoint
     } else {
         y = column_blocks[index + 1]->y() + column_blocks[index + 1]->height() - (BLOCK_Y + 3);
     }
-    qDebug() << "qAbs(diff_0) > qAbs(diff_1) : " << QPoint(x, y);
     return QPoint(x, y);
 }
 
@@ -214,7 +209,6 @@ bool currentPointIsBlock(const QVector<block_base *> &blocks, const QPoint& self
     }
     return false;
 }
-
 
 block_base* createBlock(
     const QString& block_name,
