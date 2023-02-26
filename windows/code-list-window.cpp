@@ -99,5 +99,5 @@ void code_list_window::mousePressEvent(QMouseEvent *event)
     } else {
         child->show();
     }
+}
 
- }

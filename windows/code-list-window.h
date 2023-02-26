@@ -13,7 +13,6 @@ class code_list_window : public QFrame
 {
 public:
     explicit code_list_window(QWidget *parent = nullptr);
-
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dragMoveEvent(QDragMoveEvent *event) override;
