@@ -55,9 +55,7 @@ bool getConnectRight(block_base * self, block_base * block){
 bool thisBlockLeftMale(block_base * self){
     if (self->getBlockShape().connector.left == Connector::male) {
         return true;
-        qDebug() << 1;
     }
-    qDebug() << 0;
     return false;
 }
 
@@ -67,9 +65,7 @@ bool thisBlockLeftMale(block_base * self){
 bool thisBlockLeftFemale(block_base * self){
     if (self->getBlockShape().connector.left == Connector::none) {
         return true;
-        qDebug() << 1;
     }
-    qDebug() << 0;
     return false;
 }
 
