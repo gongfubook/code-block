@@ -13,6 +13,7 @@
 #include <functional>
 #include <QDebug>
 
+
 QVector<block_base *> getAllBlock(QWidget * target){
     QVector<block_base *> blocks;
     for (auto child : target->children() ) {
@@ -184,14 +185,13 @@ QPoint getNearestBlockByColumn(const QVector<block_base *> &blocks, const QPoint
 QPoint getBlockLeftPoint(const block_base * block){
     int x = block->x() + block->block_width;
     int y = block->y();
-    qDebug() << QPoint(x, y);
     return QPoint(x, y);
 }
 
 /**
  * 判断当前位置是否存在代码块
 */
-bool currentPointIsBlock(const QVector<block_base *> &blocks, const QPoint& self_pos){
+block_base * currentPointIsBlock(const QVector<block_base *> &blocks, const QPoint& self_pos){
     for (auto b : blocks) {
         auto pos = b->pos();
         auto size = b->size();
@@ -200,10 +200,15 @@ bool currentPointIsBlock(const QVector<block_base *> &blocks, const QPoint& self
             && (self_pos.y() >= pos.y() 
             && self_pos.y() < (pos.y() + size.height() - BLOCK_Y * 2))
             ) {
-            return true;
+            return b;
         }
     }
-    return false;
+    return nullptr;
+}
+
+void dropPluggable(block_base* block, QPoint & target_pos) {
+    target_pos.setX(target_pos.x() + BLOCK_LEFT_WIDTH);
+    target_pos.setY(WIDGET_HEIGHT + block->y()  - (BLOCK_Y + 3));
 }
 
 block_base* createBlock(
@@ -252,8 +257,26 @@ block_base* createBlock(
         } 
     } 
 
-    if (currentPointIsBlock(blocks, target_pos)) {
-        target_pos = self_pos;
+    auto current_point_block = currentPointIsBlock(blocks, point - offset);
+    if (current_point_block != nullptr) {
+        qDebug() << current_point_block->whatsThisBlockName();
+        qDebug() << current_point_block->getBlockType();
+        switch (current_point_block->getBlockType())
+        {
+            case BlockType::normal:
+                target_pos = self_pos;
+                break;
+            case BlockType::pluggable:
+                target_pos = self_pos;
+                break;
+            case BlockType::with_inside:
+                qDebug() << "with_inside";
+                dropPluggable(current_point_block, target_pos);
+                break;
+            default:
+                target_pos = self_pos;
+                break;
+        }
     }
 
     new_block->move(target_pos);
