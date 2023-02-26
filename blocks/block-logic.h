@@ -13,8 +13,8 @@ public:
     int block_width{BLOCK_WIDTH}, block_height{BLOCK_HEIGHT};
     const QVector<BlockShape> withInsideBlocks{
         {BLOCK_LEFT_WIDTH, block_height, {none, none, none, none}},
-        {block_width, block_height, {none, female, male, none}},
-        {block_width, block_height, {female, none, none, none}}
+        {block_width, block_height, {none, none, female, none}},
+        {block_width, block_height, {male, none, none, none}}
     };
     int color_back = LOGIC_COLOR;
     bool is_parent_block = true;
