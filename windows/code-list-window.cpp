@@ -101,3 +101,25 @@ void code_list_window::mousePressEvent(QMouseEvent *event)
     }
 }
 
+
+void code_list_window::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event);
+    QPainter painter(this);
+    QFont font;
+    font.setFamily("Microsoft YaHei");
+    font.setPointSize(12);
+    font.setLetterSpacing(QFont::AbsoluteSpacing, 0);
+    painter.setFont(font);
+    painter.setPen(rgbColor(BLACK));
+    painter.drawRect(QRect(0, 0, 30, this->height()));
+    int line_numbers = (this->height() - 10) / line_height;
+    for (int i = 1; i < line_numbers + 1; i++) {
+        int y = line_height * (i - 1) + 20;
+        lines.push_back(y);
+        painter.drawText(3, y, QString(std::to_string(i).c_str()));
+    }
+}
+
+
+
