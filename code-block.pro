@@ -1,6 +1,6 @@
 QT += core gui widgets
 
-CONFIG += release console 
+CONFIG += app c++17 release console 
 
 include($$PWD/blocks/blocks.pri)
 include($$PWD/windows/windows.pri)
