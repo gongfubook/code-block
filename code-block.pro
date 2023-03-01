@@ -1,10 +1,6 @@
 QT += core gui widgets
 
-CONFIG += debug console 
-
-QMAKE_CFLAGS += -static
-QMAKE_CXXFLAGS += -static 
-QMAKE_LFLAGS += -static 
+CONFIG += release console 
 
 include($$PWD/blocks/blocks.pri)
 include($$PWD/windows/windows.pri)
