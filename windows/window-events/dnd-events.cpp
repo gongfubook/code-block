@@ -14,6 +14,9 @@
 #include <QDebug>
 
 
+const int line_height = 37;
+
+
 QVector<block_base *> getAllBlock(QWidget * target){
     QVector<block_base *> blocks;
     for (auto child : target->children() ) {
@@ -247,9 +250,9 @@ block_base* createBlock(
     QVector<block_base*> blocks = getAllBlock(target);
     QPoint target_pos = point - offset;
 
-    if (thisBlockLeftFemale(new_block)) {
-        target_pos = getNearestBlockByColumn(blocks, target_pos, self_pos);
-    } 
+    // if (thisBlockLeftFemale(new_block)) {
+    //     target_pos = getNearestBlockByColumn(blocks, target_pos, self_pos);
+    // } 
     if (thisBlockLeftMale(new_block) ){
         block_base* left_block = getNearestBlockByRow(blocks, target_pos, self_pos);
         if (left_block) {
