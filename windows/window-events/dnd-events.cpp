@@ -14,8 +14,83 @@
 #include <QDebug>
 
 
-const int line_height = 37;
+CodeListManagement::CodeListManagement(const int widget_height, const int line_height, QWidget * parent): widget_height(widget_height), line_height(line_height), parent(parent){
+    int line_numbers = (widget_height - 10) / line_height;
+    lines.resize(line_numbers);
+    int current = 10;
+    for (int i = 0; i < line_numbers + 1; i++) {
+        lines.push_back({i, current + line_height * i, current + line_height * (i + 1), false, {}});
+    }
+}
 
+void CodeListManagement::createBlock(QByteArray &itemData){
+    QDataStream dataStream(&itemData, QIODevice::ReadOnly);
+    QPixmap pixmap;
+    QPoint offset;
+    QString block_name;
+    QPoint self_pos;
+    dataStream >> block_name >> pixmap >> offset >> self_pos;
+    block_base* new_block = nullptr;
+    if (block_name == "output") {
+        new_block = new block_print(parent);
+    } else if (block_name == "variable") {
+        new_block = new block_variable(parent, false);
+    } else if (block_name == "string") {
+        new_block = new block_string(parent, false);
+    } else if (block_name == "number") {
+        new_block = new block_number(parent, false);
+    } else if (block_name == "loop") {
+        new_block = new block_loop(parent);
+    } else if (block_name == "list") {
+        new_block = new block_list(parent);
+    } else if (block_name == "logic") {
+        new_block = new block_logic(parent);
+    } else if (block_name == "dict") {
+        new_block = new block_dict(parent);
+    } else if (block_name == "function") {
+        new_block = new block_function(parent, false);
+    } else if (block_name == "main_function") {
+        new_block = new block_main_function(parent);
+    }
+    if (!new_block){
+        return;
+    }
+}
+
+/**
+ * 查找同行的块
+*/
+block_base * getNearestBlockByRow(const QVector<block_base *> &blocks, const QPoint& point, const QPoint& self_pos){
+    QVector<BlockRow> row_blocks;
+    for (auto b : blocks) {
+        if (b->pos() != self_pos) {
+            int diff_y = qAbs(b->y() - point.y());
+            if (diff_y < b->size().height()) {
+                qDebug() << qAbs(diff_y) << b->size().height();
+                row_blocks.push_back({b, diff_y});
+            }
+        }
+    }
+    if (row_blocks.empty()) {
+        return nullptr;
+    }
+    std::sort(row_blocks.begin(), row_blocks.end(), blockSortRowDiff);
+    return row_blocks[0].block;
+    
+}
+
+void CodeListManagement::addBlock(block_base *block, const QPoint& point, const QPoint& offset, QWidget * target){
+
+}
+
+void CodeListManagement::moveBlock(block_base *block, const QPoint& point, const QPoint& offset, QWidget * target, const QPoint& self_pos){
+
+}
+
+
+Line CodeListManagement::getCurrentLine(const QPoint& point){
+    
+}
 
 QVector<block_base *> getAllBlock(QWidget * target){
     QVector<block_base *> blocks;

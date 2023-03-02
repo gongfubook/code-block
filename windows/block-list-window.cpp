@@ -230,14 +230,11 @@ void block_list_window::mousePressEvent(QMouseEvent *event)
     if (!child){
         return;
     }
-    qDebug() << "mousePressEvent whatsThis -> " << child->whatsThisBlockName();
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << child->getPixmap() << QPoint(event->pos() - child->pos()) << child->whatsThisBlockName();
-
+    dataStream << child->whatsThisBlockName() << child->getPixmap() << QPoint(event->pos() - child->pos()) << QPoint(0, 0);
     QMimeData *mimeData = new QMimeData;
     mimeData->setData("application/x-dnditemdata", itemData);
-
     QDrag *drag = new QDrag(this);
     drag->setMimeData(mimeData);
     drag->setPixmap(child->getPixmap());

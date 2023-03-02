@@ -20,10 +20,14 @@ struct Line{
 };
 
 class CodeListManagement{
+    QWidget * parent;
     int widget_height, line_height;
     QVector<Line> lines;
-    CodeListManagement(int height);
-    void addBlock(const QByteArray &itemData);
+    CodeListManagement(const int widget_height, const int line_height, QWidget * parent = nullptr);
+    void createBlock(QByteArray &itemData);
+    void addBlock(block_base *block, const QPoint& point, const QPoint& offset, QWidget * target);
+    void moveBlock(block_base *block, const QPoint& point, const QPoint& offset, QWidget * target, const QPoint& self_pos);
+    Line getCurrentLine(const QPoint& point);
 };
 
 
