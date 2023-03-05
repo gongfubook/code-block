@@ -25,8 +25,8 @@ struct BlockConnector{
  * 块的被动描述
 */
 enum BlockType{
-    normal = 0,               // 普通块， 只可以去连接其它块
-    pluggable = 1,            // 可被其它块连接
+    normal = 0,               // 普通块 无接口
+    pluggable = 1,            // 有接口可被其它块连接
     with_inside = 2           // 内部包含其它块
 };
 
