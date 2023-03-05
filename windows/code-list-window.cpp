@@ -17,15 +17,19 @@ code_list_window::code_list_window(QWidget *parent)
     setAcceptDrops(true);
     setAutoFillBackground(true);
     setPalette(QPalette(Qt::white));
-    block_main_function *main = new block_main_function(this);
-    main->move(this->width() / 2, this->height() / 2);
-    main->show();
+    code_list_manage = new CodeListManagement(widget_height, line_height, this);
+    // code_list_manage->addBlock()
+    // block_main_function *main = new block_main_function(this);
+    // main->move(this->width() / 2, this->height() / 2);
+    // main->show();
 }
 
 void code_list_window::dragEnterEvent(QDragEnterEvent *event)
 {
+    qDebug() << "dragEnterEvent " << event->pos();
     if (event->mimeData()->hasFormat("application/x-dnditemdata")) {
         if (event->source() == this) {
+            
             event->setDropAction(Qt::MoveAction);
             event->accept();
         } else {
@@ -33,6 +37,7 @@ void code_list_window::dragEnterEvent(QDragEnterEvent *event)
         }
     } else {
         event->ignore();
+        
     }
 }
 
@@ -40,6 +45,7 @@ void code_list_window::dragMoveEvent(QDragMoveEvent *event)
 {
     if (event->mimeData()->hasFormat("application/x-dnditemdata")) {
         if (event->source() == this) {
+            qDebug() << event->pos();
             event->setDropAction(Qt::MoveAction);
             event->accept();
         } else {
@@ -61,16 +67,7 @@ void code_list_window::dropEvent(QDropEvent *event)
             event->acceptProposedAction();
         }
         QByteArray itemData = event->mimeData()->data("application/x-dnditemdata");
-        QDataStream dataStream(&itemData, QIODevice::ReadOnly);
-        QPixmap pixmap;
-        QPoint offset;
-        QString block_name;
-        QPoint self_pos;
-        dataStream >> block_name >> pixmap >> offset >> self_pos;
-
-        createBlock(block_name, event->pos(), offset, this, self_pos);
-
-
+        code_list_manage->dropBlock(itemData, event->pos());
     } else {
         event->ignore();
     }
@@ -114,10 +111,10 @@ void code_list_window::paintEvent(QPaintEvent *event)
     painter.setPen(rgbColor(BLACK));
     painter.drawRect(QRect(0, 0, 30, this->height()));
     int line_numbers = (this->height() - 10) / line_height;
-    for (int i = 1; i < line_numbers + 1; i++) {
-        int y = line_height * (i - 1) + 20;
-        lines.push_back(y);
+    for (int i = 1; i < line_numbers; i++) {
+        int y = line_height * i;
         painter.drawText(3, y, QString(std::to_string(i).c_str()));
+        code_list_manage->update(i);
     }
 }
 

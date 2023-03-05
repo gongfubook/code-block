@@ -3,6 +3,8 @@
 
 
 #include <QFrame>
+#include "dnd-events.h"
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE
 class QDragEnterEvent;
@@ -13,8 +15,9 @@ class code_list_window : public QFrame
 {
 public:
     explicit code_list_window(QWidget *parent = nullptr);
-    int line_height{37};
-    QVector<int> lines;
+    int widget_height{400}, widget_width{200};
+    int line_height{32};
+    CodeListManagement *code_list_manage;
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dragMoveEvent(QDragMoveEvent *event) override;
