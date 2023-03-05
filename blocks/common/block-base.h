@@ -55,12 +55,45 @@ public:
     virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
     virtual BlockType getBlockType() Q_DECL_OVERRIDE;
     virtual BlockShape getBlockShape() Q_DECL_OVERRIDE;
+    // virtual friend QDataStream &operator<<(QDataStream &output, block_base * self){
+    //     output << self->whatsThisBlockName();
+    // }
+    // virtual friend QDataStream &operator>>(QDataStream & , block_base * self);
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
 
 
+#define HoverEvent                             \
+    bool event(QEvent * e){                    \
+        switch(e->type()){                                 \
+            case QEvent::HoverEnter:                       \
+                hoverEnter(static_cast<QHoverEvent*>(e));  \
+                return true;\
+                break;\
+            case QEvent::HoverLeave:\
+                hoverLeave(static_cast<QHoverEvent*>(e));\
+                return true;\
+                break;\
+            case QEvent::HoverMove:\
+                hoverMove(static_cast<QHoverEvent*>(e));\
+                return true;\
+                break;\
+            default:\
+                break;\
+        }\
+        return QWidget::event(e);\
+    }\
+    void hoverEnter(QHoverEvent * event){\
+        qDebug() << Q_FUNC_INFO << event->type();\
+    }\
+    void hoverLeave(QHoverEvent * event){\
+        qDebug() << Q_FUNC_INFO << event->type();\
+    }\
+    void hoverMove(QHoverEvent * event){\
+        qDebug() << Q_FUNC_INFO << event->type();\
+    } \
 
 
 #endif // __BLOCK_BASE__

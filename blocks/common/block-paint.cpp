@@ -131,11 +131,12 @@ void createWithInsideBlockPixmap(
     QColor color_back = rgbColor(block_color);
     painter.setPen(color_back);
     painter.setBrush(color_back);
-    QPainterPath block_path = createPath(BLOCK_X, BLOCK_Y, withInsideBlocks[0].block_width, withInsideBlocks[0].block_height * row, withInsideBlocks[0].connector);
+    QPainterPath block_path;
+    block_path = createPath(BLOCK_X + BLOCK_LEFT_WIDTH, BLOCK_Y,  withInsideBlocks[0].block_width, withInsideBlocks[0].block_height, withInsideBlocks[0].connector);
     painter.drawPath(block_path);
-    block_path = createPath(BLOCK_X + BLOCK_LEFT_WIDTH, BLOCK_Y,  withInsideBlocks[1].block_width, withInsideBlocks[1].block_height, withInsideBlocks[1].connector);
+    block_path = createPath(BLOCK_X, BLOCK_Y, BLOCK_LEFT_WIDTH, BLOCK_HEIGHT * row,{none, none, none, none});
     painter.drawPath(block_path);
-    block_path = createPath(BLOCK_X + BLOCK_LEFT_WIDTH, BLOCK_Y + BLOCK_HEIGHT * (row - 1), withInsideBlocks[2].block_width, withInsideBlocks[2].block_height, withInsideBlocks[2].connector);
+    block_path = createPath(BLOCK_X + BLOCK_LEFT_WIDTH, BLOCK_Y + BLOCK_HEIGHT * (row - 1), withInsideBlocks[1].block_width, withInsideBlocks[1].block_height, withInsideBlocks[1].connector);
     painter.drawPath(block_path);
 }
 

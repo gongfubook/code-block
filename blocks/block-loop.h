@@ -5,6 +5,7 @@
 
 #include "block-base.h"
 #include <QLineEdit>
+#include <QDebug>
 
 class block_loop: public block_base {
 public:
@@ -12,7 +13,6 @@ public:
     int widget_width{WIDGET_WIDTH + BLOCK_LEFT_WIDTH}, widget_height{WIDGET_HEIGHT * row};
     int block_width{BLOCK_WIDTH}, block_height{BLOCK_HEIGHT};
     const QVector<BlockShape> withInsideBlocks{
-        {BLOCK_LEFT_WIDTH, block_height, {none, none, none, none}},
         {block_width, block_height, {none, female, female, none}},
         {block_width, block_height, {male, none, none, none}}
     };
@@ -34,6 +34,7 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    
 };
 
 
