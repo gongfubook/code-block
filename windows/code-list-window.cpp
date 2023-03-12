@@ -17,7 +17,7 @@ code_list_window::code_list_window(QWidget *parent)
     setAcceptDrops(true);
     setAutoFillBackground(true);
     setPalette(QPalette(Qt::white));
-    code_list_manage = new CodeListManagement(widget_height, line_height, this);
+    code_list_manage = new CodeListManagement(widget_height, line_height, line_start_x, this);
     // code_list_manage->addBlock()
     // block_main_function *main = new block_main_function(this);
     // main->move(this->width() / 2, this->height() / 2);
@@ -109,7 +109,7 @@ void code_list_window::paintEvent(QPaintEvent *event)
     font.setLetterSpacing(QFont::AbsoluteSpacing, 0);
     painter.setFont(font);
     painter.setPen(rgbColor(BLACK));
-    painter.drawRect(QRect(0, 0, 30, this->height()));
+    painter.drawRect(QRect(0, 0, line_start_x, this->height()));
     int line_numbers = (this->height() - 10) / line_height;
     for (int i = 1; i < line_numbers; i++) {
         int y = line_height * i;

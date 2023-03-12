@@ -17,6 +17,7 @@ public:
     explicit code_list_window(QWidget *parent = nullptr);
     int widget_height{400}, widget_width{200};
     int line_height{32};
+    int line_start_x{30};
     CodeListManagement *code_list_manage;
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;

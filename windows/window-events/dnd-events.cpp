@@ -35,11 +35,13 @@ bool thisIsLeftBlock(block_base * self){
 }
 
 
-CodeListManagement::CodeListManagement(const int widget_height, const int line_height, QWidget * parent): widget_height(widget_height), line_height(line_height), parent(parent){
+CodeListManagement::CodeListManagement(const int widget_height, const int line_height, const int start_x, QWidget * parent): 
+    widget_height(widget_height), line_height(line_height), start_x(start_x), parent(parent)
+{
     int line_numbers = widget_height / line_height;
     for (int i = 1; i < line_numbers + 1; i++) {
         if (lines.find(i) == lines.end()){
-            lines.insert(i, {line_height * i - 25, {}});
+            lines.insert(i, {line_height * i - 25, start_x, {}});
         }
     }
 }
@@ -79,11 +81,11 @@ Line CodeListManagement::getCurrentLine(const QPoint& point){
     for (auto line_number : lines.keys()){
         auto line = lines[line_number];
         if (line.blocks.empty()) {
-            int diff_y = qAbs(line.strart_y - point.y());
+            int diff_y = qAbs(line.start_y - point.y());
             row_diffs.push_back({line_number, diff_y});
         }
 
-        qDebug() << line_number << " : " << line.strart_y << " : " << qAbs(line.strart_y - point.y());
+        qDebug() << line_number << " : " << line.start_y << " : " << qAbs(line.start_y - point.y());
 
     }
     std::sort(row_diffs.begin(), row_diffs.end(), [](const row_diff& a, const row_diff& b){ return a.diff < b.diff;});
@@ -116,7 +118,7 @@ void CodeListManagement::addBlock(block_base *block, const QPoint& point){
     Line current_line = getCurrentLine(point);
     if (current_line.blocks.empty()) {
         if (thisIsLeftBlock(block)) {
-            block->move(30, current_line.strart_y);
+            block->move(start_x, current_line.start_y);
             block->show();
             current_line.blocks.push_back(block);
         } else {
@@ -124,7 +126,7 @@ void CodeListManagement::addBlock(block_base *block, const QPoint& point){
         } 
     } else {
         if (thisIsLeftBlock(block)) {
-            block->move(30, current_line.strart_y);
+            block->move(30, current_line.start_y);
             block->show();
             current_line.blocks.push_back(block);
         } else {
@@ -137,7 +139,7 @@ void CodeListManagement::moveBlock(block_base *block, const QPoint& point, const
     Line current_line = getCurrentLine(point);
     if (current_line.blocks.empty()) {
         if (thisIsLeftBlock(block)) {
-            block->move(30, current_line.strart_y);
+            block->move(start_x, current_line.start_y);
             current_line.blocks.push_back(block);
         } else {
             block->move(self_pos);
@@ -147,9 +149,16 @@ void CodeListManagement::moveBlock(block_base *block, const QPoint& point, const
     }
 }
 
-void CodeListManagement::update(const int line_bumber){
-    if (lines.find(line_bumber) == lines.end()){
-        lines.insert(line_bumber, {line_height * line_bumber - 25 , {}});
+void CodeListManagement::appendBlockofLine(const int line_number, Line &current_line, block_base* block){
+    block->move(current_line.start_x, current_line.start_y);
+    block->show();
+    current_line.blocks.push_back(block);
+
+}
+
+void CodeListManagement::update(const int line_number){
+    if (lines.find(line_number) == lines.end()){
+        lines.insert(line_number, {line_height * line_number - 25 , start_x, {}});
     }
 }
 

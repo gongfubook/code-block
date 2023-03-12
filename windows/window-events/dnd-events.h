@@ -10,21 +10,23 @@
 
 
 struct Line{
-    int strart_y;
+    int start_y;
+    int start_x;
     QVector<block_base*> blocks;
 };
 
 class CodeListManagement{
 public:
     QWidget * parent;
-    int widget_height, line_height;
+    int widget_height, line_height, start_x;
     QMap<int, Line> lines;
-    CodeListManagement(const int widget_height, const int line_height, QWidget * parent = nullptr);
+    CodeListManagement(const int widget_height, const int line_height, const int start_x, QWidget * parent = nullptr);
     void dropBlock(QByteArray &itemData, const QPoint &offset);
     block_base* createBlock(const QString &block_name);
     void addBlock(block_base *block, const QPoint& point);
     void moveBlock(block_base *block, const QPoint& point, const QPoint& self_pos);
     Line getCurrentLine(const QPoint& point);
+    void appendBlockofLine(const int line_number, Line &line, block_base* block);
     void update(const int line_bumber);
 };
 
