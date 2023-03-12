@@ -45,7 +45,13 @@ BlockType block_number::getBlockType(){
 BlockShape block_number::getBlockShape(){
     return block_shape;
 }
+int block_number::getBlockRow() {
+    return row;
+}
 
+QVector<BlockShape> block_number::getBlockShapes() {
+    return QVector<BlockShape>();
+}
 void block_number::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

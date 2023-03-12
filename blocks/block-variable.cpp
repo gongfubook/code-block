@@ -44,6 +44,14 @@ BlockShape block_variable::getBlockShape(){
     return block_shape;
 }
 
+int block_variable::getBlockRow() {
+    return row;
+}
+
+QVector<BlockShape> block_variable::getBlockShapes() {
+    return QVector<BlockShape>();
+}
+
 void block_variable::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

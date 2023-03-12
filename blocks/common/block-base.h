@@ -31,12 +31,15 @@ class block{
     virtual QString toCode() = 0;
     virtual QString whatsThisBlockName() = 0;
     virtual BlockType getBlockType() = 0;
+    virtual int getBlockRow() = 0;
     virtual BlockShape getBlockShape() = 0;
+    virtual QVector<BlockShape> getBlockShapes() = 0;
 };
 
 
 class block_base : public QLabel, block{
 public:
+    int row = 1;
     int widget_width{WIDGET_WIDTH}, widget_height{WIDGET_HEIGHT};
     int block_width{BLOCK_IO_WIDTH}, block_height{BLOCK_HEIGHT};
     BlockShape block_shape{block_width, block_height, {male, none, female, none}};
@@ -55,6 +58,8 @@ public:
     virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
     virtual BlockType getBlockType() Q_DECL_OVERRIDE;
     virtual BlockShape getBlockShape() Q_DECL_OVERRIDE;
+    virtual int getBlockRow() Q_DECL_OVERRIDE;
+    virtual QVector<BlockShape> getBlockShapes() Q_DECL_OVERRIDE;
     // virtual friend QDataStream &operator<<(QDataStream &output, block_base * self){
     //     output << self->whatsThisBlockName();
     // }

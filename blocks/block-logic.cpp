@@ -43,6 +43,14 @@ BlockShape block_logic::getBlockShape(){
     return block_shape;
 }
 
+int block_logic::getBlockRow() {
+    return row;
+}
+
+QVector<BlockShape> block_logic::getBlockShapes() {
+    return withInsideBlocks;
+}
+
 void block_logic::paintEvent(QPaintEvent *event){
     Q_UNUSED(event);
     QPainter painter(this);

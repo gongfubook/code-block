@@ -45,6 +45,14 @@ BlockShape block_main_function::getBlockShape(){
     return block_shape;
 }
 
+int block_main_function::getBlockRow() {
+    return row;
+}
+
+QVector<BlockShape> block_main_function::getBlockShapes() {
+    return withInsideBlocks;
+}
+
 void block_main_function::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

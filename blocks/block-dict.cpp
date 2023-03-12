@@ -42,7 +42,13 @@ BlockType block_dict::getBlockType(){
 BlockShape block_dict::getBlockShape(){
     return block_shape;
 }
+int block_dict::getBlockRow() {
+    return row;
+}
 
+QVector<BlockShape> block_dict::getBlockShapes() {
+    return QVector<BlockShape>();
+}
 void block_dict::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

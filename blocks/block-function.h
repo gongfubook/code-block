@@ -31,7 +31,8 @@ public:
     virtual QString whatsThisBlockName() Q_DECL_OVERRIDE;
     virtual BlockType getBlockType() Q_DECL_OVERRIDE;
     virtual BlockShape getBlockShape() Q_DECL_OVERRIDE;
-
+    virtual int getBlockRow() Q_DECL_OVERRIDE;
+    virtual QVector<BlockShape> getBlockShapes() Q_DECL_OVERRIDE;
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 private:
