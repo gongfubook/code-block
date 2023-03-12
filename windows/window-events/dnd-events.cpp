@@ -15,7 +15,7 @@
 
 
 /**
- * 判断这个块是否需要一个右边的块来对接
+ * 判断这个块是否需要一个左边的块来对接
 */
 bool thisBlockLeftMale(block_base * self){
     if (self->getBlockShape().connector.left == Connector::male) {
@@ -72,7 +72,7 @@ block_base* CodeListManagement::createBlock(const QString &block_name){
     return new_block;
 }
 
-Line CodeListManagement::getCurrentLine(const QPoint& point){
+int CodeListManagement::getCurrentLine(const QPoint& point){
     struct row_diff{
         int line_number;
         int diff;
@@ -80,11 +80,8 @@ Line CodeListManagement::getCurrentLine(const QPoint& point){
     QVector<row_diff> row_diffs;
     for (auto line_number : lines.keys()){
         auto line = lines[line_number];
-        if (line.blocks.empty()) {
-            int diff_y = qAbs(line.start_y - point.y());
-            row_diffs.push_back({line_number, diff_y});
-        }
-
+        int diff_y = qAbs(line.start_y - point.y());
+        row_diffs.push_back({line_number, diff_y});
         qDebug() << line_number << " : " << line.start_y << " : " << qAbs(line.start_y - point.y());
 
     }
@@ -92,8 +89,7 @@ Line CodeListManagement::getCurrentLine(const QPoint& point){
     for (auto row : row_diffs){
         qDebug() << row.line_number << " : " << row.diff;
     }
-    auto current_line = lines[row_diffs[0].line_number];
-    return current_line;
+    return row_diffs[0].line_number;
 }
 
 void CodeListManagement::dropBlock(QByteArray &itemData, const QPoint &offset){
@@ -115,20 +111,21 @@ void CodeListManagement::dropBlock(QByteArray &itemData, const QPoint &offset){
 
 
 void CodeListManagement::addBlock(block_base *block, const QPoint& point){
-    Line current_line = getCurrentLine(point);
-    if (current_line.blocks.empty()) {
+    auto line_number = getCurrentLine(point);
+    qDebug() << "addBlock" << line_number;
+    qDebug() << lines[line_number].blocks.size();
+    if (lines[line_number].blocks.empty()) {
+        qDebug() << "empty";
         if (thisIsLeftBlock(block)) {
-            block->move(start_x, current_line.start_y);
-            block->show();
-            current_line.blocks.push_back(block);
+            appendBlockofLine(line_number, block);
         } else {
             block->close();
         } 
     } else {
-        if (thisIsLeftBlock(block)) {
-            block->move(30, current_line.start_y);
-            block->show();
-            current_line.blocks.push_back(block);
+        qDebug() << "no empty";
+        if (thisBlockLeftMale(block)) {
+            qDebug() << "right block";
+            appendBlockofLine(line_number, block);
         } else {
             block->close();
         } 
@@ -136,11 +133,10 @@ void CodeListManagement::addBlock(block_base *block, const QPoint& point){
 }
 
 void CodeListManagement::moveBlock(block_base *block, const QPoint& point, const QPoint& self_pos){
-    Line current_line = getCurrentLine(point);
-    if (current_line.blocks.empty()) {
+    auto line_number = getCurrentLine(point);
+    if (lines[line_number].blocks.empty()) {
         if (thisIsLeftBlock(block)) {
-            block->move(start_x, current_line.start_y);
-            current_line.blocks.push_back(block);
+            appendBlockofLine(line_number, block);
         } else {
             block->move(self_pos);
         } 
@@ -149,10 +145,29 @@ void CodeListManagement::moveBlock(block_base *block, const QPoint& point, const
     }
 }
 
-void CodeListManagement::appendBlockofLine(const int line_number, Line &current_line, block_base* block){
-    block->move(current_line.start_x, current_line.start_y);
+void CodeListManagement::appendBlockofLine(const int line_number, block_base* block){
+    qDebug() << "lines[line_number].start_x" << lines[line_number].start_x;
+    block->move(lines[line_number].start_x, lines[line_number].start_y);
     block->show();
-    current_line.blocks.push_back(block);
+    qDebug() << "current_line size" << lines[line_number].blocks.size();
+    lines[line_number].blocks.push_back(block);
+    qDebug() << "current_line size" << lines[line_number].blocks.size();
+    int row = block->getBlockRow();
+    if (row == 1) {
+        auto shape = block->getBlockShape();
+        lines[line_number].start_x = lines[line_number].start_x + shape.block_width;
+    } else if (row > 1 && block->getBlockType() == BlockType::with_inside) {
+        qDebug() << "BlockType::with_inside";
+        auto shapes = block->getBlockShapes();
+        lines[line_number].start_x = lines[line_number].start_x + shapes[0].block_width + BLOCK_LEFT_WIDTH;
+        for (int i = line_number + 1; i < line_number + row - 1; i++) {
+            qDebug() << i;
+            qDebug() <<  lines[i].start_x;
+            lines[i].start_x = lines[i].start_x + BLOCK_LEFT_WIDTH;
+            qDebug() << lines[i].start_x;
+        }
+        lines[line_number+row-1].start_x = lines[line_number+row-1].start_x + shapes[1].block_width + BLOCK_LEFT_WIDTH;
+    }
 
 }
 

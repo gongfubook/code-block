@@ -25,8 +25,8 @@ public:
     block_base* createBlock(const QString &block_name);
     void addBlock(block_base *block, const QPoint& point);
     void moveBlock(block_base *block, const QPoint& point, const QPoint& self_pos);
-    Line getCurrentLine(const QPoint& point);
-    void appendBlockofLine(const int line_number, Line &line, block_base* block);
+    int getCurrentLine(const QPoint& point);
+    void appendBlockofLine(const int line_number, block_base* block);
     void update(const int line_bumber);
 };
 
