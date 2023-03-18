@@ -9,7 +9,10 @@ HEADERS +=  $$PWD/block-function.h \
             $$PWD/block-variable.h \
             $$PWD/block-list.h \
             $$PWD/block-dict.h \
-            $$PWD/block-io.h 
+            $$PWD/block-io.h \
+            $$PWD/block-set-variable.h \
+            $$PWD/block-loop-openai.h
+
 
 SOURCES +=  $$PWD/block-function.cpp \
             $$PWD/block-main-function.cpp \
@@ -20,7 +23,9 @@ SOURCES +=  $$PWD/block-function.cpp \
             $$PWD/block-variable.cpp \ 
             $$PWD/block-list.cpp \
             $$PWD/block-dict.cpp \
-            $$PWD/block-io.cpp 
+            $$PWD/block-io.cpp \
+            $$PWD/block-set-variable.cpp \
+            $$PWD/block-loop-openai.cpp 
 
 
 

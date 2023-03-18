@@ -10,6 +10,8 @@
 #include "block-variable.h"
 #include "block-list.h"
 #include "block-dict.h"
+#include "block-set-variable.h"
+#include "block-loop-openai.h"
 
 block_class_list::block_class_list(QWidget *parent)
     : QWidget(parent)
@@ -56,16 +58,20 @@ block_list_window::block_list_window(QWidget *parent)
     code_logic_list->addWidget(b_logic);
 
     block_loop *b_loop = new block_loop(this);
+    block_loop_openai *bl_ai = new block_loop_openai(this);
     code_loop_list = new block_class_list(this);
     code_loop_list->addWidget(b_loop);
+    code_loop_list->addWidget(bl_ai);
 
     block_function *b_function = new block_function(this, true);
     code_function_list = new block_class_list(this);
     code_function_list->addWidget(b_function);
 
     block_variable *b_variable = new block_variable(this, true);
+    block_set_variable *b_svar = new block_set_variable(this, true);
     code_variable_list = new block_class_list(this);
     code_variable_list->addWidget(b_variable);
+    code_variable_list->addWidget(b_svar);
     
     block_print *b_print = new block_print(this);
     code_input_output_list = new block_class_list(this);
@@ -232,7 +238,7 @@ void block_list_window::mousePressEvent(QMouseEvent *event)
     }
     QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << child->whatsThisBlockName() << child->getPixmap() << QPoint(event->pos() - child->pos()) << QPoint(0, 0);
+    dataStream << child->whatsThisBlockName() << child->getPixmap() << QPoint(event->pos() - child->pos()) << QPoint(0, 0) << child->getBlockRow();
     QMimeData *mimeData = new QMimeData;
     mimeData->setData("application/x-dnditemdata", itemData);
     QDrag *drag = new QDrag(this);

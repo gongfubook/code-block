@@ -12,6 +12,7 @@
 struct Line{
     int start_y;
     int start_x;
+    int block_number{0};
     QVector<block_base*> blocks;
 };
 
@@ -28,6 +29,7 @@ public:
     int getCurrentLine(const QPoint& point);
     void appendBlockofLine(const int line_number, block_base* block);
     void update(const int line_bumber);
+    void inseatUpdateBlock(QByteArray &itemData, const QPoint& point);
 };
 
 

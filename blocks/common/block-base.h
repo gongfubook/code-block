@@ -70,35 +70,5 @@ protected:
 };
 
 
-#define HoverEvent                             \
-    bool event(QEvent * e){                    \
-        switch(e->type()){                                 \
-            case QEvent::HoverEnter:                       \
-                hoverEnter(static_cast<QHoverEvent*>(e));  \
-                return true;\
-                break;\
-            case QEvent::HoverLeave:\
-                hoverLeave(static_cast<QHoverEvent*>(e));\
-                return true;\
-                break;\
-            case QEvent::HoverMove:\
-                hoverMove(static_cast<QHoverEvent*>(e));\
-                return true;\
-                break;\
-            default:\
-                break;\
-        }\
-        return QWidget::event(e);\
-    }\
-    void hoverEnter(QHoverEvent * event){\
-        qDebug() << Q_FUNC_INFO << event->type();\
-    }\
-    void hoverLeave(QHoverEvent * event){\
-        qDebug() << Q_FUNC_INFO << event->type();\
-    }\
-    void hoverMove(QHoverEvent * event){\
-        qDebug() << Q_FUNC_INFO << event->type();\
-    } \
-
 
 #endif // __BLOCK_BASE__

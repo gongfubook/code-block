@@ -26,10 +26,14 @@ code_list_window::code_list_window(QWidget *parent)
 
 void code_list_window::dragEnterEvent(QDragEnterEvent *event)
 {
-    qDebug() << "dragEnterEvent " << event->pos();
     if (event->mimeData()->hasFormat("application/x-dnditemdata")) {
         if (event->source() == this) {
-            
+            qDebug() << "dragEnterEvent " << event->pos();
+            QByteArray itemData = event->mimeData()->data("application/x-dnditemdata");
+            QDataStream dataStream(&itemData, QIODevice::ReadOnly);
+            QString block_name;
+            dataStream >> block_name;
+            qDebug() << "dragEnterEvent block_name " << block_name;
             event->setDropAction(Qt::MoveAction);
             event->accept();
         } else {
@@ -44,8 +48,13 @@ void code_list_window::dragEnterEvent(QDragEnterEvent *event)
 void code_list_window::dragMoveEvent(QDragMoveEvent *event)
 {
     if (event->mimeData()->hasFormat("application/x-dnditemdata")) {
+        qDebug() << "dragMoveEvent " << event->pos();
+        QByteArray itemData = event->mimeData()->data("application/x-dnditemdata");
+        QDataStream dataStream(&itemData, QIODevice::ReadOnly);
+        QString block_name;
+        dataStream >> block_name;
+        qDebug() << "dragMoveEvent block_name " << block_name;
         if (event->source() == this) {
-            qDebug() << event->pos();
             event->setDropAction(Qt::MoveAction);
             event->accept();
         } else {

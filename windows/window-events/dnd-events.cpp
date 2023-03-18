@@ -134,15 +134,12 @@ void CodeListManagement::addBlock(block_base *block, const QPoint& point){
 
 void CodeListManagement::moveBlock(block_base *block, const QPoint& point, const QPoint& self_pos){
     auto line_number = getCurrentLine(point);
-    if (lines[line_number].blocks.empty()) {
-        if (thisIsLeftBlock(block)) {
-            appendBlockofLine(line_number, block);
-        } else {
-            block->move(self_pos);
-        } 
+    if (thisIsLeftBlock(block)) {
+        appendBlockofLine(line_number, block);
     } else {
-        ;
-    }
+        block->move(self_pos);
+        block->show();
+    } 
 }
 
 void CodeListManagement::appendBlockofLine(const int line_number, block_base* block){
@@ -178,7 +175,27 @@ void CodeListManagement::update(const int line_number){
 }
 
 
+void CodeListManagement::inseatUpdateBlock(QByteArray &itemData, const QPoint& point){
+    auto line_number = getCurrentLine(point);
+    if (lines[line_number].blocks.isEmpty()) {
+        return;
+    }
+    if (lines[line_number].start_x > (start_x + BLOCK_LEFT_WIDTH)){
+        if (point.x() >= lines[line_number].start_x) {
+            return;
+        } else {
+            for (int i = line_number - 2; i > 0; i--){
+                if (!lines[i].blocks.empty()) {
+                    for (auto && b : lines[i].blocks) {
 
+                    }
+                }
+            }
+            
+        }
+    }
+
+}
 
 QVector<block_base *> getAllBlock(QWidget * target){
     QVector<block_base *> blocks;
